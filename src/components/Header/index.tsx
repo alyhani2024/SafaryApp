@@ -155,19 +155,6 @@ const Header = () => {
                         )}
                       </li>
                     ))}
-                    {/* New Sections */}
-                    {/* <li className="group relative">
-                      <Link 
-                        href="/Tour"
-                        className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 ${
-                          usePathName === "/Tour"
-                            ? "text-orange-500 dark:text-white"
-                            : "text-dark hover:text-orange-500 dark:text-white/70 dark:hover:text-white"
-                        }`}
-                      >
-                        TourHour
-                      </Link>
-                    </li> */}
                  
                   </ul>
                 </nav>
