@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 const TourHourForm = () => {
   const [selectedCity, setSelectedCity] = useState('');
-  const [selectedAttraction, setSelectedAttraction] = useState('');
+  const [selectedAttractions, setSelectedAttractions] = useState([]);
   const [tourHour, setTourHour] = useState('');
 
   const cities = ['Cairo', 'Alexandria', 'Luxor'];
@@ -15,7 +15,16 @@ const TourHourForm = () => {
 
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
-    setSelectedAttraction(''); // Reset selected attraction when the city changes
+    setSelectedAttractions([]); // Reset selected attractions when the city changes
+  };
+
+  const handleAttractionChange = (event) => {
+    const { value } = event.target;
+    if (selectedAttractions.includes(value)) {
+      setSelectedAttractions(selectedAttractions.filter(attraction => attraction !== value));
+    } else {
+      setSelectedAttractions([...selectedAttractions, value]);
+    }
   };
 
   return (
@@ -47,21 +56,23 @@ const TourHourForm = () => {
               <div className="w-full px-4 md:w-1/2">
                 <div className="mb-8">
                   <label
-                    htmlFor="attraction"
                     className="mb-3 block text-sm font-medium text-dark dark:text-white"
                   >
-                    Select Tourist Attraction
+                    Select Tourist Attractions
                   </label>
-                  <select
-                    className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
-                    value={selectedAttraction}
-                    onChange={(e) => setSelectedAttraction(e.target.value)}
-                  >
-                    <option value="">Select a tourist attraction</option>
-                    {attractions[selectedCity].map((attraction) => (
-                      <option key={attraction} value={attraction}>{attraction}</option>
-                    ))}
-                  </select>
+                  {attractions[selectedCity].map((attraction) => (
+                    <div key={attraction} className="flex items-center mb-2">
+                      <input
+                        type="checkbox"
+                        id={attraction}
+                        value={attraction}
+                        onChange={handleAttractionChange}
+                        checked={selectedAttractions.includes(attraction)}
+                        className="mr-2"
+                      />
+                      <label htmlFor={attraction}>{attraction}</label>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="w-full px-4 md:w-1/2">
