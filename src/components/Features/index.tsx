@@ -9,7 +9,7 @@ const Features = () => {
         <div className="container">
           <SectionTitle
             title="Main Features"
-            paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+            paragraph="A tour guide application typically aims to provide users with information, assistance, and recommendations during their travels. Here are some main features"
             center
           />
 

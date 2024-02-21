@@ -5,13 +5,13 @@ import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
 
 const Pricing = () => {
-  const [isMonthly, setIsMonthly] = useState(true);
+  const [isPerHour, setIsPerHour] = useState(true);
 
   return (
     <section id="pricing" className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
         <SectionTitle
-          title="Simple and Affordable Pricing"
+          title="Our Top Rated Guides"
           paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
           center
           width="665px"
@@ -20,24 +20,24 @@ const Pricing = () => {
         <div className="w-full">
           <div className="mb-8 flex justify-center md:mb-12 lg:mb-16">
             <span
-              onClick={() => setIsMonthly(true)}
+              onClick={() => setIsPerHour(true)}
               className={`${
-                isMonthly
+                isPerHour
                   ? "pointer-events-none text-orange-500"
                   : "text-dark dark:text-white"
               } mr-4 cursor-pointer text-base font-semibold`}
             >
-              Monthly
+              Tour Guides Per Hour
             </span>
             <div
-              onClick={() => setIsMonthly(!isMonthly)}
+              onClick={() => setIsPerHour(!isPerHour)}
               className="flex cursor-pointer items-center"
             >
               <div className="relative">
                 <div className="h-5 w-14 rounded-full bg-[#1D2144] shadow-inner"></div>
                 <div
                   className={`${
-                    isMonthly ? "" : "translate-x-full"
+                    isPerHour ? "" : "translate-x-full"
                   } shadow-switch-1 absolute left-0 top-[-4px] flex h-7 w-7 items-center justify-center rounded-full bg-orange-500 transition`}
                 >
                   <span className="active h-4 w-4 rounded-full bg-white"></span>
@@ -45,14 +45,14 @@ const Pricing = () => {
               </div>
             </div>
             <span
-              onClick={() => setIsMonthly(false)}
+              onClick={() => setIsPerHour(false)}
               className={`${
-                isMonthly
+                isPerHour
                   ? "text-dark dark:text-white"
                   : "pointer-events-none text-orange-500"
               } ml-4 cursor-pointer text-base font-semibold`}
             >
-              Yearly
+              Tour Guides Per Day
             </span>
           </div>
         </div>
@@ -60,8 +60,8 @@ const Pricing = () => {
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <PricingBox
             packageName="Lite"
-            price={isMonthly ? "40" : "120"}
-            duration={isMonthly ? "mo" : "yr"}
+            price={isPerHour ? "40" : "120"}
+            duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
             <OfferList text="All UI Components" status="active" />
@@ -73,8 +73,8 @@ const Pricing = () => {
           </PricingBox>
           <PricingBox
             packageName="Basic"
-            price={isMonthly ? "399" : "789"}
-            duration={isMonthly ? "mo" : "yr"}
+            price={isPerHour ? "399" : "789"}
+            duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
             <OfferList text="All UI Components" status="active" />
@@ -86,8 +86,8 @@ const Pricing = () => {
           </PricingBox>
           <PricingBox
             packageName="Plus"
-            price={isMonthly ? "589" : "999"}
-            duration={isMonthly ? "mo" : "yr"}
+            price={isPerHour ? "589" : "999"}
+            duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
             <OfferList text="All UI Components" status="active" />

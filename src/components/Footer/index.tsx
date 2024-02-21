@@ -27,8 +27,7 @@ const Footer = () => {
                   />
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt
                 </p>
                 <div className="flex items-center">
                   <a
@@ -125,10 +124,10 @@ const Footer = () => {
                   </li>
                   <li>
                     <Link
-                      href="/"
+                      href="/contact"
                       className="mb-4 inline-block text-base text-body-color duration-300 hover:text-orange-500 dark:text-body-color-dark dark:hover:text-orange-500"
                     >
-                      Pricing
+                      Support
                     </Link>
                   </li>
                   <li>
@@ -222,7 +221,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="hover:text-orange-500"
               >
-                Aly Hani
+                Aly Hani ( الحلاق )
               </a>{" "}
               and{" "}
               <a
