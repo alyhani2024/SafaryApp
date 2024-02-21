@@ -20,7 +20,6 @@ const TourDayForm = () => {
     } else {
       setSelectedCities([...selectedCities, value]);
     }
-    setSelectedAttractions([]); // Reset selected attractions when the city changes
   };
 
   const handleAttractionChange = (event) => {
@@ -36,6 +35,9 @@ const TourDayForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission here
+    console.log('Selected cities:', selectedCities);
+    console.log('Selected attractions:', selectedAttractions);
+    console.log('Tour duration:', tourDuration);
   };
 
   return (
@@ -115,3 +117,4 @@ const TourDayForm = () => {
 };
 
 export default TourDayForm;
+
