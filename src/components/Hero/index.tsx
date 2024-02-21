@@ -17,7 +17,7 @@ const Hero = () => {
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
                 The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt. 
-                This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypt's rich cultural heritage and historical landmarks.
+                This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypt rich cultural heritage and historical landmarks.
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
