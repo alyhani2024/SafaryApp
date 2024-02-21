@@ -4,6 +4,45 @@ import SectionTitle from "../Common/SectionTitle";
 import OfferList from "./OfferList";
 import PricingBox from "./PricingBox";
 
+import { Testimonial } from "@/types/testimonial";
+import SingleTestimonial from "./SingleTestimonial";
+
+const testimonialData1: Testimonial[] = [
+  {
+    id: 1,
+    name: "Musharof Chy",
+    designation: "Founder @TailGrids",
+    content:
+      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+    image: "/images/testimonials/auth-01.png",
+    star: 5,
+  }
+  
+  
+];
+const testimonialData2: Testimonial[] =[
+  {
+    id: 2,
+    name: "Devid Weilium",
+    designation: "Founder @UIdeck",
+    content:
+      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+    image: "/images/testimonials/auth-02.png",
+    star: 5,
+  },
+]
+const testimonialData3: Testimonial[] =[
+  {
+    id: 3,
+    name: "Lethium Frenci",
+    designation: "Founder @Lineicons",
+    content:
+      "Our members are so impressed. It's intuitive. It's clean. It's distraction free. If you're building a community.",
+    image: "/images/testimonials/auth-03.png",
+    star: 4,
+  },
+]
+
 const Pricing = () => {
   const [isPerHour, setIsPerHour] = useState(true);
 
@@ -59,44 +98,41 @@ const Pricing = () => {
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           <PricingBox
-            packageName="Lite"
+            packageName="1st"
             price={isPerHour ? "40" : "120"}
             duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="inactive" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
+
+            <div className=" grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          {testimonialData1.map((testimonial) => (
+            <SingleTestimonial key={testimonial.id} testimonial={testimonial} />
+          ))}
+        </div>
+
           </PricingBox>
           <PricingBox
-            packageName="Basic"
-            price={isPerHour ? "399" : "789"}
+            packageName="2nd"
+            price={isPerHour ? "35" : "100"}
             duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="active" />
-            <OfferList text="Free Lifetime Updates" status="inactive" />
-          </PricingBox>
+            <div className=" grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          {testimonialData2.map((testimonial) => (
+            <SingleTestimonial key={testimonial.id} testimonial={testimonial} />
+          ))}
+        </div></PricingBox>
           <PricingBox
-            packageName="Plus"
-            price={isPerHour ? "589" : "999"}
+            packageName="3rd"
+            price={isPerHour ? "32" : "85"}
             duration={isPerHour ? "h" : "d"}
             subtitle="Lorem ipsum dolor sit amet adiscing elit Mauris egestas enim."
           >
-            <OfferList text="All UI Components" status="active" />
-            <OfferList text="Use with Unlimited Projects" status="active" />
-            <OfferList text="Commercial Use" status="active" />
-            <OfferList text="Email Support" status="active" />
-            <OfferList text="Lifetime Access" status="active" />
-            <OfferList text="Free Lifetime Updates" status="active" />
-          </PricingBox>
+            <div className=" grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          {testimonialData3.map((testimonial) => (
+            <SingleTestimonial key={testimonial.id} testimonial={testimonial} />
+          ))}
+        </div></PricingBox>
         </div>
       </div>
 
