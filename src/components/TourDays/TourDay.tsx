@@ -50,7 +50,7 @@ const TourDayForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='ml-4'>
       <div className="flex flex-wrap">
         {cities.map((city) => (
           <div key={city} className="flex items-center mr-8">
@@ -86,12 +86,12 @@ const TourDayForm = () => {
           type="number"
           id="tourDuration"
           placeholder="Enter total tour duration"
-          className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+          className="border-stroke  rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
           value={tourDuration}
           onChange={handleTourDurationChange}
         />
       </div>
-      <button type="submit" className="mt-8 rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark">Submit Ticket</button>
+      <button type="submit" className="mt-8 rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">Submit Ticket</button>
     </form>
   );
 };
