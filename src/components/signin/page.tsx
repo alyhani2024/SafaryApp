@@ -1,9 +1,7 @@
 "use client"
 import Link from "next/link";
-import { Children, useState } from "react";
+import { useState } from "react";
 import SignupPage from "../signup/page";
-import RootLayout from "@/app/layout";
-import HomeTourist from "@/app/Tourist/page";
 const SigninPage = () => {
 
   const [showSignUp, setShowSignUp] = useState(false);
@@ -199,7 +197,7 @@ const SigninPage = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <Link href="/Tourist" 
+                    <Link href={userRole === 'admin'?"/Admin" : userRole === 'tourGuide'? "/TourGuide":"/Tourist"}
                       className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-orange-500/90">
                       Sign in
                     </Link>
