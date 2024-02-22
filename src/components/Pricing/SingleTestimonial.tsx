@@ -1,3 +1,5 @@
+"use client"
+
 import { Testimonial } from "@/types/testimonial";
 import Image from "next/image";
 const starIcon = (
