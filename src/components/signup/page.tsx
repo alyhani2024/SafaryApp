@@ -3,6 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import SigninPage from "../signin/page";
 const SignupPage = () => {
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [userRole, setUserRole] = useState('tourist'); // Default role is tourist
+
+  const handleRoleChange = (e) => {
+    setUserRole(e.target.value);
+  };
   const [showSignIn, setShowSignIn] = useState(false);
 
   const handleSignInClick = () => {
@@ -26,7 +32,7 @@ const SignupPage = () => {
                   <p className="mb-11 text-center text-base font-medium text-body-color">
                     It’s totally free and super easy
                   </p>
-                  <button className="border-stroke mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
+                  <button className="border-stroke mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-orange-500 hover:bg-orange-500/5 hover:text-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:hover:border-orange-500 dark:hover:bg-orange-500/5 dark:hover:text-orange-500 dark:hover:shadow-none">
                     <span className="mr-3">
                       <svg
                         width="20"
@@ -63,7 +69,7 @@ const SignupPage = () => {
                     Sign in with Google
                   </button>
 
-                  <button className="border-stroke mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none">
+                  <button className="border-stroke mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-orange-500 hover:bg-orange-500/5 hover:text-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:hover:border-orange-500 dark:hover:bg-orange-500/5 dark:hover:text-orange-500 dark:hover:shadow-none">
                     <span className="mr-3">
                       <svg
                         fill="currentColor"
@@ -97,7 +103,7 @@ const SignupPage = () => {
                         type="text"
                         name="name"
                         placeholder="Enter your full name"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
                       />
                     </div>
                     <div className="mb-8">
@@ -112,7 +118,7 @@ const SignupPage = () => {
                         type="email"
                         name="email"
                         placeholder="Enter your Email"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
                       />
                     </div>
                     <div className="mb-8">
@@ -127,9 +133,45 @@ const SignupPage = () => {
                         type="password"
                         name="password"
                         placeholder="Enter your Password"
-                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
+                        className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
                       />
                     </div>
+                      {/* New radio buttons for selecting user role */}
+            <div className="mb-8">
+              <p className="mb-3 block text-sm text-dark dark:text-white">Select Your Role</p>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="tourist"
+                  name="role"
+                  value="tourist"
+                  checked={userRole === 'tourist'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="tourist" className="mr-6 text-sm text-dark dark:text-white">Tourist</label>
+                <input
+                  type="radio"
+                  id="admin"
+                  name="role"
+                  value="admin"
+                  checked={userRole === 'admin'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="admin" className="mr-6 text-sm text-dark dark:text-white">Admin</label>
+                <input
+                  type="radio"
+                  id="tourGuide"
+                  name="role"
+                  value="tourGuide"
+                  checked={userRole === 'tourGuide'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="tourGuide" className="text-sm text-dark dark:text-white">Tour Guide</label>
+              </div>
+            </div>
                     <div className="mb-8 flex">
                       <label
                         htmlFor="checkboxLabel"
@@ -162,12 +204,12 @@ const SignupPage = () => {
                         </div>
                         <span>
                           By creating account means you agree to the
-                          <a href="#0" className="text-primary hover:underline">
+                          <a href="#0" className="text-orange-500 hover:underline">
                             {" "}
                             Terms and Conditions{" "}
                           </a>
                           , and our
-                          <a href="#0" className="text-primary hover:underline">
+                          <a href="#0" className="text-orange-500 hover:underline">
                             {" "}
                             Privacy Policy{" "}
                           </a>
@@ -175,7 +217,7 @@ const SignupPage = () => {
                       </label>
                     </div>
                     <div className="mb-6">
-                      <button onClick={handleSignInClick} className="flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-primary/90 dark:shadow-submit-dark">
+                      <button onClick={handleSignInClick} className="flex w-full items-center justify-center rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">
                         Sign up
                       </button>
                     </div>
@@ -183,7 +225,7 @@ const SignupPage = () => {
                   <p className="text-center text-base font-medium text-body-color">
                     Already using Startup?{" "}
                     <button
-                      className="text-primary hover:underline"
+                      className="text-orange-500 hover:underline"
                       onClick={handleSignInClick}
                     >
                       Sign in

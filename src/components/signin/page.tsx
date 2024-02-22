@@ -7,9 +7,14 @@ import HomeTourist from "@/app/Tourist/page";
 const SigninPage = () => {
 
   const [showSignUp, setShowSignUp] = useState(false);
+  const [userRole, setUserRole] = useState('tourist'); // Default role is tourist
 
   const handleSignInClick = () => {
     setShowSignUp(true);
+  };
+
+  const handleRoleChange = (e) => {
+    setUserRole(e.target.value);
   };
 
   return (
@@ -114,6 +119,42 @@ const SigninPage = () => {
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-orange-500 dark:focus:shadow-none"
                     />
                   </div>
+                    {/* New radio buttons for selecting user role */}
+            <div className="mb-8">
+              <p className="mb-3 block text-sm text-dark dark:text-white">Select Your Role</p>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  id="tourist"
+                  name="role"
+                  value="tourist"
+                  checked={userRole === 'tourist'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="tourist" className="mr-6 text-sm text-dark dark:text-white">Tourist</label>
+                <input
+                  type="radio"
+                  id="admin"
+                  name="role"
+                  value="admin"
+                  checked={userRole === 'admin'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="admin" className="mr-6 text-sm text-dark dark:text-white">Admin</label>
+                <input
+                  type="radio"
+                  id="tourGuide"
+                  name="role"
+                  value="tourGuide"
+                  checked={userRole === 'tourGuide'}
+                  onChange={handleRoleChange}
+                  className="mr-2"
+                />
+                <label htmlFor="tourGuide" className="text-sm text-dark dark:text-white">Tour Guide</label>
+              </div>
+            </div>
                   <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
                     <div className="mb-4 sm:mb-0">
                       <label
@@ -158,7 +199,7 @@ const SigninPage = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <Link href="#" onClick={()=>{<RootLayout  isAuthenticat = {true}> <HomeTourist/></RootLayout>}}
+                    <Link href="/Tourist" 
                       className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-orange-500/90">
                       Sign in
                     </Link>
