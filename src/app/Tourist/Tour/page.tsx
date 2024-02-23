@@ -4,8 +4,8 @@ import TourHourForm from "@/components/TourHours/tourhour";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "TourHour Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Tourhour Page for Startup Nextjs Template",
+  title: "TourHour Page | Tourrist Template for Tourism ",
+  description: "This is Tourhour Page for Tourist Template",
   // other metadata
 };
 
