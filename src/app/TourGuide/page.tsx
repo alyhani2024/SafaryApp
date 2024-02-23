@@ -11,7 +11,9 @@ import Testimonials from "@/components/Testimonials";
 export default function HomeTourGuide() {
   return (
     <>
+
       <ScrollUp />
+      
       <Hero />
       <Features />
       <Blog />
