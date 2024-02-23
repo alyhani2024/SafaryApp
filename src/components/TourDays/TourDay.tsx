@@ -87,12 +87,14 @@ const TourDayForm = () => {
           type="number"
           id="tourDuration"
           placeholder="Enter total tour duration"
-          className="border-stroke  rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mr-4"
+          className="border-stroke   rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mr-4"
           value={tourDuration}
           onChange={handleTourDurationChange}
         />
-        <button type="submit" className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">Submit Ticket</button>
-      </div>
+        <div>
+        <button type="submit" className="display: block; rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">Submit Ticket</button>
+        </div>
+         </div>
     </form>
   );
 };
