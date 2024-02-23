@@ -50,8 +50,8 @@ const TourDayForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='ml-4'>
-      <div className="flex flex-wrap">
+    <form onSubmit={handleSubmit} style={{ width: '80%', margin: '0 auto' }}>
+      <div className="flex flex-wrap justify-between">
         {cities.map((city) => (
           <div key={city} className="flex items-center mr-8">
             <input
@@ -67,31 +67,32 @@ const TourDayForm = () => {
       {selectedCities.map((city) => (
         <div key={city} className="mt-4">
           <h3 className="text-lg font-medium text-dark dark:text-white">{city}</h3>
-          {attractions[city].map((attraction) => (
-            <div key={attraction} className="flex items-center mt-2">
-              <input
-                type="checkbox"
-                id={`${city}-${attraction}`}
-                value={attraction}
-                onChange={(event) => handleAttractionChange(event, attraction)}
-              />
-              <label htmlFor={`${city}-${attraction}`} className="ml-2">{attraction}</label>
-            </div>
-          ))}
+          <div className="flex flex-wrap">
+            {attractions[city].map((attraction) => (
+              <div key={attraction} className="flex items-center mt-2 mr-8">
+                <input
+                  type="checkbox"
+                  id={`${city}-${attraction}`}
+                  value={attraction}
+                  onChange={(event) => handleAttractionChange(event, attraction)}
+                />
+                <label htmlFor={`${city}-${attraction}`} className="ml-2">{attraction}</label>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
-      <div className="mt-8">
-        <label htmlFor="tourDuration" className="block text-sm font-medium text-dark dark:text-white">Enter Total Tour Duration (in days)</label>
+      <div className="mt-8" style={{ display: 'flex', alignItems: 'center' }}>
         <input
           type="number"
           id="tourDuration"
           placeholder="Enter total tour duration"
-          className="border-stroke  rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
+          className="border-stroke  rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mr-4"
           value={tourDuration}
           onChange={handleTourDurationChange}
         />
+        <button type="submit" className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">Submit Ticket</button>
       </div>
-      <button type="submit" className="mt-8 rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">Submit Ticket</button>
     </form>
   );
 };

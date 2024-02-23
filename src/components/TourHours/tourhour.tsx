@@ -28,7 +28,7 @@ const TourHourForm = () => {
   };
 
   return (
-    <>
+    <div style={{ width: '80%', margin: '0 auto' }}>
       <form>
         <div className="-mx-4 ml-4 flex flex-wrap">
           <div className="w-full px-4 md:w-1/2">
@@ -102,7 +102,7 @@ const TourHourForm = () => {
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 
