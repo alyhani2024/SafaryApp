@@ -19,7 +19,7 @@ const BlogDetailsPage = () => {
             <div className="w-full px-4 lg:w-8/12">
               <div>
                 <h2 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
-                Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity.
+                Aswan: Jewel of the Nile, Gateway to Nubia
                 </h2>
                 <div className="mb-10 flex flex-wrap items-center justify-between border-b border-body-color border-opacity-10 pb-4 dark:border-white dark:border-opacity-10">
                   <div className="flex flex-wrap items-center">
@@ -35,7 +35,7 @@ const BlogDetailsPage = () => {
                       </div>
                       <div className="w-full">
                         <span className="mb-1 text-base font-medium text-body-color">
-                          By <span>Aly Hani</span>
+                          By <span>mostafa btt</span>
                         </span>
                       </div>
                     </div>
@@ -103,14 +103,14 @@ const BlogDetailsPage = () => {
                 </div>
                 <div>
                   <p className="mb-10 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
-                  Pyramids stand as iconic symbols of ancient civilizations, particularly prominent in Egypt,
-                   but also found in various forms across the globe. These monumental structures, characterized by their triangular sides converging to a single point at the top, have captivated the imagination of people for centuries.
-                   The sheer size and architectural precision of pyramids continue to baffle modern engineers and historians alike.
+                  Situated on the banks of the majestic Nile River, Aswan is a city steeped in history and surrounded by natural beauty.
+                   Known as the gateway to Nubia,
+                   Aswan has long been a vital hub for trade, culture, and civilization in ancient Egypt.
                   </p>
                   <div className="mb-10 w-full overflow-hidden rounded">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                       <Image
-                        src="/images/blog/Pyramids.jpg"
+                        src="/images/blog/Aswan.jpg"
                         alt="image"
                         fill
                         className="object-cover object-center"

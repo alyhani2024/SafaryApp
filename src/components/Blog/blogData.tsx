@@ -7,6 +7,7 @@ const blogData: Blog[] = [
     paragraph:
     "Pyramids, ancient marvels of human ingenuity, stand as iconic symbols across civilizations worldwide.",
     image: "/images/blog/Pyramids.jpg",
+    path : "/Tourist/blog/Pyramids" ,
     author: {
       name: " Eslam Ayman  ",
       image: "/images/blog/Pyramids.jpg",
@@ -21,6 +22,7 @@ const blogData: Blog[] = [
     paragraph:
       "Nestled along the banks of the majestic Nile River, Luxor stands as a living testament to the grandeur of ancient Egypt.",
     image: "/images/blog/Luxor.jpg",
+    path : "/Tourist/blog/Luxor" ,
     author: {
       name: "Aly Hani",
       image: "/images/blog/Luxor.jpg",
@@ -35,6 +37,8 @@ const blogData: Blog[] = [
     paragraph:
       "Situated on the banks of the majestic Nile River, Aswan is a city steeped in history and surrounded by natural beauty.",
     image: "/images/blog/Aswan.jpg",
+    path : "/Tourist/blog/Aswan" ,
+
     author: {
       name: "Mustafa Btt",
       image: "/images/blog/Aswan.jpg",

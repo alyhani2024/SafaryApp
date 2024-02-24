@@ -1,8 +1,8 @@
-import SharePost from "@/components/Blog/SharePost";
 import TagButton from "@/components/Blog/TagButton";
 import Image from "next/image";
 
 import { Metadata } from "next";
+import SharePost from "@/components/Blog/SharePost";
 
 export const metadata: Metadata = {
   title: "Blog Details Page | Free Next.js Template for Startup and SaaS",
@@ -19,7 +19,7 @@ const BlogDetailsPage = () => {
             <div className="w-full px-4 lg:w-8/12">
               <div>
                 <h2 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
-                Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity.
+                Exploring the Timeless Splendor of Luxor: Gateway to Ancient Egypt
                 </h2>
                 <div className="mb-10 flex flex-wrap items-center justify-between border-b border-body-color border-opacity-10 pb-4 dark:border-white dark:border-opacity-10">
                   <div className="flex flex-wrap items-center">
@@ -35,7 +35,7 @@ const BlogDetailsPage = () => {
                       </div>
                       <div className="w-full">
                         <span className="mb-1 text-base font-medium text-body-color">
-                          By <span>Aly Hani</span>
+                          By <span>Eslam ayman</span>
                         </span>
                       </div>
                     </div>
@@ -103,14 +103,14 @@ const BlogDetailsPage = () => {
                 </div>
                 <div>
                   <p className="mb-10 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
-                  Pyramids stand as iconic symbols of ancient civilizations, particularly prominent in Egypt,
-                   but also found in various forms across the globe. These monumental structures, characterized by their triangular sides converging to a single point at the top, have captivated the imagination of people for centuries.
-                   The sheer size and architectural precision of pyramids continue to baffle modern engineers and historians alike.
+                  Introduction to Luxor: Nestled along the banks of the majestic Nile River,
+                   Luxor stands as a living testament to the grandeur of ancient Egypt. Formerly known as Thebes,
+                   this historic city served as the capital of the New Kingdom and remains one of the most captivating destinations for enthusiasts of archaeology and history.
                   </p>
                   <div className="mb-10 w-full overflow-hidden rounded">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                       <Image
-                        src="/images/blog/Pyramids.jpg"
+                        src="/images/blog/Luxor.jpg"
                         alt="image"
                         fill
                         className="object-cover object-center"
@@ -118,11 +118,11 @@ const BlogDetailsPage = () => {
                     </div>
                   </div>
                   <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
-                 <strong> Engineering Marvels: </strong>
-                  The construction of pyramids required sophisticated engineering techniques that were far ahead of their time.
-                  Ancient builders meticulously aligned massive stone blocks, sometimes weighing several tons each, to create these imposing structures.
-                  The precision with which these blocks were cut and fitted together remains a subject of awe and speculation,
-                  especially considering the limited tools and resources available to ancient civilizations.
+                 <strong>  Historical Marvels: </strong>
+                  Luxor boasts an unparalleled concentration of ancient monuments and archaeological sites,
+                  including the iconic Luxor Temple and the sprawling Karnak Temple complex. These awe-inspiring structures,
+                  adorned with intricate hieroglyphics and towering statues,
+                  offer a glimpse into the rich cultural and religious traditions of pharaonic Egypt.
                   </p>
                   <p className="mb-10 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                   Cultural Significance: Pyramids served various purposes across different cultures.
