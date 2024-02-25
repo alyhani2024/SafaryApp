@@ -221,9 +221,9 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="hover:text-orange-500"
               >
-                Aly Hani ( الحلاق )
+                
               </a>{" "}
-              and{" "}
+             
               <a
                 href="/"
                 target="_blank"
