@@ -15,6 +15,7 @@ const blogData: Blog[] = [
     },
     tags: ["Join In"],
     publishDate: "2024",
+    rate : 5,
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const blogData: Blog[] = [
     },
     tags: ["Join In"],
     publishDate: "2024",
+    rate : 4,
   },
   {
     id: 3,
@@ -46,6 +48,7 @@ const blogData: Blog[] = [
     },
     tags: ["Join In"],
     publishDate: "2024",
+    rate :3
   },
 ];
 export default blogData;
