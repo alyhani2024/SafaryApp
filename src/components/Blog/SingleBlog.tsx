@@ -2,8 +2,24 @@ import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 
+const starIcon = (
+    <svg width="18" height="16" viewBox="0 0 18 16" className="fill-current">
+      <path d="M9.09815 0.361679L11.1054 6.06601H17.601L12.3459 9.59149L14.3532 15.2958L9.09815 11.7703L3.84309 15.2958L5.85035 9.59149L0.595291 6.06601H7.0909L9.09815 0.361679Z" />
+    </svg>
+  );
+
 const SingleBlog = ({ blog }: { blog: Blog }) => {
-  const { title, image, paragraph, author, tags, publishDate , path } = blog;
+  
+  const { title, image, paragraph, author, tags, publishDate , path , rate } = blog;
+
+  let ratingIcons = [];
+  for (let index = 0; index < rate; index++) {
+    ratingIcons.push(
+      <span key={index} className="text-yellow">
+        {starIcon}
+      </span>,
+    );
+  }
   return (
     <>
       <div className="group relative overflow-hidden rounded-sm bg-white shadow-one duration-300 hover:shadow-two dark:bg-dark dark:hover:shadow-gray-dark">
@@ -27,7 +43,9 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           </h3>
           <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
             {paragraph}
+            
           </p>
+          <p className="mb-5 flex items-center space-x-1">{ratingIcons}</p>
           <div className="flex items-center">
             <div className="mr-5 flex items-center border-r border-body-color border-opacity-10 pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">
