@@ -14,18 +14,10 @@ export const metadata: Metadata = {
 const TourHour = () => {
   return (
     <>
-       <Breadcrumb
-        pageName="Tour Hour Form"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-      <TourHourForm/>
       <Breadcrumb
-        pageName="Tour Day Form"
+        pageName="Tour Section"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
-      <TourDayForm/>
-
-
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
@@ -38,6 +30,19 @@ const TourHour = () => {
               </div>
             ))}
           </div>
+
+
+          <Breadcrumb
+        pageName="Tour Hour Form"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+      />
+      <TourHourForm/>
+      <Breadcrumb
+        pageName="Tour Day Form"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+      />
+      <TourDayForm/>
+
 
           <div className="-mx-4 flex flex-wrap" data-wow-delay=".15s">
             <div className="w-full px-4">
