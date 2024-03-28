@@ -8,9 +8,21 @@ const TourHourForm = () => {
 
   const cities = ['Cairo', 'Alexandria', 'Luxor'];
   const attractions = {
-    Cairo: ['Pyramids', 'Egyptian Museum', 'Khan El Khalili'],
-    Alexandria: ['Library of Alexandria', 'Citadel of Qaitbay', 'Montaza Palace'],
-    Luxor: ['Valley of the Kings', 'Karnak Temple', 'Luxor Temple'],
+    Cairo: [
+      { name: 'Pyramids', image: '/images/blog/Pyramids.jpg', description: 'Ancient burial ground for Egyptian pharaohs' },
+      { name: 'Egyptian Museum', image: 'egyptian-museum.jpg', description: 'Museum showcasing ancient Egyptian artifacts' },
+      { name: 'Khan El Khalili', image: 'khan-el-khalili.jpg', description: 'Historic market with traditional crafts and souvenirs' }
+    ],
+    Alexandria: [
+      { name: 'Library of Alexandria', image: 'library-of-alexandria.jpg', description: 'Ancient library and cultural center' },
+      { name: 'Citadel of Qaitbay', image: 'citadel-of-qaitbay.jpg', description: 'Medieval fortress on the Mediterranean coast' },
+      { name: 'Montaza Palace', image: 'montaza-palace.jpg', description: 'Former royal palace and gardens' }
+    ],
+    Luxor: [
+      { name: 'Valley of the Kings', image: 'valley-of-the-kings.jpg', description: 'Ancient burial site for Egyptian royalty' },
+      { name: 'Karnak Temple', image: 'karnak-temple.jpg', description: 'Vast temple complex dedicated to the gods' },
+      { name: 'Luxor Temple', image: 'luxor-temple.jpg', description: 'Ancient temple complex in the heart of Luxor' }
+    ],
   };
 
   const handleCityChange = (event) => {
@@ -60,19 +72,28 @@ const TourHourForm = () => {
                   >
                     Select Tourist Attractions
                   </label>
-                  {attractions[selectedCity].map((attraction) => (
-                    <div key={attraction} className="flex items-center mb-2">
-                      <input
-                        type="checkbox"
-                        id={attraction}
-                        value={attraction}
-                        onChange={handleAttractionChange}
-                        checked={selectedAttractions.includes(attraction)}
-                        className="mr-2"
-                      />
-                      <label htmlFor={attraction}>{attraction}</label>
-                    </div>
-                  ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {attractions[selectedCity].map((attraction) => (
+                      <div key={attraction.name} className="flex flex-col items-center mb-4 border border-gray-200 rounded-md p-4">
+                        <div className="mb-2">
+                          <img src={attraction.image} alt={attraction.name} className="w-full h-auto rounded-md" />
+                          <p className="text-center">{attraction.name}</p>
+                        </div>
+                        <p className="text-sm text-center text-gray-600 mb-2">{attraction.description}</p>
+                        <label htmlFor={attraction.name} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={attraction.name}
+                            value={attraction.name}
+                            onChange={handleAttractionChange}
+                            checked={selectedAttractions.includes(attraction.name)}
+                            className="mr-2"
+                          />
+                          <span>Select</span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="w-full px-4 md:w-1/2">
