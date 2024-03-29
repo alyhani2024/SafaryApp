@@ -10,18 +10,18 @@ const TourHourForm = () => {
   const attractions = {
     Cairo: [
       { name: 'Pyramids', image: '/images/blog/Pyramids.jpg', description: 'Ancient burial ground for Egyptian pharaohs', checked: false },
-      { name: 'Egyptian Museum', image: 'egyptian-museum.jpg', description: 'Museum showcasing ancient Egyptian artifacts', checked: false },
-      { name: 'Khan El Khalili', image: 'khan-el-khalili.jpg', description: 'Historic market with traditional crafts and souvenirs', checked: false }
+      { name: 'Egyptian Museum', image: '/images/blog/Pyramids.jpg', description: 'Museum showcasing ancient Egyptian artifacts', checked: false },
+      { name: 'Khan El Khalili', image: '/images/blog/Pyramids.jpg', description: 'Historic market with traditional crafts and souvenirs', checked: false }
     ],
     Alexandria: [
-      { name: 'Library of Alexandria', image: 'library-of-alexandria.jpg', description: 'Ancient library and cultural center', checked: false },
-      { name: 'Citadel of Qaitbay', image: 'citadel-of-qaitbay.jpg', description: 'Medieval fortress on the Mediterranean coast', checked: false },
-      { name: 'Montaza Palace', image: 'montaza-palace.jpg', description: 'Former royal palace and gardens', checked: false }
+      { name: 'Library of Alexandria', image: '/images/blog/Pyramids.jpg', description: 'Ancient library and cultural center', checked: false },
+      { name: 'Citadel of Qaitbay', image: '/images/blog/Pyramids.jpg', description: 'Medieval fortress on the Mediterranean coast', checked: false },
+      { name: 'Montaza Palace', image: '/images/blog/Pyramids.jpg', description: 'Former royal palace and gardens', checked: false }
     ],
     Luxor: [
-      { name: 'Valley of the Kings', image: 'valley-of-the-kings.jpg', description: 'Ancient burial site for Egyptian royalty', checked: false },
-      { name: 'Karnak Temple', image: 'karnak-temple.jpg', description: 'Vast temple complex dedicated to the gods', checked: false },
-      { name: 'Luxor Temple', image: 'luxor-temple.jpg', description: 'Ancient temple complex in the heart of Luxor', checked: false }
+      { name: 'Valley of the Kings', image: '/images/blog/Pyramids.jpg', description: 'Ancient burial site for Egyptian royalty', checked: false },
+      { name: 'Karnak Temple', image: '/images/blog/Pyramids.jpg', description: 'Vast temple complex dedicated to the gods', checked: false },
+      { name: 'Luxor Temple', image: '/images/blog/Pyramids.jpg', description: 'Ancient temple complex in the heart of Luxor', checked: false }
     ],
   };
 
@@ -40,11 +40,7 @@ const TourHourForm = () => {
     attractions[selectedCity].find(attraction => attraction.name === attractionName).checked = isChecked;
   };
 
-  const handleSelectAll = () => {
-    const allAttractions = attractions[selectedCity].map(attraction => attraction.name);
-    setSelectedAttractions(allAttractions);
-    attractions[selectedCity].forEach(attraction => attraction.checked = true);
-  };
+
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -58,7 +54,7 @@ const TourHourForm = () => {
           </label>
           <select
             id="city"
-            className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
+            className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none text-center"
             value={selectedCity}
             onChange={handleCityChange}
           >
@@ -110,27 +106,14 @@ const TourHourForm = () => {
                 type="number"
                 id="tourHour"
                 placeholder="Enter tour hour"
-                className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none"
+                className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none text-center"
                 value={tourHour}
                 onChange={(e) => setTourHour(e.target.value)}
               />
             </div>
           </>
         )}
-        {selectedCity && (
-          <div className="mb-8">
-            <label htmlFor="selectAll" className="block mb-2">
-              <input
-                type="checkbox"
-                id="selectAll"
-                onChange={handleSelectAll}
-                checked={selectedAttractions.length === attractions[selectedCity].length}
-                className="mr-2"
-              />
-              Select All
-            </label>
-          </div>
-        )}
+      
         <div className="mb-8 flex justify-center">
           <button className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">
             Submit Ticket
