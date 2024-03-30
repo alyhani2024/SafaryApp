@@ -40,7 +40,11 @@ const TourHourForm = () => {
     attractions[selectedCity].find(attraction => attraction.name === attractionName).checked = isChecked;
   };
 
-
+  const handleSelectAll = () => {
+    const allAttractions = attractions[selectedCity].map(attraction => attraction.name);
+    setSelectedAttractions(allAttractions);
+    attractions[selectedCity].forEach(attraction => attraction.checked = true);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -113,7 +117,20 @@ const TourHourForm = () => {
             </div>
           </>
         )}
-      
+        {selectedCity && (
+          <div className="mb-8">
+            <label htmlFor="selectAll" className="block mb-2">
+              <input
+                type="checkbox"
+                id="selectAll"
+                onChange={handleSelectAll}
+                checked={selectedAttractions.length === attractions[selectedCity].length}
+                className="mr-2"
+              />
+              Select All
+            </label>
+          </div>
+        )}
         <div className="mb-8 flex justify-center">
           <button className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">
             Submit Ticket
