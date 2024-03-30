@@ -1,17 +1,12 @@
-
 import { Metadata } from "next";
 import { Providers } from "./providers";
 import SigninPage from "@/components/signin/page";
 import SignupPage from "@/components/signup/page";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-
 export const metadata: Metadata = {
   title: "Safary",
   description: "Tour Guide Application",
   // other metadata
 };
-
   function Home() {
   return (
     <>
