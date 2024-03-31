@@ -10,13 +10,13 @@ const menuData: Menu[] = [
     {
       id: 2,
       title: "Blogs",
-      path: "/Admin/blogs",
+      path: "/Admin/blog",
       newTab: false,
     },
     {
       id: 33,
       title: "Tours",
-      path: "/Admin/tours",
+      path: "/Admin/Tour",
       newTab: false,
     }
     ,
