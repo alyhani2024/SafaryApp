@@ -1,22 +1,65 @@
+"use client"
 import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
+import TodoList from "@/components/BlogAdmin/blog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 
 import { Metadata } from "next";
+import { useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Blog Page ",
-  description: "This is Blog Page Template",
-  // other metadata
-};
+// export const metadata: Metadata = {
+//   title: "Blog Page ",
+//   description: "This is Blog Page Template",
+//   // other metadata
+// };
 
 const Blog = () => {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      title: "Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity",
+      paragraph: "Pyramids, ancient marvels of human ingenuity, stand as iconic symbols across civilizations worldwide.",
+      image: "/images/blog/Pyramids.jpg",
+      path: "/Tourist/blog/Pyramids",
+      author: {
+        name: "Eslam Ayman",
+        image: "/images/authors/eslam_ayman.jpg",
+        designation: "Ancient Egypt",
+      },
+      tags: ["Join In"],
+      publishDate: "2024",
+    },
+    // Add more todo items as needed
+  ]);
+
+  const updateTodo = (id, editedTitle, editedParagraph) => {
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, title: editedTitle, paragraph: editedParagraph } : todo
+    ));
+  };
+
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
   return (
     <>
       <Breadcrumb
         pageName="Blog Grid"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
+
+<div>
+      {todos.map(todo => (
+        <TodoList
+          key={todo.id}
+          {...todo}
+          onUpdate={updateTodo}
+           onDelete={deleteTodo}
+        />
+      ))}
+    </div>
+
+      
 
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
