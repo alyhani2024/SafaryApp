@@ -7,17 +7,17 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden container-light dark:container-dark  pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-        {/* <Image src={"/images/Home/ei_1710601121340-removebg-preview (1).png"} width={100} height={100} alt="img" className="imgHome absolute bottom-0 "/> */}
+        <Image src={"/images/Home/pexels-omar-elsharawy-5609738.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute bottom-0 "/>
         <div className="container ">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[800px] text-center">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   Safary for tourism in our world 
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
+                <p className="mb-12 text-base !leading-relaxed text-body-color-dark sm:text-lg md:text-xl">
                 The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt. 
                 This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypt rich cultural heritage and historical landmarks.
                 </p>
