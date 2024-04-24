@@ -31,19 +31,12 @@ const TourHourForm = () => {
   };
 
   const handleAttractionChange = (event, attractionName) => {
-    const isChecked = event.target.checked;
-    const updatedAttractions = selectedAttractions.includes(attractionName)
-      ? selectedAttractions.filter(attraction => attraction !== attractionName)
-      : [...selectedAttractions, attractionName];
-
-    setSelectedAttractions(updatedAttractions);
-    attractions[selectedCity].find(attraction => attraction.name === attractionName).checked = isChecked;
-  };
-
-  const handleSelectAll = () => {
-    const allAttractions = attractions[selectedCity].map(attraction => attraction.name);
-    setSelectedAttractions(allAttractions);
-    attractions[selectedCity].forEach(attraction => attraction.checked = true);
+    const { value } = event.target;
+    if (selectedAttractions.includes(value)) {
+      setSelectedAttractions(selectedAttractions.filter(attraction => attraction !== value));
+    } else {
+      setSelectedAttractions([...selectedAttractions, value]);
+    }
   };
 
   return (
@@ -90,7 +83,7 @@ const TourHourForm = () => {
                         id={attraction.name}
                         value={attraction.name}
                         onChange={(e) => handleAttractionChange(e, attraction.name)}
-                        checked={attraction.checked}
+                        checked={selectedAttractions.includes(attraction.name)}
                         className="mr-2"
                       />
                       <span>Select</span>
@@ -117,20 +110,7 @@ const TourHourForm = () => {
             </div>
           </>
         )}
-        {selectedCity && (
-          <div className="mb-8">
-            <label htmlFor="selectAll" className="block mb-2">
-              <input
-                type="checkbox"
-                id="selectAll"
-                onChange={handleSelectAll}
-                checked={selectedAttractions.length === attractions[selectedCity].length}
-                className="mr-2"
-              />
-              Select All
-            </label>
-          </div>
-        )}
+      
         <div className="mb-8 flex justify-center">
           <button className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">
             Submit Ticket
