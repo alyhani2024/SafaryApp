@@ -2,6 +2,7 @@ import Breadcrumb from '@/components/Common/Breadcrumb'
 import ScrollUp from '@/components/Common/ScrollUp'
 import UserTable from '@/components/Table/TableUser'
 import ToDoList from '@/components/To-Do/TodoList'
+import TodoComponent from '@/components/todo/Todo'
 import React from 'react'
 
 const Adminpage = () => {
@@ -20,7 +21,7 @@ const Adminpage = () => {
       <hr/>
       <ToDoList/>
 
-
+      <TodoComponent />
 
 	</>
   )
