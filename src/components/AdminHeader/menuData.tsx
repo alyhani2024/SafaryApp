@@ -32,6 +32,13 @@ const menuData: Menu[] = [
       path: "/Admin/requests",
       newTab: false,
     }
+    ,
+    {
+      id:6 ,
+      title: "Profile",
+      path: "/Admin/profile",
+      newTab: false,
+    }
   ];
   
   export default menuData;
