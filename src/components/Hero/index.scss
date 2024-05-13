@@ -14,3 +14,10 @@
     height: 100vh;
     z-index: -100;
   }
+  .video-background {
+    @apply -z-10;
+    @apply inset-0;
+    @apply min-w-full;
+    @apply min-h-full;
+    @apply object-cover;
+}
