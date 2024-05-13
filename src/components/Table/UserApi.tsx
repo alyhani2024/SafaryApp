@@ -197,7 +197,7 @@ const UserApiTable = () => {
               </td>
               <td className="px-6 py-4">
                 <button
-                  className="text-red-500 hover:text-red-700 dark:text-red-300 dark:hover:text-red-100"
+                  className="text-red-700 hover:text-red-700 dark:text-red-300 dark:hover:text-red-100"
                   onClick={() => handleDelete(user)}
                 >
                   Delete
@@ -209,7 +209,7 @@ const UserApiTable = () => {
       </table>
       {/* Save Button */}
       <div className="mt-4 flex justify-end">
-        <button className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+        <button className="rounded-md bg-orange-500 px-4 py-2 text-white hover:bg-blue-600">
           Save Changes
         </button>
       </div>
