@@ -1,17 +1,13 @@
-// User.ts
 interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    age: number;
-    gender: string;
+    id: number;
+    name: string;
     email: string;
     phone: string;
     username: string;
-    password: string;
-    birthDate: string;
-    image: string;
+    address: {
+      street: string;
+      suite: string;
+      city: string;
+      zipcode: string;
+    };
   }
-  
-  export default User;
-  
