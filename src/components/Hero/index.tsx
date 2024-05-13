@@ -19,10 +19,10 @@ const Hero = () => {
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[800px] text-center">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                   Safary for tourism in our world 
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-body-color-dark sm:text-lg md:text-xl">
+                <p className="mb-12 text-base !leading-relaxed text-dark sm:text-lg md:text-xl">
                 The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt. 
                 This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypt rich cultural heritage and historical landmarks.
                 </p>
