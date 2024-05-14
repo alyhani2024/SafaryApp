@@ -34,7 +34,7 @@ const menuData: Menu[] = [
     }
     ,
     {
-      id:6 ,
+      id: 6 ,
       title: "Profile",
       path: "/Admin/profile",
       newTab: false,

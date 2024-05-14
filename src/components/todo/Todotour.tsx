@@ -11,30 +11,26 @@ interface Todo {
   completed: boolean;
 }
 
-const TodoComponent = () => {
+const TodoComponentTour = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
   const [image, setImage] = useState<File | null>(null);
 
   const addTodo = () => {
-    if (title.trim() !== '' && description.trim() !== '' && endDate.trim() !== '' && startDate.trim() !== '') {
+    if (title.trim() !== '' && description.trim() !== '') {
       const newTodo: Todo = {
         id: todos.length + 1,
         title,
         description,
-        startDate,
-        endDate,
+        startDate: '', // Setting default empty strings
+        endDate: '', // Setting default empty strings
         image,
         completed: false,
       };
       setTodos([...todos, newTodo]);
       setTitle('');
       setDescription('');
-      setStartDate('');
-      setEndDate('');
       setImage(null);
     }
   };
@@ -58,8 +54,8 @@ const TodoComponent = () => {
   };
 
   return (
-    <div className="max-w-full mx-auto mt-10 px-4 dark:bg-gray-800">
-      <h2 className="text-2xl font-bold mb-4 ">Add Blog</h2>
+    <div className="max-w-full mx-auto mt-10 px-4 dark:bg-gray-800 text-center">
+      <h2 className="text-2xl font-bold mb-4 ">Add Tour</h2>
       <form onSubmit={handleSubmit} className="flex flex-wrap justify-center">
         <div className="mb-4 w-full md:w-1/2">
           <input
@@ -73,20 +69,6 @@ const TodoComponent = () => {
             value={description}
             onChange={e => setDescription(e.target.value)}
             placeholder="Description"
-            className="px-3 py-2 border rounded mb-2 w-full focus:outline-none dark:bg-gray-700 dark:text-white"
-          />
-          <input
-            type="date"
-            value={startDate}
-            onChange={e => setStartDate(e.target.value)}
-            placeholder="Start Date"
-            className="px-3 py-2 border rounded mb-2 w-full focus:outline-none dark:bg-gray-700 dark:text-white"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={e => setEndDate(e.target.value)}
-            placeholder="End Date"
             className="px-3 py-2 border rounded mb-2 w-full focus:outline-none dark:bg-gray-700 dark:text-white"
           />
           <input
@@ -117,10 +99,8 @@ const TodoComponent = () => {
                   {todo.title}
                 </h3>
                 <p className="text-gray-600 mb-2">{todo.description}</p>
-                <p className="text-sm text-gray-500">Start Date : {todo.startDate}</p>
-                <p className="text-sm text-gray-500">End Date: {todo.endDate}</p>
                 {todo.image && (
-                  <img src={URL.createObjectURL(todo.image)} alt="Todo Image" className="mt-2" style={{ maxWidth: '100%', height: '150px' }} />
+                  <img src={URL.createObjectURL(todo.image)} alt="Todo Image" className="mt-2 mx-auto" style={{ maxWidth: '100%', height: '150px' }} />
                 )}
               </div>
               <button
@@ -137,4 +117,4 @@ const TodoComponent = () => {
   );
 };
 
-export default TodoComponent;
+export default TodoComponentTour;

@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import TodoList from "@/components/BlogAdmin/blog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import TodoComponentBlog from "@/components/todo/TodoBlog";
 
 import { Metadata } from "next";
 import { useState } from "react";
@@ -17,8 +18,10 @@ const Blog = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      title: "Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity",
-      paragraph: "Pyramids, ancient marvels of human ingenuity, stand as iconic symbols across civilizations worldwide.",
+      title:
+        "Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity",
+      paragraph:
+        "Pyramids, ancient marvels of human ingenuity, stand as iconic symbols across civilizations worldwide.",
       image: "/images/blog/Pyramids.jpg",
       path: "/Tourist/blog/Pyramids",
       author: {
@@ -33,13 +36,17 @@ const Blog = () => {
   ]);
 
   const updateTodo = (id, editedTitle, editedParagraph) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, title: editedTitle, paragraph: editedParagraph } : todo
-    ));
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id
+          ? { ...todo, title: editedTitle, paragraph: editedParagraph }
+          : todo,
+      ),
+    );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
   return (
     <>
@@ -48,18 +55,7 @@ const Blog = () => {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
 
-<div>
-      {todos.map(todo => (
-        <TodoList
-          key={todo.id}
-          {...todo}
-          onUpdate={updateTodo}
-           onDelete={deleteTodo}
-        />
-      ))}
-    </div>
-
-      
+      <TodoComponentBlog />
 
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
