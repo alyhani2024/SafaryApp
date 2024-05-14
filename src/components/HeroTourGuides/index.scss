@@ -1,0 +1,23 @@
+.container-light {
+    background-image: url("/images/Home/pexels-pixabay-262780.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+  }
+  
+.container-dark {
+    background-image: url("/images/Home/pexels-pixabay-262786.jpg");
+    background-repeat: no-repeat;
+    background-position: right top;
+  }
+  .imgHome{
+    width: 100vw;
+    height: 100vh;
+    z-index: -100;
+  }
+  .video-background {
+    @apply -z-10;
+    @apply inset-0;
+    @apply min-w-full;
+    @apply min-h-full;
+    @apply object-cover;
+}
