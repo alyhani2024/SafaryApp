@@ -3,6 +3,7 @@ import SingleTour from "@/components/Tour/SingleTour";
 import TourDayForm from "@/components/Tour/TourDay";
 import tourData from "@/components/Tour/tourData";
 import TourHourForm from "@/components/Tour/tourhour";
+import TodoComponentTour from "@/components/todo/Todotour";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,10 +15,13 @@ export const metadata: Metadata = {
 const TourHour = () => {
   return (
     <>
+
       <Breadcrumb
         pageName="Tour Section"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
+
+      <TodoComponentTour/>
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
@@ -32,17 +36,7 @@ const TourHour = () => {
           </div>
 
 
-          <Breadcrumb
-        pageName="Tour Hour Form"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-      <TourHourForm/>
-      <Breadcrumb
-        pageName="Tour Day Form"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-      <TourDayForm/>
-
+   
 
           <div className="-mx-4 flex flex-wrap" data-wow-delay=".15s">
             <div className="w-full px-4">

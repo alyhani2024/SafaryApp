@@ -1,7 +1,7 @@
 import Breadcrumb from '@/components/Common/Breadcrumb'
 import ScrollUp from '@/components/Common/ScrollUp'
 import UserApiTable from '@/components/Table/UserApi'
-import TodoComponent from '@/components/todo/Todo'
+import TodoComponent from '@/components/todo/TodoBlog'
 import React from 'react'
 
 const Adminpage = () => {
@@ -19,7 +19,6 @@ const Adminpage = () => {
       <br/>
       <hr/>
 
-      <TodoComponent />
 
 	</>
   )
