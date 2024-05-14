@@ -1,5 +1,6 @@
 "use client"
 import Blog from "@/components/Blog";
+import BookBlogs from "@/components/BookBlogs/BookBlogs";
 import BookTourGuides from "@/components/BookTourGuides/BookTourGuide";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Contact";
@@ -18,8 +19,8 @@ export default function HomeTourist() {
       <Hero />
       <Features />
       <Testimonials />
-      <BookTourGuides/>
-
+      <BookTourGuides />
+      <BookBlogs/>
       <Pricing />
       <Blog />
       <Contact />

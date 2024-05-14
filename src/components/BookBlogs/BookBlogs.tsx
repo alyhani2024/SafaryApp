@@ -2,12 +2,12 @@ import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 // import  './index.scss';
-const BookTourGuides = () => {
+const BookBlogs = () => {
   return (
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden mt-5 mb-5   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         {/* <Image src={"/images/Home/pexels-omar-elsharawy-5609738.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/> */}
         <video autoPlay muted loop className="video-background imgHome  absolute  top-0">
@@ -28,7 +28,7 @@ const BookTourGuides = () => {
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
-                    href="/Tourist/BookTourGuides"
+                    href="/Tourist/BookBlog"
                     className="transition duration-1500  rounded-sm bg-orange-500 px-8 py-4 text-base font-semibold text-white  ease-in-out hover:bg-orange-500/80 "
                   >
                     <span>Book Now</span>
@@ -44,4 +44,4 @@ const BookTourGuides = () => {
   );
 };
 
-export default BookTourGuides;
+export default BookBlogs;
