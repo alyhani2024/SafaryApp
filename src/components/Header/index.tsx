@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-
+import { Settings } from "lucide-react";
 const Header = () => {
   // Navbar toggle
   const [navbarOpen, setNavbarOpen] = useState(false);
@@ -43,7 +43,7 @@ const Header = () => {
       <header
         className={`header left-0 top-0 z-40 flex w-full items-center ${
           sticky
-            ? "dark:bg-gray-dark dark:shadow-sticky-dark fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition"
+            ? "fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition dark:bg-gray-dark dark:shadow-sticky-dark"
             : "absolute bg-transparent"
         }`}
       >
@@ -155,14 +155,27 @@ const Header = () => {
                         )}
                       </li>
                     ))}
-                 
                   </ul>
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-              
                 <div>
+                <Link
+                    href="/Tourist/setting"
+                    className={`inline-block `}
+                  >
+                    <Settings className="" />
+                  </Link>
+                  
                   <ThemeToggler />
+                  
+                  <Link
+                    href="/Tourist/profile"
+                    className={`inline-block `}
+                  >
+                    <img className="w-9 h-9 rounded-full" src="/images/Home/pexels-omar-elsharawy-5609738.jpg"  />
+      
+                  </Link>
                 </div>
               </div>
             </div>
