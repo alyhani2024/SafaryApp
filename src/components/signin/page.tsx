@@ -205,7 +205,7 @@ const SigninPage = () => {
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Don’t you have an account?{" "}
-                  <Link href="#" onClick={handleSignInClick} className="text-primary hover:underline">
+                  <Link href="#" onClick={handleSignInClick} className="text-orange-500 hover:underline">
                         Sign up
                       </Link>
                 </p>

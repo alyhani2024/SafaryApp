@@ -70,7 +70,7 @@ const TourGuidesList: React.FC = () => {
 
   return (
     <div className="p-6">
-      <h6 className='mb-5 text-2xl font-bold leading-tight text-dark sm:text-3xl sm:leading-tight md:text-4xl md:leading-tight'>Tour Guides Per Day </h6>
+      {/* <h6 className='mb-5 text-2xl font-bold leading-tight text-dark sm:text-3xl sm:leading-tight md:text-4xl md:leading-tight'>Tour Guides Per Day </h6> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentItems.map((guide, index) => (
           <TourGuideCard
