@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import { Settings } from "lucide-react";
 
 const TourGuideHeader = () => {
   // Navbar toggle
@@ -162,7 +163,22 @@ const TourGuideHeader = () => {
               <div className="flex items-center justify-end pr-16 lg:pr-0">
               
                 <div>
+                <Link
+                    href="/TourGuide/setting"
+                    className={`inline-block `}
+                  >
+                    <Settings className="" />
+                  </Link>
+                  
                   <ThemeToggler />
+                  
+                  <Link
+                    href="/TourGuide/profile"
+                    className={`inline-block `}
+                  >
+                    <img className="w-9 h-9 rounded-full" src="/images/Home/pexels-omar-elsharawy-5609738.jpg"  />
+      
+                  </Link>
                 </div>
               </div>
             </div>
