@@ -58,7 +58,7 @@ const TodoComponentBlog = () => {
   };
 
   return (
-    <div className="max-w-full mx-auto mt-10 px-4 dark:bg-gray-800 text-center">
+    <div className="max-w-full mx-auto mt-10 px-4 text-center">
       <h2 className="text-2xl font-bold mb-4 ">Add Blog</h2>
       <form onSubmit={handleSubmit} className="flex flex-wrap justify-center">
         <div className="mb-4 w-full md:w-1/2">
@@ -105,7 +105,7 @@ const TodoComponentBlog = () => {
       <div className="flex flex-wrap justify-center w-full ">
         {todos.map(todo => (
           <div key={todo.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 ">
-            <div className="bg-gray-100 p-4 rounded shadow-md w-full h-full flex flex-col dark:bg-gray-700">
+            <div className="bg-gray-100 p-4 rounded shadow-md w-full h-full flex flex-col">
               <input
                 type="checkbox"
                 checked={todo.completed}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const UserProfile = () => (
-  <div className="bg-gray-50/90 py-12 lg:py-24" style={{ marginTop: "100px" }}>
+  <div className="py-12 lg:py-24" style={{ marginTop: "100px" }}>
     <div className="container flex flex-col items-center justify-center gap-4 px-4 text-center md:gap-8 md:px-6 text-center">
       <div className="space-y-2">
         <div className="relative w-24 h-24 rounded-full overflow-hidden mx-auto">
