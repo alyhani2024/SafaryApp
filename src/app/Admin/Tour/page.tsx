@@ -1,4 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import UserApiTable from "@/components/Table/UserApi";
 import SingleTour from "@/components/Tour/SingleTour";
 import TourDayForm from "@/components/Tour/TourDay";
 import tourData from "@/components/Tour/tourData";
@@ -22,6 +23,11 @@ const TourHour = () => {
       />
 
       <TodoComponentTour/>
+
+      <UserApiTable/>
+
+
+      
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">

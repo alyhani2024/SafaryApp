@@ -1,5 +1,6 @@
 import Breadcrumb from '@/components/Common/Breadcrumb'
 import ScrollUp from '@/components/Common/ScrollUp'
+import ProductsPage from '@/components/Table/NewTable'
 import UserApiTable from '@/components/Table/UserApi'
 import TodoComponent from '@/components/todo/TodoBlog'
 import React from 'react'
@@ -18,6 +19,7 @@ const Adminpage = () => {
       <hr/>
       <br/>
       <hr/>
+      {/* <ProductsPage/> */}
 
 
 	</>

@@ -3,6 +3,7 @@ import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import TodoList from "@/components/BlogAdmin/blog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import UserApiTable from "@/components/Table/UserApi";
 import TodoComponentBlog from "@/components/todo/TodoBlog";
 
 import { Metadata } from "next";
@@ -35,19 +36,19 @@ const Blog = () => {
     // Add more todo items as needed
   ]);
 
-  const updateTodo = (id, editedTitle, editedParagraph) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, title: editedTitle, paragraph: editedParagraph }
-          : todo,
-      ),
-    );
-  };
+  // const updateTodo = (id, editedTitle, editedParagraph) => {
+  //   setTodos(
+  //     todos.map((todo) =>
+  //       todo.id === id
+  //         ? { ...todo, title: editedTitle, paragraph: editedParagraph }
+  //         : todo,
+  //     ),
+  //   );
+  // };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  // const deleteTodo = (id) => {
+  //   setTodos(todos.filter((todo) => todo.id !== id));
+  // };
   return (
     <>
       <Breadcrumb
@@ -56,6 +57,9 @@ const Blog = () => {
       />
 
       <TodoComponentBlog />
+
+      <UserApiTable/>
+
 
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
