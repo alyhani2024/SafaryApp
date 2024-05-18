@@ -39,7 +39,10 @@ const TourGuideRequests: React.FC = () => {
   const handleRefuse = (name: string) => {
     console.log(`Refused: ${name}`);
   };
-
+  const handleDetails = (name: string) => {
+    console.log(`Details for: ${name}`);
+  };
+  
   return (
     <section className="relative z-10 bg-gray-light py-16 dark:bg-bg-color-dark md:py-20 lg:py-28">
       <div className="container">
@@ -58,6 +61,8 @@ const TourGuideRequests: React.FC = () => {
               description={request.description}
               onAccept={() => handleAccept(request.name)}
               onRefuse={() => handleRefuse(request.name)}
+              onDetails={() => handleDetails(request.name)} // Pass the handleDetails function
+            
             />
           ))}
         </div>
