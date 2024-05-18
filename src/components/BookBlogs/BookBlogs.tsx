@@ -7,14 +7,13 @@ const BookBlogs = () => {
       <section
         id="home"
         className="relative z-10 overflow-hidden mt-5 pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
-        style={{ marginTop: '20px' }}
       >
         <Image
-          src="/images/Home/ballon.jpg"
-          layout="fill"
-          objectFit="cover"
-          alt="img"
-          className="absolute inset-0 w-full h-full"
+          src="/images/Home/blogs.jpg"
+          alt="Blog Image"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+          className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="container relative z-20">
           <div className="-mx-4 flex flex-wrap">
@@ -24,7 +23,7 @@ const BookBlogs = () => {
                   Book your Blog
                 </h1>
                 <p className="mb-12 text-base leading-relaxed sm:text-lg md:text-xl">
-                  The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt. 
+                  The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt.
                   This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypts rich cultural heritage and historical landmarks.
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
