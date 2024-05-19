@@ -19,13 +19,14 @@ const menuData: Menu[] = [
       path: "/Admin/Tour",
       newTab: false,
     }
-    ,
-    {
-      id: 4,
-      title: "Tour Guides",
-      path: "/Admin/tourgiude",
-      newTab: false,
-    },
+
+     ,
+    // {
+    //   id: 4,
+    //   title: "Tour Guides",
+    //   path: "/Admin/tourGuides",
+    //   newTab: false,
+    // },
     {
       id: 5,
       title: "Requests",

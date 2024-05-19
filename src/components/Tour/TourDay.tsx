@@ -5,6 +5,8 @@ const TourDayForm = () => {
   const [selectedCities, setSelectedCities] = useState([]); // Selected cities
   const [selectedAttractions, setSelectedAttractions] = useState([]); // Selected attractions
   const [tourDuration, setTourDuration] = useState(''); // Tour duration
+  const [startdate, setStartdate] = useState(''); // Tour duration
+  const [enddate, setEnddate] = useState(''); // Tour duration
 
   const cities = ['Cairo', 'Alexandria', 'Menoufia', 'Aswan', 'Luxor']; // List of cities
   const attractions = { // Tourist attractions for each city
@@ -48,6 +50,12 @@ const TourDayForm = () => {
   const handleTourDurationChange = (event) => {
     setTourDuration(event.target.value);
   };
+  const handleStartdateChange = (event) => {
+    setStartdate(event.target.value);
+  };
+  const handleEnddateChange = (event) => {
+    setEnddate(event.target.value);
+  };
 
   return (
     <form onSubmit={handleSubmit} style={{ width: '80%', margin: '0 auto' }}>
@@ -90,6 +98,22 @@ const TourDayForm = () => {
     className="border-stroke rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mb-4"
     value={tourDuration}
     onChange={handleTourDurationChange}
+  />
+  <input
+    type="date"
+    id="startdate"
+    placeholder="Enter Your start date"
+    className="border-stroke rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mb-4"
+    value={startdate}
+    onChange={handleStartdateChange}
+  />
+   <input
+    type="date"
+    id="enddate"
+    placeholder="Enter Your end date"
+    className="border-stroke rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-orange-500 dark:focus:shadow-none mb-4"
+    value={enddate}
+    onChange={handleEnddateChange}
   />
   <button type="submit" className="rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white shadow-submit duration-300 hover:bg-orange-500/90 dark:shadow-submit-dark">
     Submit Ticket

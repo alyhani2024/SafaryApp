@@ -1,4 +1,5 @@
 // components/TourGuideCard.tsx
+import Link from 'next/link';
 import React from 'react';
 
 interface TourGuideCardProps {
@@ -20,9 +21,9 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({ name, description, photo,
         </div>
       </div>
       <div className="px-6 pt-4 pb-2">
-        <button className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded">
+        <Link href={`/Tourist/Tour`} className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded">
           Book Now
-        </button>
+        </Link>
       </div>
     </div>
   );

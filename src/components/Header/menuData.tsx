@@ -21,14 +21,14 @@ const menuData: Menu[] = [
     },
     {
       id: 33,
-      title: "Blog",
-      path: "/Tourist/blog",
+      title: "Blogs",
+      path: "/Tourist/BookBlog",
       newTab: false,
     },
     {
       id: 6,
-      title: "Tour",
-      path: "/Tourist/Tour",
+      title: "Tour Guides",
+      path: "/Tourist/BookTourGuides",
       newTab: false,
     },
   ];
