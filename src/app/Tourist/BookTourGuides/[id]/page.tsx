@@ -1,24 +1,25 @@
 import React from 'react'
-import CarouselPerDay from "@/components/CarouselPerDay/CarouselPerDay";
-import Hero from '@/components/HeroTourGuides';
 import TourGuidesPerHourList from '@/components/TourGuidesPerHourList/TourGuidesPerHourList';
 import TourGuidesPerDayList from '@/components/TourGuidesPerDayList/TourGuidesPerDayList';
 import Breadcrumb from '@/components/Common/Breadcrumb';
-import TastingTour from '@/components/BookTour';
-
-const BookTours = () => {
+import BookTour from '@/components/BookTour';
+interface IProps {
+    // ** Fitch data from Link
+    params: {
+      id: string;
+    };
+  }
+const Guidepage = ({ params }: IProps) => {
   return (
     <>
-        <Hero />
-        
-        <Breadcrumb
+    <Breadcrumb
         pageName="Book TourGiude ( Per Hour)"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
-        <TourGuidesPerHourList />
-        
-    </>
+        <BookTour GuideId={params.id}
+        />
+        </>
   )
 }
 
-export default BookTours
+export default Guidepage

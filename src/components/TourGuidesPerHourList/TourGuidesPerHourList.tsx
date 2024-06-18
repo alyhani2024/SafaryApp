@@ -1,34 +1,52 @@
 "use client"
 // components/TourGuidesList.tsx
-// components/TourGuidesList.tsx
 import React, { useState } from 'react';
 import TourGuideCard from './TourGuidePerHourCard';
 
 const tourGuides = [
-  { name: 'John Doe', description: 'Experienced tour guide with knowledge in local history.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 50 },
-  { name: 'Jane Smith', description: 'Friendly and enthusiastic guide for all ages.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 45 },
-  { name: 'Michael Brown', description: 'Specializes in food and cultural tours.', photo: '/images/blog/post-03.jpg', pricePerHour: 60 },
-  { name: 'Emily Davis', description: 'Nature and wildlife expert.', photo: '/images/blog/Pyramids.jpg', pricePerHour: 55 },
-  { name: 'David Wilson', description: 'Local history and architecture specialist.', photo: '/images/blog/post-03.jpg', pricePerHour: 50 },
-  { name: 'Alice Johnson', description: 'Expert in local flora and fauna.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 40 },
-  { name: 'Chris Evans', description: 'Knowledgeable in city tours and night excursions.', photo: '/images/blog/post-03.jpg', pricePerHour: 52 },    { name: 'John Doe', description: 'Experienced tour guide with knowledge in local history.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 50 },
-  { name: 'Jane Smith', description: 'Friendly and enthusiastic guide for all ages.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 45 },
-  { name: 'Michael Brown', description: 'Specializes in food and cultural tours.', photo: '/images/blog/post-03.jpg', pricePerHour: 60 },
-  { name: 'Emily Davis', description: 'Nature and wildlife expert.', photo: '/images/blog/Pyramids.jpg', pricePerHour: 55 },
-  { name: 'David Wilson', description: 'Local history and architecture specialist.', photo: '/images/blog/post-03.jpg', pricePerHour: 50 },
-  { name: 'Alice Johnson', description: 'Expert in local flora and fauna.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 40 },
-  { name: 'Chris Evans', description: 'Knowledgeable in city tours and night excursions.', photo: '/images/blog/post-03.jpg', pricePerHour: 52 },    { name: 'John Doe', description: 'Experienced tour guide with knowledge in local history.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 50 },
-  { name: 'Jane Smith', description: 'Friendly and enthusiastic guide for all ages.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 45 },
-  { name: 'Michael Brown', description: 'Specializes in food and cultural tours.', photo: '/images/blog/post-03.jpg', pricePerHour: 60 },
-  { name: 'Emily Davis', description: 'Nature and wildlife expert.', photo: '/images/blog/Pyramids.jpg', pricePerHour: 55 },
-  { name: 'David Wilson', description: 'Local history and architecture specialist.', photo: '/images/blog/post-03.jpg', pricePerHour: 50 },
-  { name: 'Alice Johnson', description: 'Expert in local flora and fauna.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 40 },
-  { name: 'Chris Evans', description: 'Knowledgeable in city tours and night excursions.', photo: '/images/blog/post-03.jpg', pricePerHour: 52 },    { name: 'John Doe', description: 'Experienced tour guide with knowledge in local history.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 50 },
-  { name: 'Jane Smith', description: 'Friendly and enthusiastic guide for all ages.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 45 },
-  { name: 'Michael Brown', description: 'Specializes in food and cultural tours.', photo: '/images/blog/post-03.jpg', pricePerHour: 60 },
-  { name: 'Emily Davis', description: 'Nature and wildlife expert.', photo: '/images/blog/Pyramids.jpg', pricePerHour: 55 },
-  { name: 'Alice Johnson', description: 'Expert in local flora and fauna.', photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', pricePerHour: 40 },
-  { name: 'Chris Evans', description: 'Knowledgeable in city tours and night excursions.', photo: '/images/blog/post-03.jpg', pricePerHour: 52 },];
+  { 
+    id : "1",
+    name: 'John Doe', 
+    description: 'Experienced tour guide with knowledge in local history.', 
+    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
+    pricePerHour: 50,
+    rate: 5,
+    reviews: 120,
+    languages: ['English', 'Arabic']
+  },
+  { 
+    id : "2",
+    name: 'Jane Smith', 
+    description: 'Friendly and enthusiastic guide for all ages.', 
+    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
+    pricePerHour: 45,
+    rate: 4,
+    reviews: 98,
+    languages: ['English', 'French']
+  },
+  { 
+    id : "3",
+    name: 'Michael Brown', 
+    description: 'Specializes in food and cultural tours.', 
+    photo: '/images/blog/post-03.jpg', 
+    pricePerHour: 60,
+    rate: 5,
+    reviews: 110,
+    languages: ['English', 'Spanish']
+  },
+  { 
+    id : "4",
+    name: 'Emily Davis', 
+    description: 'Nature and wildlife expert.', 
+    photo: '/images/blog/Pyramids.jpg', 
+    pricePerHour: 55,
+    rate: 4,
+    reviews: 87,
+    languages: ['English', 'German']
+  },
+
+  // Add more guides as needed
+];
 
 const TourGuidesList: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(6);
@@ -59,10 +77,14 @@ const TourGuidesList: React.FC = () => {
         {currentItems.map((guide, index) => (
           <TourGuideCard
             key={index}
+            id={guide.id}
             name={guide.name}
             description={guide.description}
             photo={guide.photo}
             pricePerHour={guide.pricePerHour}
+            rate={guide.rate}
+            reviews={guide.reviews}
+            languages={guide.languages}
           />
         ))}
       </div>
