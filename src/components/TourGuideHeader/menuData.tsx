@@ -22,8 +22,8 @@ const menuData: Menu[] = [
     ,
     {
       id: 4,
-      title: "Requests",
-      path: "/TourGuide/requests",
+      title: "Appointments",
+      path: "/TourGuide/appointments",
       newTab: false,
     }
   ];

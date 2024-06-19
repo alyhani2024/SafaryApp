@@ -27,13 +27,13 @@ const menuData: Menu[] = [
     //   path: "/Admin/tourGuides",
     //   newTab: false,
     // },
-    {
-      id: 5,
-      title: "Requests",
-      path: "/Admin/requests",
-      newTab: false,
-    }
-    ,
+    // {
+    //   id: 5,
+    //   title: "Requests",
+    //   path: "/Admin/requests",
+    //   newTab: false,
+    // }
+    
     {
       id: 6 ,
       title: "Profile",
