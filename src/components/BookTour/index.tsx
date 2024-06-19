@@ -4,20 +4,10 @@ import { FaStar } from 'react-icons/fa';
 import { tours } from './dataTours';  // Adjust the import path as necessary
 import { guides } from './dataGuides';
 
-const generateTimes = () => {
-  const times = [];
-  for (let hour = 8; hour <= 20; hour++) {
-    const hourString = hour < 10 ? `0${hour}` : `${hour}`;
-    times.push(`${hourString}:00`);
-    times.push(`${hourString}:30`);
-  }
-  return times;
-};  
 
 const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
   const [adults, setAdults] = useState(4);
   const [children, setChildren] = useState(1);
-  const [selectedTime, setSelectedTime] = useState<string>('08:00');
 
   const tour = tours.find(t => t.id === TourId); // Find the tour by ID
   const guide = guides.find(t => t.id === GuideId);
@@ -26,7 +16,6 @@ const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
     return null; // Return null if the tour or guide is not found
   }
 
-  const times = generateTimes();
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -94,18 +83,9 @@ const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
               <input type="date" id="date" className="w-full mt-1 p-2 border rounded" />
             </div>
             <div className="mt-4">
-              <label htmlFor="time" className="block text-gray-700">Select time</label>
-              <select
-                id="time"
-                value={selectedTime}
-                onChange={(e) => setSelectedTime(e.target.value)}
-                className="w-full mt-1 p-2 border rounded bg-white text-gray-700 select-custom"
-              >
-                {times.map(time => (
-                  <option key={time} value={time}>{time}</option>
-                ))}
-              </select>
-            </div>
+          <label htmlFor="time" className="block text-gray-700">Select time</label>
+          <input type="time" id="time" className="w-full mt-1 p-2 border rounded" />
+        </div>
             <div className="mt-4">
               <label className="block text-gray-700">People</label>
               <div className="flex items-center justify-between mt-1 p-2 border rounded">
