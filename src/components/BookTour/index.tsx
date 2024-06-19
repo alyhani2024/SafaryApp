@@ -7,7 +7,6 @@ import { guides } from './dataGuides';
 
 const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
   const [adults, setAdults] = useState(4);
-  const [children, setChildren] = useState(1);
 
   const tour = tours.find(t => t.id === TourId); // Find the tour by ID
   const guide = guides.find(t => t.id === GuideId);
@@ -90,7 +89,6 @@ const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
               <label className="block text-gray-700">People</label>
               <div className="flex items-center justify-between mt-1 p-2 border rounded">
                 <div>
-                  <label className="block text-gray-700">Adults</label>
                   <div className="flex items-center mt-1">
                     <button
                       onClick={() => setAdults(adults - 1)}
@@ -104,21 +102,7 @@ const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
                     >+</button>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-gray-700">Children</label>
-                  <div className="flex items-center mt-1">
-                    <button
-                      onClick={() => setChildren(children - 1)}
-                      disabled={children <= 0}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >-</button>
-                    <span className="mx-2">{children}</span>
-                    <button
-                      onClick={() => setChildren(children + 1)}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >+</button>
-                  </div>
-                </div>
+                
               </div>
             </div>
             <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600">

@@ -21,7 +21,7 @@ const Guidepage = ({ params }: IProps) => {
   return (
     <>
       <Breadcrumb
-        pageName="Book TourGuide (Per Hour)"
+        pageName="Book your Tour & TourGuide "
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
       <TourList onExplore={handleExplore} />

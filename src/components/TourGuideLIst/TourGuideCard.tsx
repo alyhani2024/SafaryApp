@@ -2,7 +2,7 @@
 import Link from 'next/link';
 // components/TourGuideCard.tsx
 import React from 'react';
-
+import { Car } from 'lucide-react';
 interface TourGuideCardProps {
   id: string;
   name: string;
@@ -12,6 +12,7 @@ interface TourGuideCardProps {
   rate: number;
   reviews: number;
   languages: string[];
+  hascar:boolean;
 }
 
 const TourGuideCard: React.FC<TourGuideCardProps> = ({
@@ -23,6 +24,7 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
   rate,
   reviews,
   languages,
+  hascar
 }) => {
   return (
     <div className="flex flex-col max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-700">
@@ -41,9 +43,10 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
         <div className="mt-4">
           <span className="text-yellow-500">{'★'.repeat(rate)}{'☆'.repeat(5 - rate)}</span>
           <span className="text-gray-600 dark:text-gray-400 ml-2">({reviews} reviews)</span>
+          <span className="text-gray-600 dark:text-gray-400 ml-2">{hascar && <Car className='inline'/>}</span>
         </div>
         <div className="mt-2 text-gray-600 dark:text-gray-400">
-          Languages: {languages.join(', ')}
+          Languages: {languages.join(', ')} 
         </div>
       </div>
       <div className="p-6 pt-0">

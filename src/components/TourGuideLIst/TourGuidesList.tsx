@@ -11,7 +11,8 @@ const tourGuides = [
         pricePerHour: 50,
         rate: 5,
         reviews: 120,
-        languages: ['English', 'Arabic']
+        languages: ['English', 'Arabic'],
+        hascar:true
       },
       { 
         id : "2",
@@ -21,7 +22,8 @@ const tourGuides = [
         pricePerHour: 45,
         rate: 4,
         reviews: 98,
-        languages: ['English', 'French']
+        languages: ['English', 'French'],
+        hascar:false
       },
       { 
         id : "3",
@@ -31,17 +33,8 @@ const tourGuides = [
         pricePerHour: 60,
         rate: 5,
         reviews: 110,
-        languages: ['English', 'Spanish']
-      },
-      { 
-        id : "4",
-        name: 'Emily Davis', 
-        description: 'Nature and wildlife expert.', 
-        photo: '/images/blog/Pyramids.jpg', 
-        pricePerHour: 55,
-        rate: 4,
-        reviews: 87,
-        languages: ['English', 'German']
+        languages: ['English', 'Spanish'],
+        hascar:true
       },
   // your list of tour guides
 ];

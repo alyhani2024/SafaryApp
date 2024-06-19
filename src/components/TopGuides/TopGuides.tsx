@@ -4,44 +4,45 @@ import GuideCard from './GuideCard';
 
 const TopGuides: React.FC = () => {
   const guides = [
-    {
-      name: 'Ahmed',
-      title: 'Heritage expert',
-      languages: 'العربية, English',
-      reviews: 6,
-      rate :5,
-      image: '/images/blog/Pyramids.jpg', // Update with actual image path
+    { 
+      id : "1",
+      name: 'John Doe', 
+      description: 'Experienced tour guide with knowledge in local history.', 
+      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
+      pricePerHour: 50,
+      rate: 5,
+      reviews: 120,
+      languages: ['English', 'Arabic'],
+      hascar:true
     },
-    {
-      name: 'Nesreen',
-      title: 'Your guide Nana',
-      languages: 'English',
-      reviews: 19,
-      rate :5,
-      image: '/images/blog/Pyramids.jpg', // Update with actual image path
+    { 
+      id : "2",
+      name: 'Jane Smith', 
+      description: 'Friendly and enthusiastic guide for all ages.', 
+      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
+      pricePerHour: 45,
+      rate: 4,
+      reviews: 98,
+      languages: ['English', 'French'],
+      hascar:false
     },
-    {
-      name: 'Moustafa',
-      title: 'Egyptologist',
-      languages: 'English, Русский, العربية',
-      reviews: 42,
-      rate :5,
-      image: '/images/blog/Pyramids.jpg', // Update with actual image path
+    { 
+      id : "3",
+      name: 'Michael Brown', 
+      description: 'Specializes in food and cultural tours.', 
+      photo: '/images/blog/post-03.jpg', 
+      pricePerHour: 60,
+      rate: 5,
+      reviews: 110,
+      languages: ['English', 'Spanish'],
+      hascar:true
     },
   ];
 
   return (
-    <div className="flex justify-center flex-wrap">
-      {guides.map((guide, index) => (
-        <GuideCard
-          key={index}
-          rate={guide.rate}
-          name={guide.name}
-          title={guide.title}
-          languages={guide.languages}
-          reviews={guide.reviews}
-          image={guide.image}
-        />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+      {guides.map(guide => (
+        <GuideCard key={guide.id} {...guide} />
       ))}
     </div>
   );

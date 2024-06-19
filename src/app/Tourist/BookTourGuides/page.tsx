@@ -13,10 +13,9 @@ const BookTours = () => {
         <Hero />
         
         <Breadcrumb
-        pageName="Book TourGiude ( Per Hour)"
+        pageName="Book TourGiude "
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
-        <TourGuidesPerHourList />
         <TourGuidesList/>
         
     </>

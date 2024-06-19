@@ -25,7 +25,7 @@ const TourCard: React.FC<TourCardProps> = ({ id, title, description, photo, pric
         </div>
         <div className="mt-2 flex justify-end">
           <button onClick={() => onExplore(id)} className="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-full">
-            Explore
+            Select
           </button>
         </div>
       </div>
