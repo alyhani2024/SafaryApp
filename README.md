@@ -49,3 +49,5 @@ If you like the template, please star this repository to inspire the team to cre
 npm i
 npm i sass
 npm install lucide-react
+npm install tailwindcss postcss autoprefixer
+npm uninstall tailwindcss postcss autoprefixer

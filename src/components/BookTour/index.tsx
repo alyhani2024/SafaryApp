@@ -1,4 +1,3 @@
-// components/BookTour.tsx
 "use client"
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
@@ -15,16 +14,20 @@ const generateTimes = () => {
   return times;
 };  
 
-const BookTour = ({ TourId , GuideId }: { GuideId: string ,TourId :string }) => {
+const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
   const [adults, setAdults] = useState(4);
   const [children, setChildren] = useState(1);
+  const [selectedTime, setSelectedTime] = useState<string>('08:00');
+
   const tour = tours.find(t => t.id === TourId); // Find the tour by ID
   const guide = guides.find(t => t.id === GuideId);
-  if (!tour) return null; // Return null if the tour is not found
-  const [selectedTime, setSelectedTime] = useState<string>('08:00');
+
+  if (!tour || !guide) {
+    return null; // Return null if the tour or guide is not found
+  }
+
   const times = generateTimes();
 
-  
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex flex-col md:flex-row">
@@ -104,40 +107,40 @@ const BookTour = ({ TourId , GuideId }: { GuideId: string ,TourId :string }) => 
               </select>
             </div>
             <div className="mt-4">
-          <label className="block text-gray-700">People</label>
-          <div className="flex items-center justify-between mt-1 p-2 border rounded">
-            <div>
-              <label className="block text-gray-700">Adults</label>
-              <div className="flex items-center mt-1">
-                <button
-                  onClick={() => setAdults(adults - 1)}
-                  disabled={adults <= 1}
-                  className="px-2 py-1 border rounded bg-gray-200"
-                >-</button>
-                <span className="mx-2">{adults}</span>
-                <button
-                  onClick={() => setAdults(adults + 1)}
-                  className="px-2 py-1 border rounded bg-gray-200"
-                >+</button>
+              <label className="block text-gray-700">People</label>
+              <div className="flex items-center justify-between mt-1 p-2 border rounded">
+                <div>
+                  <label className="block text-gray-700">Adults</label>
+                  <div className="flex items-center mt-1">
+                    <button
+                      onClick={() => setAdults(adults - 1)}
+                      disabled={adults <= 1}
+                      className="px-2 py-1 border rounded bg-gray-200"
+                    >-</button>
+                    <span className="mx-2">{adults}</span>
+                    <button
+                      onClick={() => setAdults(adults + 1)}
+                      className="px-2 py-1 border rounded bg-gray-200"
+                    >+</button>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-gray-700">Children</label>
+                  <div className="flex items-center mt-1">
+                    <button
+                      onClick={() => setChildren(children - 1)}
+                      disabled={children <= 0}
+                      className="px-2 py-1 border rounded bg-gray-200"
+                    >-</button>
+                    <span className="mx-2">{children}</span>
+                    <button
+                      onClick={() => setChildren(children + 1)}
+                      className="px-2 py-1 border rounded bg-gray-200"
+                    >+</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div>
-              <label className="block text-gray-700">Children</label>
-              <div className="flex items-center mt-1">
-                <button
-                  onClick={() => setChildren(children - 1)}
-                  disabled={children <= 0}
-                  className="px-2 py-1 border rounded bg-gray-200"
-                >-</button>
-                <span className="mx-2">{children}</span>
-                <button
-                  onClick={() => setChildren(children + 1)}
-                  className="px-2 py-1 border rounded bg-gray-200"
-                >+</button>
-              </div>
-            </div>
-          </div>
-        </div>
             <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600">
               Book Now
             </button>
