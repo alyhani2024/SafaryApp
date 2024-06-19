@@ -1,19 +1,30 @@
+// components/BookTour.tsx
 "use client"
-// components/TastingTour.tsx
 import React, { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
-import { tours } from './data';
+import { tours } from './dataTours';  // Adjust the import path as necessary
+import { guides } from './dataGuides';
 
-const BookTour = ({
-  GuideId
+const generateTimes = () => {
+  const times = [];
+  for (let hour = 8; hour <= 20; hour++) {
+    const hourString = hour < 10 ? `0${hour}` : `${hour}`;
+    times.push(`${hourString}:00`);
+    times.push(`${hourString}:30`);
+  }
+  return times;
+};  
 
-}: {
-  GuideId: string;
-}) => {
+const BookTour = ({ TourId , GuideId }: { GuideId: string ,TourId :string }) => {
   const [adults, setAdults] = useState(4);
   const [children, setChildren] = useState(1);
-  const tour = tours[GuideId]; // Assuming you want to display the first tour, adjust as needed
+  const tour = tours.find(t => t.id === TourId); // Find the tour by ID
+  const guide = guides.find(t => t.id === GuideId);
+  if (!tour) return null; // Return null if the tour is not found
+  const [selectedTime, setSelectedTime] = useState<string>('08:00');
+  const times = generateTimes();
 
+  
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex flex-col md:flex-row">
@@ -29,13 +40,13 @@ const BookTour = ({
           </p>
           <div className="flex my-4">
             <img
-              src={tour.guideImage}
+              src={guide.guideImage}
               alt="Guide"
               className="w-10 h-10 rounded-full mr-2"
             />
             <div className="flex flex-col justify-center">
-              <p className="text-gray-700">{tour.guideName}</p>
-              <p className="text-gray-500">{tour.guideDescription}</p>
+              <p className="text-gray-700">{guide.guideName}</p>
+              <p className="text-gray-500">{guide.guideDescription}</p>
             </div>
           </div>
           <p className="text-gray-700 mt-4">{tour.description}</p>
@@ -57,7 +68,7 @@ const BookTour = ({
             {tour.details.included}
           </p>
 
-          <h2 className="text-2xl font-bold mt-8">reasons to book this tour</h2>
+          <h2 className="text-2xl font-bold mt-8">Reasons to book this tour</h2>
           <ul className="list-disc pl-5 mt-4 text-gray-700">
             {tour.reasons.map((reason, index) => (
               <li key={index}>{reason}</li>
@@ -66,14 +77,14 @@ const BookTour = ({
         </div>
         <div className="md:w-1/3 md:ml-8 mt-8 md:mt-0">
           <div className="bg-white shadow-lg p-4 rounded-lg">
-            <p className="text-2xl font-bold text-orange-500">€{tour.pricePerHour.toFixed(2)} per Hour</p>
+            <p className="text-2xl font-bold text-orange-500">€{guide.pricePerHour.toFixed(2)} per Hour</p>
             <div className="flex items-center my-2">
-              {Array(tour.rate)
+              {Array(guide.rate)
                 .fill('')
                 .map((_, i) => (
                   <FaStar key={i} className="text-yellow-500" />
                 ))}
-              <span className="ml-2 text-sm text-gray-500">{tour.reviews} reviews</span>
+              <span className="ml-2 text-sm text-gray-500">{guide.reviews} reviews</span>
             </div>
             <div className="mt-4">
               <label htmlFor="date" className="block text-gray-700">Select date</label>
@@ -81,57 +92,55 @@ const BookTour = ({
             </div>
             <div className="mt-4">
               <label htmlFor="time" className="block text-gray-700">Select time</label>
-              <input type="time" id="time" className="w-full mt-1 p-2 border rounded" />
+              <select
+                id="time"
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+                className="w-full mt-1 p-2 border rounded bg-white text-gray-700 select-custom"
+              >
+                {times.map(time => (
+                  <option key={time} value={time}>{time}</option>
+                ))}
+              </select>
             </div>
             <div className="mt-4">
-              <label className="block text-gray-700">People</label>
-              <div className="flex items-center justify-between mt-1 p-2 border rounded">
-                <div>
-                  <label className="block text-gray-700">Adults</label>
-                  <div className="flex items-center mt-1">
-                    <button
-                      onClick={() => setAdults(adults - 1)}
-                      disabled={adults <= 1}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >-</button>
-                    <span className="mx-2">{adults}</span>
-                    <button
-                      onClick={() => setAdults(adults + 1)}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >+</button>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-gray-700">Children</label>
-                  <div className="flex items-center mt-1">
-                    <button
-                      onClick={() => setChildren(children - 1)}
-                      disabled={children <= 0}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >-</button>
-                    <span className="mx-2">{children}</span>
-                    <button
-                      onClick={() => setChildren(children + 1)}
-                      className="px-2 py-1 border rounded bg-gray-200"
-                    >+</button>
-                  </div>
-                </div>
+          <label className="block text-gray-700">People</label>
+          <div className="flex items-center justify-between mt-1 p-2 border rounded">
+            <div>
+              <label className="block text-gray-700">Adults</label>
+              <div className="flex items-center mt-1">
+                <button
+                  onClick={() => setAdults(adults - 1)}
+                  disabled={adults <= 1}
+                  className="px-2 py-1 border rounded bg-gray-200"
+                >-</button>
+                <span className="mx-2">{adults}</span>
+                <button
+                  onClick={() => setAdults(adults + 1)}
+                  className="px-2 py-1 border rounded bg-gray-200"
+                >+</button>
               </div>
             </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="text-gray-700">Total: €{(tour.pricePerHour * (adults + (children / 2))).toFixed(2)}</span>
-              {/* <button className="bg-orange-500 text-white px-4 py-2 rounded">Apply</button> */}
+            <div>
+              <label className="block text-gray-700">Children</label>
+              <div className="flex items-center mt-1">
+                <button
+                  onClick={() => setChildren(children - 1)}
+                  disabled={children <= 0}
+                  className="px-2 py-1 border rounded bg-gray-200"
+                >-</button>
+                <span className="mx-2">{children}</span>
+                <button
+                  onClick={() => setChildren(children + 1)}
+                  className="px-2 py-1 border rounded bg-gray-200"
+                >+</button>
+              </div>
             </div>
-            <button className="mt-4 w-full bg-orange-500 text-white p-2 rounded">Apply</button>
           </div>
-
-          <div className="bg-orange-100 p-4 rounded-lg mt-8">
-            <h3 className="text-lg font-semibold text-orange-500">All Withlocals experiences are:</h3>
-            <ul className="list-disc pl-5 mt-2 text-gray-700">
-              <li>Private: No strangers. Just you and your local host</li>
-              <li>Personalized: Let your local host tailor this for you</li>
-              <li>Handpicked by locals: Verified by Withlocals</li>
-            </ul>
+        </div>
+            <button className="mt-4 w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600">
+              Book Now
+            </button>
           </div>
         </div>
       </div>

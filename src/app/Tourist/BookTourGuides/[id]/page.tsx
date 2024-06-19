@@ -1,25 +1,33 @@
-import React from 'react'
-import TourGuidesPerHourList from '@/components/TourGuidesPerHourList/TourGuidesPerHourList';
-import TourGuidesPerDayList from '@/components/TourGuidesPerDayList/TourGuidesPerDayList';
+// pages/Guidepage.tsx
+"use client"
+import React, { useState } from 'react';
 import Breadcrumb from '@/components/Common/Breadcrumb';
 import BookTour from '@/components/BookTour';
+import TourList from '@/components/TourList/TourList';
+
 interface IProps {
-    // ** Fitch data from Link
-    params: {
-      id: string;
-    };
-  }
-const Guidepage = ({ params }: IProps) => {
-  return (
-    <>
-    <Breadcrumb
-        pageName="Book TourGiude ( Per Hour)"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-        <BookTour GuideId={params.id}
-        />
-        </>
-  )
+  params: {
+    id: string;
+  };
 }
 
-export default Guidepage
+const Guidepage = ({ params }: IProps) => {
+  const [selectedTourId, setSelectedTourId] = useState<string | null>(null);
+
+  const handleExplore = (id: string) => {
+    setSelectedTourId(id);
+  };
+
+  return (
+    <>
+      <Breadcrumb
+        pageName="Book TourGuide (Per Hour)"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+      />
+      <TourList onExplore={handleExplore} />
+      {selectedTourId && <BookTour TourId={selectedTourId} GuideId={params.id}/>}
+    </>
+  );
+};
+
+export default Guidepage;

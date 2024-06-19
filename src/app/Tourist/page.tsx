@@ -9,6 +9,7 @@ import Features from "@/components/Features";
 import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
+import TopGuides from "@/components/TopGuides/TopGuides";
 
 
 
@@ -19,7 +20,11 @@ export default function HomeTourist() {
       <ScrollUp />
       <Hero />
       <Features />
-      <Testimonials />
+      <Breadcrumb
+        pageName=" Top Three Guides"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+      />
+      <TopGuides />
       <Breadcrumb
         pageName=" BookTourGuides"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
@@ -30,8 +35,7 @@ export default function HomeTourist() {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
       <BookBlogs/>
-      <Pricing />
-      <Blog />
+      
       <Contact />
 
     </>

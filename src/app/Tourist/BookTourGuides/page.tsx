@@ -5,6 +5,7 @@ import TourGuidesPerHourList from '@/components/TourGuidesPerHourList/TourGuides
 import TourGuidesPerDayList from '@/components/TourGuidesPerDayList/TourGuidesPerDayList';
 import Breadcrumb from '@/components/Common/Breadcrumb';
 import TastingTour from '@/components/BookTour';
+import TourGuidesList from '@/components/TourGuideLIst/TourGuidesList';
 
 const BookTours = () => {
   return (
@@ -16,6 +17,7 @@ const BookTours = () => {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
         <TourGuidesPerHourList />
+        <TourGuidesList/>
         
     </>
   )
