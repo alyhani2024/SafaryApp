@@ -8,7 +8,7 @@ const tours = [
     title: 'Off the Beaten Track in Cairo',
     description: 'Connect with Ramses XII or one of other local hosts',
     photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
-    price: '€39 pp',
+    price: '40€ pp',
     duration: '4 hours',
     category: 'City highlight tour',
   },
