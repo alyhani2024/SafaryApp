@@ -84,7 +84,7 @@ const BookTour = ({ TourId, GuideId }: { GuideId: string; TourId: string }) => {
             <div className="mt-4">
           <label htmlFor="time" className="block text-gray-700">Select time</label>
           <input type="time" id="time" className="w-full mt-1 p-2 border rounded" />
-        </div>
+            </div>
             <div className="mt-4">
               <label className="block text-gray-700">People</label>
               <div className="flex items-center justify-between mt-1 p-2 border rounded">
