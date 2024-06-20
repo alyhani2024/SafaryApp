@@ -164,7 +164,7 @@ const Header = () => {
                     href="/Tourist/setting"
                     className={`inline-block `}
                   >
-                    <Settings className="" />
+                    <Settings className="mb-4" />
                   </Link>
                   
                   <ThemeToggler />
@@ -173,7 +173,7 @@ const Header = () => {
                     href="/Tourist/profile"
                     className={`inline-block `}
                   >
-                    <img className="w-9 h-9 rounded-full" src="/images/Home/pexels-omar-elsharawy-5609738.jpg"  />
+                    <img className="w-9 h-9 rounded-full mb-3" src="/images/Home/pexels-omar-elsharawy-5609738.jpg"  />
       
                   </Link>
                 </div>
