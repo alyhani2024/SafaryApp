@@ -54,7 +54,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   if (!guide) {
     return null; // Return null if the tour or guide is not found
   }
-
+  const isDisabled = date === '' || time === '';
   return (
     <div className="flex flex-col md:flex-row items-start p-6 space-y-4 md:space-y-0 md:space-x-6">
       <div className="rounded-lg overflow-hidden md:w-2/3">
@@ -83,7 +83,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
       <div className="rounded-lg bg-white p-6 shadow-md md:w-1/3">
         <div className="mt-4">
           <label htmlFor="date" className="block text-gray-700">Select date</label>
-          <input 
+          <input required
             type="date" 
             id="date" 
             className="w-full mt-1 p-2 border rounded" 
@@ -93,7 +93,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
         </div>
         <div className="mt-4">
           <label htmlFor="time" className="block text-gray-700">Select time</label>
-          <input 
+          <input required
             type="time" 
             id="time" 
             className="w-full mt-1 p-2 border rounded" 
@@ -118,8 +118,18 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
             </div>
           </div>
         </div>
-        <Link href={`/Tourist/BookTour`}
-          className="mt-4 w-full block text-center bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition duration-300">
+        <Link href={isDisabled ? '#' : `/Tourist/BookTour`} passHref
+        className={`mt-4 w-full block text-center py-2 rounded transition duration-300 ${
+            isDisabled ? 'bg-orange-300 cursor-not-allowed' : 'bg-orange-500 text-white hover:bg-orange-600'
+          }`}
+          onClick={(e) => {
+            if (isDisabled) {
+              e.preventDefault();
+            }
+          }}
+        >
+          
+            
             Book Now
         </Link>
       </div>
