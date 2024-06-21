@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const initialData = [
   { id: 1, name: 'John Brown', age: 45, address: 'New York No. 1 Lake Park' },
@@ -9,15 +9,25 @@ const initialData = [
   { id: 5, name: 'Jim Red', age: 45, address: 'Melbourne No. 1 Lake Park' },
 ];
 
-  function UserTable() {
+function UserTable() {
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState('');
-  const [editingId, setEditingId] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newUser, setNewUser] = useState({ name: '', age: '', address: '' });
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  const handleAddButtonClick = () => {
+    setIsPopupVisible(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser({ ...newUser, [name]: value });
+  };
+
 
   const filteredData = data.filter(user =>
     user.name.toLowerCase().includes(search.toLowerCase())
@@ -28,7 +38,7 @@ const initialData = [
       <div className="-m-1.5 overflow-x-auto">
         <div className="p-1.5 min-w-full inline-block align-middle">
           <div className="border rounded-lg overflow-hidden dark:border-neutral-700">
-            <div className="p-4">
+            <div className="p-4 flex justify-between items-center">
               <input
                 type="text"
                 placeholder="Search..."
@@ -36,6 +46,13 @@ const initialData = [
                 onChange={handleSearch}
                 className="border rounded px-2 py-1"
               />
+              <button
+                type="button"
+                onClick={handleAddButtonClick}
+                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 m-1"
+              >
+                Add
+              </button>
             </div>
             <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
               <thead className="bg-gray-50 dark:bg-neutral-700">
@@ -108,48 +125,63 @@ const initialData = [
                 ))}
               </tbody>
             </table>
-            <div className="p-4">
+          </div>
+        </div>
+      </div>
+      {isPopupVisible && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg z-60">
+            <h2 className="text-lg font-semibold mb-4">Add New User</h2>
+            <div className="mb-2">
               <input
                 type="text"
                 name="name"
                 placeholder="Name"
                 value={newUser.name}
+                onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
+            </div>
+            <div className="mb-2">
               <input
                 type="text"
                 name="age"
                 placeholder="Age"
                 value={newUser.age}
+                onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
+            </div>
+            <div className="mb-4">
               <input
                 type="text"
                 name="address"
                 placeholder="Address"
                 value={newUser.address}
+                onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
-              {editingId ? (
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 m-1"
-                >
-                  Update
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 m-1"
-                >
-                  Add
-                </button>
-              )}
+            </div>
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => setIsPopupVisible(false)}
+                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-600 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-400 m-1"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-orange-600 hover:text-orange-800 dark:text-orange-500 dark:hover:text-orange-400 m-1"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
-export default UserTable ;
+
+export default UserTable;
