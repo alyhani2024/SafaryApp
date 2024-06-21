@@ -28,7 +28,7 @@ const UpdateProductForm = () => {
     <section className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-2xl px-4 py-8 lg:py-16">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-          Update product
+          Update Setting
         </h2>
 
         <div className="mb-8 flex items-center">
@@ -62,14 +62,14 @@ const UpdateProductForm = () => {
               htmlFor="name"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Product Name
+              Name
             </label>
             <input
               type="text"
               name="name"
               id="name"
               className="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-              value="Apple iMac 27&ldquo;"
+              value="Enter your Firstname&ldquo;"
               placeholder="Type product name"
               required
             />
@@ -79,14 +79,14 @@ const UpdateProductForm = () => {
               htmlFor="brand"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Brand
+              lastname
             </label>
             <input
               type="text"
               name="brand"
               id="brand"
               className="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-              value="Apple"
+              value="Lastname"
               placeholder="Product brand"
               required
             />
@@ -96,53 +96,23 @@ const UpdateProductForm = () => {
               htmlFor="price"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Price
+              Age
             </label>
             <input
               type="number"
-              name="price"
-              id="price"
+              name="age"
+              id="age"
               className="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-              value="2999"
-              placeholder="$299"
+              value="22"
+              placeholder="00"
               required
             />
           </div>
           <div>
-            <label
-              htmlFor="category"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Category
-            </label>
-            <select
-              id="category"
-              className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-            >
-              <option selected>Electronics</option>
-              <option value="TV">TV/Monitors</option>
-              <option value="PC">PC</option>
-              <option value="GA">Gaming/Console</option>
-              <option value="PH">Phones</option>
-            </select>
+          
+          
           </div>
-          <div>
-            <label
-              htmlFor="item-weight"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Item Weight (kg)
-            </label>
-            <input
-              type="number"
-              name="item-weight"
-              id="item-weight"
-              className="focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
-              value="15"
-              placeholder="Ex. 12"
-              required
-            />
-          </div>
+       
           <div className="sm:col-span-2">
             <label
               htmlFor="description"
@@ -156,18 +126,15 @@ const UpdateProductForm = () => {
               className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
               placeholder="Write a product description here..."
             >
-              Standard glass, 3.8GHz 8-core 10th-generation Intel Core i7
-              processor, Turbo Boost up to 5.0GHz, 16GB 2666MHz DDR4 memory,
-              Radeon Pro 5500 XT with 8GB of GDDR6 memory, 256GB SSD storage,
-              Gigabit Ethernet, Magic Mouse 2, Magic Keyboard - US
+             TextHere  Optional
             </textarea>
           </div>
           <div className="sm:col-span-2 flex justify-end">
             <button
               type="submit"
-              className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-md font-medium"
+              className="bg-orange-500 hover:bg-green-600 text-white px-6 py-3 rounded-md font-medium"
               >
-              Update product
+              Update Setting
             </button>
             <button
               type="button"

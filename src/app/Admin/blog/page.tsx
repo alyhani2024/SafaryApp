@@ -3,6 +3,7 @@ import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import TodoList from "@/components/BlogAdmin/blog";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import BlogTable from "@/components/Table/BlogTable";
 import UserApiTable from "@/components/Table/UserApi";
 import TodoComponentBlog from "@/components/todo/TodoBlog";
 
@@ -33,34 +34,15 @@ const Blog = () => {
       tags: ["Join In"],
       publishDate: "2024",
     },
-    // Add more todo items as needed
   ]);
 
-  // const updateTodo = (id, editedTitle, editedParagraph) => {
-  //   setTodos(
-  //     todos.map((todo) =>
-  //       todo.id === id
-  //         ? { ...todo, title: editedTitle, paragraph: editedParagraph }
-  //         : todo,
-  //     ),
-  //   );
-  // };
-
-  // const deleteTodo = (id) => {
-  //   setTodos(todos.filter((todo) => todo.id !== id));
-  // };
   return (
     <>
       <Breadcrumb
         pageName="Blog Grid"
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       />
-
-      <TodoComponentBlog />
-
-      <UserApiTable/>
-
-
+   <BlogTable/>
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">

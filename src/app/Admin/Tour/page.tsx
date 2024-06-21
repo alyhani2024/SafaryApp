@@ -1,10 +1,7 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import UserApiTable from "@/components/Table/UserApi";
+import TourTable from "@/components/Table/TourTable";
 import SingleTour from "@/components/Tour/SingleTour";
-import TourDayForm from "@/components/Tour/TourDay";
 import tourData from "@/components/Tour/tourData";
-import TourHourForm from "@/components/Tour/tourhour";
-import TodoComponentTour from "@/components/todo/Todotour";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,15 +16,9 @@ const TourHour = () => {
 
       <Breadcrumb
         pageName="Tour Section"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        description=" Table Of All Tours For All Data make Cruds ( Add , Edit and Update )."
       />
-
-      <TodoComponentTour/>
-
-      <UserApiTable/>
-
-
-      
+      <TourTable/>
       <section className="pb-[120px] pt-[120px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
@@ -40,10 +31,6 @@ const TourHour = () => {
               </div>
             ))}
           </div>
-
-
-   
-
           <div className="-mx-4 flex flex-wrap" data-wow-delay=".15s">
             <div className="w-full px-4">
               <ul className="flex items-center justify-center pt-8">

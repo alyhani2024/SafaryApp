@@ -14,25 +14,29 @@ const menuData: Menu[] = [
       newTab: false,
     },
     {
-      id: 33,
+      id: 3,
       title: "Tours",
       path: "/Admin/Tour",
       newTab: false,
     }
 
      ,
-    // {
-    //   id: 4,
-    //   title: "Tour Guides",
-    //   path: "/Admin/tourGuides",
-    //   newTab: false,
-    // },
-    // {
-    //   id: 5,
-    //   title: "Requests",
-    //   path: "/Admin/requests",
-    //   newTab: false,
-    // }
+    {
+      id: 4,
+      title: "Tourist",
+      path: "/Admin/tourist",
+      newTab: false,
+    }
+    ,
+    
+    ,
+    {
+      id: 5 ,
+      title: "Tourguide",
+      path: "/Admin/tourgiude",
+      newTab: false,
+    }
+    ,
     
     {
       id: 6 ,
@@ -47,6 +51,7 @@ const menuData: Menu[] = [
       path: "/Admin/setting",
       newTab: false,
     }
+      
   ];
   
   export default menuData;
