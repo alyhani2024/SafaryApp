@@ -9,7 +9,7 @@ const BookTourGuides = () => {
         className="relative z-10 overflow-hidden mt-5 mb-5 pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <Image
-          src={"/images/Home/Tour.jpg"}
+          src={"/images/Home/Tourguide.jpg"}
           layout="fill"
           objectFit="cover"
           alt="img"
@@ -18,11 +18,11 @@ const BookTourGuides = () => {
         <div className="container relative z-20">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[800px] text-center text-white">
-                <h1 className="mb-5 text-3xl font-bold leading-tight sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+              <div className="mx-auto max-w-[900px] text-center bg-transparent-background p-8 rounded-lg">
+                <h1 className="mb-5 text-3xl font-bold leading-tight sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg text-white">
                   Book Your Tour Guide
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed sm:text-lg md:text-xl">
+                <p className="mb-12 text-base !leading-relaxed sm:text-lg md:text-xl text-shadow-md text-white">
                   The Safary application aims to revolutionize the tourism
                   industry by connecting tourists with local tour guides in
                   Egypt. This innovative platform will provide tourists with
