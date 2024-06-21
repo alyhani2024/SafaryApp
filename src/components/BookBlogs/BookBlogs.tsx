@@ -9,7 +9,7 @@ const BookBlogs = () => {
         className="relative z-10 overflow-hidden mt-5 pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <Image
-          src="/images/Home/blogs.jpg"
+          src="/images/Home/Bloges.jpg"
           alt="Blog Image"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"

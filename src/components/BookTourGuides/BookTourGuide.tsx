@@ -9,7 +9,7 @@ const BookTourGuides = () => {
         className="relative z-10 overflow-hidden mt-5 mb-5 pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <Image
-          src={"/images/Home/Tour.jpg"}
+          src={"/images/Home/Tourguide.jpg"}
           layout="fill"
           objectFit="cover"
           alt="img"
