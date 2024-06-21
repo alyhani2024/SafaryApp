@@ -67,14 +67,3 @@ section {
   margin-right: auto;
 }
 
-@media (max-width: 768px) {
-  .container {
-    width: 90%;
-  }
-}
-
-@media (max-width: 576px) {
-  .container {
-    width: 95%;
-  }
-}
