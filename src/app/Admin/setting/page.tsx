@@ -10,7 +10,7 @@ const SettingPage = () => {
 	<ScrollUp />
 	<Breadcrumb
         pageName=" Setting Form To Update Profile"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        description="Setting for update Date "
       />
       <UpdateProductForm/>
       <Breadcrumb

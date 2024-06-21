@@ -5,8 +5,8 @@ const page = () => {
   return (
     <div> <Breadcrumb
     pageName="Blog Details Grid"
-    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-  /></div>
+    description=" Table Of Blogs For All Data make Cruds ( Add , Edit and Update ) ."
+    /></div>
   )
 }
 

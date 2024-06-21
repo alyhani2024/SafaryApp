@@ -1,4 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import TourguideTable from "@/components/Table/TourgiudeTable";
 import UserApiTable from "@/components/Table/UserApi";
 import { Metadata } from "next";
 
@@ -13,9 +14,8 @@ const TourGiude = () => {
     <>
       <Breadcrumb
         pageName="TourGiude Section"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
-      />
-      <UserApiTable />
+        description=" Table Of TourGiude All Data make Cruds ( Add,Edit and Update )."/>
+      <TourguideTable />
     </>
   );
 };
