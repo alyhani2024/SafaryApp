@@ -1,5 +1,7 @@
 "use client"
+import AppointmentsTable from "@/components/AppointmentsTable/AppointmentsTable";
 import Blog from "@/components/Blog";
+import Breadcrumb from "@/components/Common/Breadcrumb";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Contact";
 import Features from "@/components/Features";
@@ -16,6 +18,11 @@ export default function HomeTourGuide() {
       
       <Hero />
       <Features />
+      <Breadcrumb
+        pageName="Appointments"
+        description="Table OF your Tour Appointments ."
+      />
+      <AppointmentsTable/>
       <Blog />
     </>
   );

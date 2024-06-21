@@ -45,12 +45,7 @@ const menuData: Menu[] = [
       newTab: false,
     }
     ,
-    {
-      id: 7 ,
-      title: "Setting",
-      path: "/Admin/setting",
-      newTab: false,
-    }
+   
       
   ];
   
