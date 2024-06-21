@@ -31,35 +31,3 @@
     @apply opacity-100;
   }
 }
-.text-shadow-lg {
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.text-shadow-md {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.video-background {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.imgHome {
-  z-index: -1;
-  height: 100vh;
-  width: 100%;
-}
-
-.bg-transparent-background {
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust transparency as needed */
-}
-
-section {
-  position: relative;
-}
-
-.container {
-  position: relative;
-  z-index: 10;
-}
