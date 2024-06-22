@@ -1,51 +1,54 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { Car } from 'lucide-react';
 import SharePost from '../Blog/SharePost';
 import TagButton from '../Blog/TagButton';
 import Image from 'next/image';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Carousel styles
+
 const tourGuides = [
-    { 
-      id: "1",
-      name: 'John Doe', 
-      description: 'Experienced tour guide with knowledge in local history.', 
-      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-      pricePerHour: 50,
-      rate: 5,
-      reviews: 120,
-      languages: ['English', 'Arabic'],
-      hascar: true
-    },
-    { 
-      id: "2",
-      name: 'Jane Smith', 
-      description: 'Friendly and enthusiastic guide for all ages.', 
-      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-      pricePerHour: 45,
-      rate: 4,
-      reviews: 98,
-      languages: ['English', 'French'],
-      hascar: false
-    },
-    { 
-      id: "3",
-      name: 'Michael Brown', 
-      description: 'Specializes in food and cultural tours.', 
-      photo: '/images/blog/post-03.jpg', 
-      pricePerHour: 60,
-      rate: 5,
-      reviews: 110,
-      languages: ['English', 'Spanish'],
-      hascar: true
-    },
-  ];
+  {
+    id: "1",
+    name: 'John Doe',
+    description: 'Experienced tour guide with knowledge in local history.',
+    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
+    pricePerHour: 50,
+    rate: 5,
+    reviews: 120,
+    languages: ['English', 'Arabic'],
+    hascar: true
+  },
+  {
+    id: "2",
+    name: 'Jane Smith',
+    description: 'Friendly and enthusiastic guide for all ages.',
+    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
+    pricePerHour: 45,
+    rate: 4,
+    reviews: 98,
+    languages: ['English', 'French'],
+    hascar: false
+  },
+  {
+    id: "3",
+    name: 'Michael Brown',
+    description: 'Specializes in food and cultural tours.',
+    photo: '/images/blog/post-03.jpg',
+    pricePerHour: 60,
+    rate: 5,
+    reviews: 110,
+    languages: ['English', 'Spanish'],
+    hascar: true
+  },
+];
 
 const tours = [
   {
     id: '1',
     title: 'Off the Beaten Track in Cairo',
     description: 'Connect with Ramses XII or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
+    photos: ['/images/Home/pexels-omar-elsharawy-5609738.jpg', '/images/Home/ballon.jpg', '/images/Home/Desert.jpg'],
     duration: '4 hours',
     category: 'City highlight tour',
   },
@@ -53,7 +56,7 @@ const tours = [
     id: '2',
     title: 'Full Coverage Cairo City Tour',
     description: 'Connect with Withlocals or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
+    photos: ['/images/Home/pexels-omar-elsharawy-5609738.jpg', '/images/Home/ballon.jpg', '/images/Home/Desert.jpg'],
     duration: '5 hours',
     category: 'City highlight tour',
   },
@@ -61,7 +64,7 @@ const tours = [
     id: '3',
     title: 'Full Coverage Cairo City Tour',
     description: 'Connect with Withlocals or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
+    photos: ['/images/Home/pexels-omar-elsharawy-5609738.jpg', '/images/Home/ballon.jpg', '/images/Home/Desert.jpg'],
     duration: '5 hours',
     category: 'City highlight tour',
   },
@@ -192,16 +195,20 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
                    but also found in various forms across the globe. These monumental structures, characterized by their triangular sides converging to a single point at the top, have captivated the imagination of people for centuries.
                    The sheer size and architectural precision of pyramids continue to baffle modern engineers and historians alike.
                   </p>
-                  <div className="mb-10 w-full overflow-hidden rounded">
-                    <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
+                  <div className="mb-10">
+                <Carousel showThumbs={false} showStatus={false} autoPlay interval={3000} infiniteLoop>
+                  {tour.photos.map((photo, index) => (
+                    <div key={index} className="relative h-96 w-full">
                       <Image
-                        src={tour.photo}
-                        alt="image"
-                        fill
-                        className="object-cover object-center"
+                        src={photo}
+                        alt={`Tour Image ${index + 1}`}
+                        layout="fill"
+                        objectFit="cover"
                       />
                     </div>
-                  </div>
+                  ))}
+                </Carousel>
+              </div>
                   <p className="mb-8 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                  <strong> Engineering Marvels: </strong>
                   The construction of pyramids required sophisticated engineering techniques that were far ahead of their time.
@@ -282,36 +289,44 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           </div>
         </div>
       </section>
-    <div className="max-w-4xl ml-5  p-6">
-      <div className="flex  mb-6">
-        <img src={tour.photo} alt={tour.title} className="w-32 h-32 rounded-full object-cover mr-6" />
-        <div>
-          <h2 className="text-2xl font-bold">{tour.title}</h2>
-          <p className="text-gray-600">Friendly and enthusiastic guide for all ages.</p>
+ <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-4/5 max-w-4xl p-6 bg-white rounded-lg shadow-md">
+        <div className="flex mb-6 justify-center">
+          <div>
+            <h2 className="text-2xl font-bold">TourGuide Details</h2>
+          </div>
         </div>
-      </div>
-      <div className="space-y-4">
-      <div className="text-gray-800">
-          <span className="font-semibold"> <img src={guide.photo} alt={guide.name} className="w-9 h-9 rounded-full object-cover mr-1 inline" /> </span>{guide.name} (Your Guide)
+        <div className="space-y-4">
+          <div className="text-gray-800 flex items-center">
+            <img src={guide.photo} alt={guide.name} className="w-9 h-9 rounded-full object-cover mr-2" />
+            <span className="font-semibold">{guide.name} (Your Guide)</span>
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold">Category: </span>{tour.category}
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold">People: </span>{bookingDetails.adults}
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold">Date: </span>{bookingDetails.date}
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold">Time: </span>{bookingDetails.time}
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold">Duration: </span>{tour.duration}
+          </div>
+          <div className="text-gray-800">
+            <span className="font-semibold"><Car className='inline mr-1' /> </span> {guide.hascar ? 'Car available' : 'No car available'}
+          </div>
         </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">Category : </span>{tour.category}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">people : </span>{bookingDetails.adults}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">date : </span>{bookingDetails.date}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">time : </span>{bookingDetails.time}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">Duration : </span>{tour.duration}
-        </div>
-        
-        <div className="text-gray-800">
-          <span className="font-semibold"><Car className='inline'/> : </span> {guide.hascar ? 'car available' : 'No car available'}
+        <div className="mt-6 flex justify-center">
+              <a
+                href="/Tourist/payment"
+                className="inline-flex items-center justify-center rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white"
+              >
+               Checkout
+              </a>
         </div>
       </div>
     </div>
