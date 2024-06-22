@@ -1,7 +1,7 @@
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import "./index.scss";
+import  './index.scss';
 const Hero = () => {
   return (
     <>
@@ -9,37 +9,27 @@ const Hero = () => {
         id="home"
         className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-        <Image
-          src={"/images/Home/Tourguides.jpg"}
-          layout="fill"
-          objectFit="cover"
-          alt="img"
-          className="h-full w-full"
-        />
-
+        <Image src={"/images/Home/Tourguides.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/>
+        
         <div className="container ">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="bg-transparent-background mx-auto max-w-[800px]  text-center">
+              <div className="mx-auto max-w-[800px] bg-transparent-background  text-center">
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                  Book Your Tour Guide
+                 Book Your Tour Guide
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-white sm:text-lg md:text-xl">
-                  The Safary application aims to revolutionize the tourism
-                  industry by connecting tourists with local tour guides in
-                  Egypt. This innovative platform will provide tourists with
-                  easy access to experienced tour guides, enabling them to
-                  explore Egypt rich cultural heritage and historical landmarks.
+                The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt. 
+                This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypt rich cultural heritage and historical landmarks.
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
                     href="#ee"
-                    className="duration-1500 rounded-full  bg-orange-500 px-8 py-4 text-base font-semibold text-white transition  ease-in-out hover:bg-orange-500/80 "
+                    className="transition duration-1500  rounded-full bg-orange-500 px-8 py-4 text-base font-semibold text-white  ease-in-out hover:bg-orange-500/80 "
                   >
-                    <span>
-                      <ArrowDown className="display: inline;" />
-                    </span>
+                    <span><ArrowDown className="display: inline;"/></span>
                   </Link>
+                 
                 </div>
               </div>
             </div>
