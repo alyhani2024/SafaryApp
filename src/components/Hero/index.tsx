@@ -17,14 +17,17 @@ const Hero = () => {
    <div className="container relative z-20 w-[80%] mx-auto">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[800px] text-center  p-8 rounded-lg">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
+              <div className="mx-auto max-w-[800px] bg-transparent-background text-center  p-8 rounded-lg">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
                   Safary for tourism in our world
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed bg-transparent-background text-dark sm:text-lg md:text-xl text-shadow-md">
+                <p className="mb-12 text-base !leading-relaxed  text-white sm:text-lg md:text-xl text-shadow-md">
                   The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt.
-                  This innovative platform will provide tourists with easy access to experienced tour guides.
+                  This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypts rich cultural heritage and historical landmarks.
                 </p>
+               
+              </div>
+              <br/>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
                     href="#features"
@@ -33,7 +36,6 @@ const Hero = () => {
                     <span><ArrowDown className="inline-block" /></span>
                   </Link>
                 </div>
-              </div>
             </div>
           </div>
         </div>
