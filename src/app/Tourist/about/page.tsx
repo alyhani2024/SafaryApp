@@ -21,6 +21,10 @@ const AboutPage = () => {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
       /> */}
       <HeroAbout/>
+      <Breadcrumb
+        pageName=" Team Of Project"
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+      />
       <TeamCard />
       <AboutSectionTwo />
     </>

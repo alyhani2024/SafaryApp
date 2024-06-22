@@ -1,4 +1,7 @@
 import { ArrowDown } from "lucide-react";
+import Image from "next/image";
+import  './index.scss';
+
 import Link from "next/link";
 const HeroAbout = () => {
   return (
@@ -7,15 +10,16 @@ const HeroAbout = () => {
         id="home"
         className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-      
+              <Image src={"/images/Home/Abouts.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/>
+
    <div className="container relative  z-30 w-[100%] mx-auto">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[1000px] text-center  p-8 rounded-lg">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
+              <div className="mx-auto max-w-[1000px] bg-transparent-background  text-center  p-8 rounded-lg">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
                   About Page 
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-dark sm:text-lg md:text-xl text-shadow-md">
+                <p className="mb-12 text-base !leading-relaxed text-white sm:text-lg md:text-xl text-shadow-md">
                   The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt.
                   This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypts rich cultural heritage and historical landmarks.
                 </p>
