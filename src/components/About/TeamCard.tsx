@@ -35,10 +35,10 @@ const TeamCard = () => {
     ];
 
     return (
-        <div className="grid gap-8 md:grid-cols-2 px-4 md:px-8">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 px-4 md:px-8">
             {teamMembers.map((member, index) => (
-                <div key={index} className="relative flex bg-clip-border rounded-xl bg-white text-gray-700 shadow-md w-full max-w-[48rem] mx-auto md:mx-4">
-                    <div className="relative w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0">
+                <div key={index} className="relative flex flex-col md:flex-row bg-clip-border rounded-xl bg-white text-gray-700 shadow-md w-full max-w-[48rem] mx-auto md:mx-4">
+                    <div className="relative w-full md:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-t-xl md:rounded-none md:rounded-l-xl shrink-0">
                         <Image
                             src={member.imgSrc}
                             alt="profile picture"
