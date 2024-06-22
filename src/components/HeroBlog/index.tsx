@@ -14,11 +14,11 @@ const Hero = () => {
         <div className="container ">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[450px] text-center">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+              <div className="mx-auto max-w-[450px] bg-transparent-background  text-center">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                  Book Your Blog
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-dark sm:text-lg md:text-xl">
+                <p className="mb-12 text-base !leading-relaxed text-white sm:text-lg md:text-xl">
                 The Safary application aims to revolutionize the tourism industry by connecting tourists with local Blogs in Egypt. 
                 This innovative platform will provide tourists with easy access to experienced Blogs
                 , Choose Your blog and Join in .
