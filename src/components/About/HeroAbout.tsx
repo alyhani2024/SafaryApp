@@ -1,37 +1,25 @@
 import { ArrowDown } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import  './index.scss';
-const Hero = () => {
+const HeroAbout = () => {
   return (
     <>
       <section
         id="home"
         className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-        <Image src={"/images/Home/Bloges.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/>
-    
-        <div className="container ">
+      
+   <div className="container relative  z-30 w-[100%] mx-auto">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[450px] text-center">
-                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                 Book Your Blog
+              <div className="mx-auto max-w-[1000px] text-center  p-8 rounded-lg">
+                <h1 className="mb-5 text-3xl font-bold leading-tight text-dark sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
+                  About Page 
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-dark sm:text-lg md:text-xl">
-                The Safary application aims to revolutionize the tourism industry by connecting tourists with local Blogs in Egypt. 
-                This innovative platform will provide tourists with easy access to experienced Blogs
-                , Choose Your blog and Join in .
+                <p className="mb-12 text-base !leading-relaxed text-dark sm:text-lg md:text-xl text-shadow-md">
+                  The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt.
+                  This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypts rich cultural heritage and historical landmarks.
                 </p>
-                <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                  <Link
-                    href="#eei"
-                    className="transition duration-1500  rounded-full bg-orange-500 px-8 py-4 text-base font-semibold text-white  ease-in-out hover:bg-orange-500/80 "
-                  >
-                    <span><ArrowDown className="display: inline;"/></span>
-                  </Link>
-                 
-                </div>
+             
               </div>
             </div>
           </div>
@@ -282,4 +270,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroAbout;
