@@ -9,12 +9,8 @@ const Hero = () => {
         id="home"
         className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-        {/* <Image src={"/images/Home/pexels-omar-elsharawy-5609738.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/> */}
-        <video autoPlay muted loop className="video-background imgHome  absolute  top-0">
-          <source
-            src="https://video.wixstatic.com/video/11062b_9de2dbff3dda403b944bb98c41cb5764/1080p/mp4/file.mp4"
-            type="video/mp4"
-          /> </video>
+        {/* <Image src={"/images/Home/Tourguide.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/> */}
+        
         <div className="container ">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
