@@ -1,6 +1,5 @@
 "use client";
 import Link from 'next/link';
-// components/TourGuideCard.tsx
 import React from 'react';
 import { Car } from 'lucide-react';
 interface TourGuideCardProps {

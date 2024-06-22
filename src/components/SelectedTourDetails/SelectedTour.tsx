@@ -1,119 +1,33 @@
-"use client"
-import React, { useEffect, useState } from 'react';
-import { Car } from 'lucide-react';
-import SharePost from '../Blog/SharePost';
-import TagButton from '../Blog/TagButton';
-import Image from 'next/image';
-const tourGuides = [
-    { 
-      id: "1",
-      name: 'John Doe', 
-      description: 'Experienced tour guide with knowledge in local history.', 
-      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-      pricePerHour: 50,
-      rate: 5,
-      reviews: 120,
-      languages: ['English', 'Arabic'],
-      hascar: true
-    },
-    { 
-      id: "2",
-      name: 'Jane Smith', 
-      description: 'Friendly and enthusiastic guide for all ages.', 
-      photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-      pricePerHour: 45,
-      rate: 4,
-      reviews: 98,
-      languages: ['English', 'French'],
-      hascar: false
-    },
-    { 
-      id: "3",
-      name: 'Michael Brown', 
-      description: 'Specializes in food and cultural tours.', 
-      photo: '/images/blog/post-03.jpg', 
-      pricePerHour: 60,
-      rate: 5,
-      reviews: 110,
-      languages: ['English', 'Spanish'],
-      hascar: true
-    },
-  ];
+import SharePost from "@/components/Blog/SharePost";
+import TagButton from "@/components/Blog/TagButton";
+import Image from "next/image";
 
-const tours = [
-  {
-    id: '1',
-    title: 'Off the Beaten Track in Cairo',
-    description: 'Connect with Ramses XII or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
-    duration: '4 hours',
-    category: 'City highlight tour',
-  },
-  {
-    id: '2',
-    title: 'Full Coverage Cairo City Tour',
-    description: 'Connect with Withlocals or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
-    duration: '5 hours',
-    category: 'City highlight tour',
-  },
-  {
-    id: '3',
-    title: 'Full Coverage Cairo City Tour',
-    description: 'Connect with Withlocals or one of other local hosts',
-    photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg',
-    duration: '5 hours',
-    category: 'City highlight tour',
-  },
-  // Add more tours here...
-];
+import { Metadata } from "next";
 
-const TourDetails = ({ TourId }: { TourId: string }) => {
-    const [guideId, setGuideId] = useState('');
+export const metadata: Metadata = {
+  title: "Blog Details Page | Free Next.js Template for Startup and SaaS",
+  description: "This is Blog Details Page for Startup Nextjs Template",
+  // other metadata
+};
 
-  useEffect(() => {
-    const storedGuideId = localStorage.getItem('guideId');
-    if (storedGuideId) {
-      setGuideId(storedGuideId);
-    }
-  }, []);
-
-    const [bookingDetails, setBookingDetails] = useState({ date: '', time: '', adults: 1 });
-
-  useEffect(() => {
-    const savedBookingDetails = localStorage.getItem('bookingDetails');
-    if (savedBookingDetails) {
-      setBookingDetails(JSON.parse(savedBookingDetails));
-    }
-  }, []);
-
-  const tour = tours.find(t => t.id === TourId);
-  const guide = tourGuides.find(t => t.id === guideId);
-
-  if (!tour || !guide) {
-    return null; // Return null if the tour is not found
-  }
-
+const SelectedTour = () => {
   return (
     <>
-          <section className="pb-[120px] pt-[150px]">
+      <section className="pb-[120px] pt-[150px]">
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-center">
             <div className="w-full px-4 lg:w-8/12">
               <div>
                 <h2 className="mb-8 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight">
-                {tour.title}
-                <p className="text-dark">Friendly and enthusiastic guide for all ages.</p>
-
+                Unraveling the Mysteries of Pyramids: Ancient Marvels of Human Ingenuity.
                 </h2>
-
                 <div className="mb-10 flex flex-wrap items-center justify-between border-b border-body-color border-opacity-10 pb-4 dark:border-white dark:border-opacity-10">
                   <div className="flex flex-wrap items-center">
                     <div className="mb-5 mr-10 flex items-center">
                       <div className="mr-4">
                         <div className="relative h-10 w-10 overflow-hidden rounded-full">
                           <Image
-                            src={guide.photo}
+                            src="/images/blog/author-02.png"
                             alt="author"
                             fill
                           />
@@ -121,7 +35,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
                       </div>
                       <div className="w-full">
                         <span className="mb-1 text-base font-medium text-body-color">
-                        By<span>{guide.name} (Your Guide)</span>
+                          By <span>Aly Hani</span>
                         </span>
                       </div>
                     </div>
@@ -144,8 +58,9 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
                             <path d="M11.4715 11.1606H10.6828C10.5394 11.1606 10.4438 11.2562 10.4438 11.3996V12.1644C10.4438 12.3078 10.5394 12.4034 10.6828 12.4034H11.4715C11.6149 12.4034 11.7105 12.3078 11.7105 12.1644V11.3996C11.7105 11.2562 11.591 11.1606 11.4715 11.1606Z" />
                             <path d="M13.2637 3.3697H7.64754V2.58105C8.19721 2.43765 8.62738 1.91189 8.62738 1.31442C8.62738 0.597464 8.02992 0 7.28906 0C6.54821 0 5.95074 0.597464 5.95074 1.31442C5.95074 1.91189 6.35702 2.41376 6.93058 2.58105V3.3697H1.31442C0.597464 3.3697 0 3.96716 0 4.68412V13.2637C0 13.9807 0.597464 14.5781 1.31442 14.5781H13.2637C13.9807 14.5781 14.5781 13.9807 14.5781 13.2637V4.68412C14.5781 3.96716 13.9807 3.3697 13.2637 3.3697ZM6.6677 1.31442C6.6677 0.979841 6.93058 0.716957 7.28906 0.716957C7.62364 0.716957 7.91042 0.979841 7.91042 1.31442C7.91042 1.649 7.64754 1.91189 7.28906 1.91189C6.95448 1.91189 6.6677 1.6251 6.6677 1.31442ZM1.31442 4.08665H13.2637C13.5983 4.08665 13.8612 4.34954 13.8612 4.68412V6.45261H0.716957V4.68412C0.716957 4.34954 0.979841 4.08665 1.31442 4.08665ZM13.2637 13.8612H1.31442C0.979841 13.8612 0.716957 13.5983 0.716957 13.2637V7.16957H13.8612V13.2637C13.8612 13.5983 13.5983 13.8612 13.2637 13.8612Z" />
                           </svg>
-                        </span>  date : {bookingDetails.date}                     
-                        </p>
+                        </span>
+                        12 Jan 2025
+                      </p>
                       <p className="mr-5 flex items-center text-base font-medium text-body-color">
                         <span className="mr-3">
                           <svg
@@ -179,10 +94,10 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
                   </div>
                   <div className="mb-5">
                     <a
-                      href="/Tourist/payment"
+                      href="#0"
                       className="inline-flex items-center justify-center rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white"
                     >
-                     Checkout
+                      Join In
                     </a>
                   </div>
                 </div>
@@ -195,7 +110,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
                   <div className="mb-10 w-full overflow-hidden rounded">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                       <Image
-                        src={tour.photo}
+                        src="/images/blog/Pyramids.jpg"
                         alt="image"
                         fill
                         className="object-cover object-center"
@@ -282,41 +197,8 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           </div>
         </div>
       </section>
-    <div className="max-w-4xl ml-5  p-6">
-      <div className="flex  mb-6">
-        <img src={tour.photo} alt={tour.title} className="w-32 h-32 rounded-full object-cover mr-6" />
-        <div>
-          <h2 className="text-2xl font-bold">{tour.title}</h2>
-          <p className="text-gray-600">Friendly and enthusiastic guide for all ages.</p>
-        </div>
-      </div>
-      <div className="space-y-4">
-      <div className="text-gray-800">
-          <span className="font-semibold"> <img src={guide.photo} alt={guide.name} className="w-9 h-9 rounded-full object-cover mr-1 inline" /> </span>{guide.name} (Your Guide)
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">Category : </span>{tour.category}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">people : </span>{bookingDetails.adults}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">date : </span>{bookingDetails.date}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">time : </span>{bookingDetails.time}
-        </div>
-        <div className="text-gray-800">
-          <span className="font-semibold">Duration : </span>{tour.duration}
-        </div>
-        
-        <div className="text-gray-800">
-          <span className="font-semibold"><Car className='inline'/> : </span> {guide.hascar ? 'car available' : 'No car available'}
-        </div>
-      </div>
-    </div>
     </>
   );
 };
 
-export default TourDetails;
+export default SelectedTour;

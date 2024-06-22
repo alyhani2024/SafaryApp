@@ -56,6 +56,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   }
   const isDisabled = date === '' || time === '';
   return (
+    
     <div className="flex flex-col md:flex-row items-start p-6 space-y-4 md:space-y-0 md:space-x-6">
       <div className="rounded-lg overflow-hidden md:w-2/3">
         <div className="flex items-center">
