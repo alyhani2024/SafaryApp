@@ -9,7 +9,6 @@ const Hero = () => {
         id="home"
         className="relative z-10 overflow-hidden   pb-16 pt-[120px]   md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
-        {/* <Image src={"/images/Home/pexels-omar-elsharawy-5609738.jpg"} width={2000} height={2000} alt="img" className="imgHome  absolute  top-0 "/> */}
         <video autoPlay muted loop className="video-background imgHome  absolute  top-0">
           <source
             src="https://video.wixstatic.com/video/11062b_9de2dbff3dda403b944bb98c41cb5764/1080p/mp4/file.mp4"
@@ -18,14 +17,17 @@ const Hero = () => {
    <div className="container relative z-20 w-[80%] mx-auto">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto max-w-[800px] text-center bg-transparent-background p-8 rounded-lg">
+              <div className="mx-auto max-w-[800px] bg-transparent-background text-center  p-8 rounded-lg">
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:text-2xl sm:leading-tight md:text-5xl md:leading-tight text-shadow-lg">
                   Safary for tourism in our world
                 </h1>
-                <p className="mb-12 text-base !leading-relaxed text-white sm:text-lg md:text-xl text-shadow-md">
+                <p className="mb-12 text-base !leading-relaxed  text-white sm:text-lg md:text-xl text-shadow-md">
                   The Safary application aims to revolutionize the tourism industry by connecting tourists with local tour guides in Egypt.
                   This innovative platform will provide tourists with easy access to experienced tour guides, enabling them to explore Egypts rich cultural heritage and historical landmarks.
                 </p>
+               
+              </div>
+              <br/>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link
                     href="#features"
@@ -34,7 +36,6 @@ const Hero = () => {
                     <span><ArrowDown className="inline-block" /></span>
                   </Link>
                 </div>
-              </div>
             </div>
           </div>
         </div>

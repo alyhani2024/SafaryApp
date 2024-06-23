@@ -21,3 +21,8 @@
     @apply min-h-full;
     @apply object-cover;
 }
+.bg-transparent-background {
+  background-color: rgba(0, 0, 0, 0.25); /* Adjust transparency as needed */
+  padding: 20px;
+  border-radius: 8px;
+}
