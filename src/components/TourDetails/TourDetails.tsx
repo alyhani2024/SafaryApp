@@ -96,7 +96,9 @@ const tours = [
 
 const TourDetails = ({ TourId }: { TourId: string }) => {
   const [guideId, setGuideId] = useState('');
-
+  const [rate, setRate] = useState<number | null>(null);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState<{name: string, photo: string, rate: number, comment: string}[]>([]);
   useEffect(() => {
     const storedGuideId = localStorage.getItem('guideId');
     if (storedGuideId) {
@@ -112,6 +114,14 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
       setBookingDetails(JSON.parse(savedBookingDetails));
     }
   }, []);
+  const handleCommentSubmit = () => {
+    if (rate !== null && comment !== '') {
+      const newComment = { name: 'Current User', photo: '/images/user.png', rate, comment };
+      setComments([...comments, newComment]);
+      setRate(null);
+      setComment('');
+    }
+  };
 
   const tour = tours.find(t => t.id === TourId);
   const guide = tourGuides.find(t => t.id === guideId);
@@ -120,7 +130,8 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
     return null; // Return null if the tour or guide is not found
   }
 
-  return (
+  return (<>
+  
     <div className="max-w-4xl mx-auto p-4 rounded-lg">
       <img
         src={tour.photo}
@@ -213,6 +224,54 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
         </div>
       </div>
     </div>
+    {/* Rating and Comment Section */}
+    <div className="mt-6 ml-7 w-1/2 rounded-lg  p-6 ">
+        <h3 className="text-xl font-semibold">Rate This Tour</h3>
+        <div className="flex space-x-2 mt-2">
+          {[1, 2, 3, 4, 5].map(star => (
+            <button
+              key={star}
+              className={`text-2xl ${rate >= star ? 'text-yellow-500' : 'text-gray-400'}`}
+              onClick={() => setRate(star)}
+            >
+              ★
+            </button>
+          ))}
+        </div>
+        {rate !== null && (
+          <div className="mt-4">
+            <textarea
+              id="comment"
+              className="w-full mt-1 p-2 border rounded-full"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <br />
+            <button
+              onClick={handleCommentSubmit}
+              className="mt-2 px-4 py-2 bg-orange-500 text-white rounded mb-5"
+            >
+              Submit
+            </button>
+          </div>
+        )}
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold">Comments</h3>
+          {comments.map((c, index) => (
+            <div key={index} className="mt-4 flex items-start space-x-4">
+              <img src={c.photo} alt={c.name} className="w-12 h-12 rounded-full object-cover" />
+              <div>
+                <h4 className="text-lg font-semibold">{c.name}</h4>
+                <div className="text-yellow-500">
+                  {'★'.repeat(c.rate)}{'☆'.repeat(5 - c.rate)}
+                </div>
+                <p className="text-gray-600">{c.comment}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

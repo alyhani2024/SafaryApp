@@ -44,6 +44,9 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   const [adults, setAdults] = useState(1);
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [rate, setRate] = useState<number | null>(null);
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState<{name: string, photo: string, rate: number, comment: string}[]>([]);
 
   useEffect(() => {
     // Save to local storage whenever inputs change
@@ -51,12 +54,21 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
     localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
   }, [date, time, adults]);
 
+  const handleCommentSubmit = () => {
+    if (rate !== null && comment !== '') {
+      const newComment = { name: 'Current User', photo: '/images/user.png', rate, comment };
+      setComments([...comments, newComment]);
+      setRate(null);
+      setComment('');
+    }
+  };
+
   if (!guide) {
     return null; // Return null if the tour or guide is not found
   }
   const isDisabled = date === '' || time === '';
   return (
-    
+    <>
     <div className="flex flex-col md:flex-row items-start p-6 space-y-4 md:space-y-0 md:space-x-6">
       <div className="rounded-lg overflow-hidden md:w-2/3">
         <div className="flex items-center">
@@ -129,12 +141,60 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
             }
           }}
         >
-          
-            
-            Book Now
+          Book Now
         </Link>
       </div>
+
+      
     </div>
+    {/* Rating and Comment Section */}
+    <div className="mt-6 w-full rounded-lg  p-6 shadow-md">
+        <h3 className="text-xl font-semibold">Rate This Tour Guide</h3>
+        <div className="flex space-x-2 mt-2">
+          {[1, 2, 3, 4, 5].map(star => (
+            <button
+              key={star}
+              className={`text-2xl ${rate >= star ? 'text-yellow-500' : 'text-gray-400'}`}
+              onClick={() => setRate(star)}
+            >
+              ★
+            </button>
+          ))}
+        </div>
+        {rate !== null && (
+          <div className="mt-4">
+            <textarea
+              id="comment"
+              className="w-1/2 mt-1 p-2 border rounded-full"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <br />
+            <button
+              onClick={handleCommentSubmit}
+              className="mt-2 px-4 py-2 bg-orange-500 text-white rounded mb-5"
+            >
+              Submit
+            </button>
+          </div>
+        )}
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold">Comments</h3>
+          {comments.map((c, index) => (
+            <div key={index} className="mt-4 flex items-start space-x-4">
+              <img src={c.photo} alt={c.name} className="w-12 h-12 rounded-full object-cover" />
+              <div>
+                <h4 className="text-lg font-semibold">{c.name}</h4>
+                <div className="text-yellow-500">
+                  {'★'.repeat(c.rate)}{'☆'.repeat(5 - c.rate)}
+                </div>
+                <p className="text-gray-600">{c.comment}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 
