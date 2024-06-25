@@ -51,3 +51,4 @@ npm i sass
 npm install lucide-react
 npm install tailwindcss postcss autoprefixer
 npm uninstall tailwindcss postcss autoprefixer
+npm install axios jwt-decode
