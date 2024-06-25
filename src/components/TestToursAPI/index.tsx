@@ -42,9 +42,7 @@ const TouristList: React.FC = () => {
             <p>Email: {tourist.email}</p>
             <p>Address: {tourist.address}</p>
             <p>Phone: {tourist.phoneNumber}</p>
-            <p>Bio: {tourist.bio}</p>
             <p>Age: {tourist.age}</p>
-            <p>Created On: {new Date(tourist.createdOn).toLocaleDateString()}</p>
             {tourist.imageUrl && <img src={tourist.imageUrl} alt={`${tourist.fullName}'s image`} />}
           </li>
         ))}

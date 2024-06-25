@@ -16,7 +16,7 @@ export interface Tourist {
   }
   
   export const fetchTourists = async (): Promise<Tourist[]> => {
-    const response = await fetch('http://safaryapi.runasp.net/api/Tourist/GetAllTourist');
+    const response = await fetch('http://safariapi.runasp.net/api/Tourist/GetAllTourist');
     if (!response.ok) {
       throw new Error(`Failed to fetch tourists: ${response.statusText}`);
     }
