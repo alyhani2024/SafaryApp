@@ -37,13 +37,22 @@ const menuData: Menu[] = [
       newTab: false,
     }
     ,
-    
+
+    {
+      id: 7 ,
+      title: "Reviews",
+      path: "/Admin/reveiws",
+      newTab: false,
+    }
+    ,
     {
       id: 6 ,
       title: "Profile",
       path: "/Admin/profile",
       newTab: false,
     }
+    ,
+  
     ,
    
       

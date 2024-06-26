@@ -18,8 +18,7 @@ function TouristTable() {
     confirmPassword: '',
     address: '',
     phoneNumber: '',
-    createdOn: '',
-    imageUrl: '',
+    imageFile: null,
     age: 0,
     bio: ''
   });
@@ -53,8 +52,7 @@ function TouristTable() {
       confirmPassword: '',
       address: '',
       phoneNumber: '',
-      createdOn: '',
-      imageUrl: '',
+      imageFile: null,
       age: 0,
       bio: ''
     });
@@ -62,7 +60,7 @@ function TouristTable() {
   };
 
   const handleEditButtonClick = (tourist) => {
-    setNewUser(tourist);
+    setNewUser({ ...tourist, imageFile: null });
     setIsEditPopupVisible(true);
   };
 
@@ -81,10 +79,16 @@ function TouristTable() {
     setNewUser({ ...newUser, [name]: value });
   };
 
+  const handleImageChange = (e) => {
+    setNewUser({ ...newUser, imageFile: e.target.files[0] });
+  };
+
   const convertToFormData = (data) => {
     const formData = new FormData();
     for (const key in data) {
-      formData.append(key, data[key]);
+      if (data[key] !== null) {
+        formData.append(key, data[key]);
+      }
     }
     return formData;
   };
@@ -228,18 +232,6 @@ function TouristTable() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={newUser.fullName}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                <div>
                   <label htmlFor="userName" className="block text-sm font-medium text-gray-700">Username</label>
                   <input
                     type="text"
@@ -287,7 +279,7 @@ function TouristTable() {
                     required
                   />
                 </div>
-                <div className="col-span-2">
+                <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
                   <input
                     type="text"
@@ -296,6 +288,7 @@ function TouristTable() {
                     value={newUser.address}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    required
                   />
                 </div>
                 <div>
@@ -311,26 +304,13 @@ function TouristTable() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="createdOn" className="block text-sm font-medium text-gray-700">Created On</label>
+                  <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Image</label>
                   <input
-                    type="datetime-local"
-                    id="createdOn"
-                    name="createdOn"
-                    value={newUser.createdOn}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL</label>
-                  <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    value={newUser.imageUrl}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    type="file"
+                    id="imageFile"
+                    name="imageFile"
+                    onChange={handleImageChange}
+                    className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                 </div>
                 <div>
@@ -342,6 +322,7 @@ function TouristTable() {
                     value={newUser.age}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    required
                   />
                 </div>
                 <div className="col-span-2">
@@ -351,50 +332,25 @@ function TouristTable() {
                     name="bio"
                     value={newUser.bio}
                     onChange={handleInputChange}
-                    rows={3}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                  ></textarea>
+                    rows={3}
+                    required
+                  />
                 </div>
               </div>
-
-              <div className="mt-6 flex justify-end">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <svg
-                      className="animate-spin h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2zm2 5.291A7.962 7.962 0 014 12H2c0 3.866 2.174 7.16 5.292 8.707l1.416-1.416z"
-                      ></path>
-                    </svg>
-                  ) : (
-                    "Save"
-                  )}
-                </button>
+              <div className="mt-4 flex justify-end">
                 <button
                   type="button"
                   onClick={() => setIsAddPopupVisible(false)}
-                  className="ml-2 inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  disabled={isLoading}
+                  className="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  {isLoading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>
@@ -433,18 +389,6 @@ function TouristTable() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={newUser.fullName}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                <div>
                   <label htmlFor="userName" className="block text-sm font-medium text-gray-700">Username</label>
                   <input
                     type="text"
@@ -492,7 +436,7 @@ function TouristTable() {
                     required
                   />
                 </div>
-                <div className="col-span-2">
+                <div>
                   <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
                   <input
                     type="text"
@@ -501,6 +445,7 @@ function TouristTable() {
                     value={newUser.address}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    required
                   />
                 </div>
                 <div>
@@ -516,26 +461,13 @@ function TouristTable() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="createdOn" className="block text-sm font-medium text-gray-700">Created On</label>
+                  <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">Image</label>
                   <input
-                    type="datetime-local"
-                    id="createdOn"
-                    name="createdOn"
-                    value={newUser.createdOn}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">Image URL</label>
-                  <input
-                    type="text"
-                    id="imageUrl"
-                    name="imageUrl"
-                    value={newUser.imageUrl}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    type="file"
+                    id="imageFile"
+                    name="imageFile"
+                    onChange={handleImageChange}
+                    className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                 </div>
                 <div>
@@ -547,6 +479,7 @@ function TouristTable() {
                     value={newUser.age}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                    required
                   />
                 </div>
                 <div className="col-span-2">
@@ -556,50 +489,25 @@ function TouristTable() {
                     name="bio"
                     value={newUser.bio}
                     onChange={handleInputChange}
-                    rows={3}
                     className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                  ></textarea>
+                    rows={3}
+                    required
+                  />
                 </div>
               </div>
-
-              <div className="mt-6 flex justify-end">
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <svg
-                      className="animate-spin h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C6.477 0 2 4.477 2 10h2zm2 5.291A7.962 7.962 0 014 12H2c0 3.866 2.174 7.16 5.292 8.707l1.416-1.416z"
-                      ></path>
-                    </svg>
-                  ) : (
-                    "Save"
-                  )}
-                </button>
+              <div className="mt-4 flex justify-end">
                 <button
                   type="button"
                   onClick={() => setIsEditPopupVisible(false)}
-                  className="ml-2 inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  disabled={isLoading}
+                  className="mr-4 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  {isLoading ? "Saving..." : "Save"}
                 </button>
               </div>
             </form>
