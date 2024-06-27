@@ -40,7 +40,7 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
           <p className="text-gray-700 dark:text-gray-300 text-base">{description}</p>
         </div>
         <div className="mt-4">
-          <span className="text-yellow-500">{'★'.repeat(rate)}{'☆'.repeat(5 - rate)}</span>
+          <span className="text-yellow-500">{'★'.repeat(rate)}{'☆'.repeat(5 - rate)}</span> 
           <span className="text-gray-600 dark:text-gray-400 ml-2">({reviews} reviews)</span>
           <span className="text-gray-600 dark:text-gray-400 ml-2">{hascar && <Car className='inline'/>}</span>
         </div>
