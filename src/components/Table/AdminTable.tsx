@@ -79,21 +79,48 @@ function UserTable() {
   };
 
   const handleSave = () => {
+    const formData = new FormData();
+    formData.append("firstName", newUser.firstName);
+    formData.append("lastName", newUser.lastName);
+    formData.append("userName", newUser.userName);
+    formData.append("email", newUser.email);
+    formData.append("address", newUser.address);
+    formData.append("phoneNumber", newUser.phoneNumber);
+    formData.append("password", newUser.password);
+    formData.append("confirmPassword", newUser.confirmPassword);
+
     axios
-      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", {
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        userName: newUser.userName,
-        email: newUser.email,
-        address: newUser.address,
-        phoneNumber: newUser.phoneNumber,
-        password: newUser.password,
-        confirmPassword: newUser.confirmPassword,
+      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((response) => {
         console.log("User added successfully!", response.data);
         fetchData(); // Refresh data after adding user
         setIsPopupVisible(false); // Close popup after adding user
+        setNewUser({
+          isDeleted: false,
+          createdOn: "",
+          adminAccepted: false,
+          cvUrl: null,
+          imageUrl: null,
+          description: null,
+          rate: 0,
+          hourPrice: 0,
+          age: 0,
+          bio: null,
+          languageSpoken: [],
+          firstName: "",
+          lastName: "",
+          fullName: "",
+          userName: "",
+          email: "",
+          address: "",
+          phoneNumber: "",
+          password: "",
+          confirmPassword: "",
+        }); // Clear the form
       })
       .catch((error) => {
         console.error("Error adding user:", error.response.data);
@@ -170,19 +197,19 @@ function UserTable() {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  "Email",
-                  "Address",
-                  "FullName",
-                  "LastName",
-                  "Password",
-                  "UserName",
-                  "FirstName",
-                  "PhoneNumber",
-                  "ConfirmPassword",
+                  "email",
+                  "address",
+                  "fullName",
+                  "lastName",
+                  "password",
+                  "userName",
+                  "firstName",
+                  "phoneNumber",
+                  "confirmPassword",
                 ].map((key, index) => (
                   <input
                     key={index}
-                    type={key.includes("Password") ? "password" : "text"}
+                    type={key.includes("password") ? "password" : "text"}
                     placeholder={key
                       .replace(/([A-Z])/g, " $1")
                       .toLowerCase()

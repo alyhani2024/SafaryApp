@@ -9,7 +9,7 @@ function TourguideReviewsTable() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [newReview, setNewReview] = useState({ comment: '', rating: '', tourguideId: '' });
+  const [newReview, setNewReview] = useState({ comment: '', rating: '', tourGuideId: '' });
 
   useEffect(() => {
     fetchReviews();
@@ -29,7 +29,7 @@ function TourguideReviewsTable() {
   };
 
   const handleAddButtonClick = () => {
-    setNewReview({ comment: '', rating: '', tourguideId: '' });
+    setNewReview({ comment: '', rating: '', tourGuideId: '' });
     setIsPopupVisible(true);
   };
 
@@ -151,7 +151,7 @@ function TourguideReviewsTable() {
                       {renderStars(review.rating)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                      {review.tourguideId}
+                      {review.tourGuideId}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
                       {review.createdOn ? new Date(review.createdOn).toLocaleString() : '-'}
@@ -205,9 +205,9 @@ function TourguideReviewsTable() {
             <div className="mb-4">
               <input
                 type="text"
-                name="tourguideId"
+                name="tourGuideId"
                 placeholder="Tourguide ID"
-                value={newReview.tourguideId}
+                value={newReview.tourGuideId}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
