@@ -1,19 +1,28 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const initialData = [
-  { id: 1, name: 'John Brown', age: 45, address: 'New York No. 1 Lake Park' },
-  { id: 2, name: 'Jim Green', age: 27, address: 'London No. 1 Lake Park' },
-  { id: 3, name: 'Joe Black', age: 31, address: 'Sidney No. 1 Lake Park' },
-  { id: 4, name: 'Edward King', age: 16, address: 'LA No. 1 Lake Park' },
-  { id: 5, name: 'Jim Red', age: 45, address: 'Melbourne No. 1 Lake Park' },
-];
+const API_URL = "http://safaryapi.runasp.net/api/Reviews/TourReviews";
+const DELETE_URL = "http://safaryapi.runasp.net/api/Reviews/TourReviews/";
 
-function ReveiwsTable() {
-  const [data, setData] = useState(initialData);
+function TourReviewsTable() {
+  const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [newUser, setNewUser] = useState({ name: '', age: '', address: '' });
+  const [newReview, setNewReview] = useState({ comment: '', rating: '', tourName: '' });
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setData(response.data);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -25,13 +34,40 @@ function ReveiwsTable() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: value });
+    setNewReview({ ...newReview, [name]: value });
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${DELETE_URL}${id}`);
+      fetchReviews();  // Refresh the data after deleting a review
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
 
-  const filteredData = data.filter(user =>
-    user.name.toLowerCase().includes(search.toLowerCase())
+  const handleSave = async () => {
+    try {
+      await axios.post(API_URL, newReview);
+      setIsPopupVisible(false);
+      fetchReviews();  // Refresh the data after adding a new review
+    } catch (error) {
+      console.error('Error adding review:', error);
+    }
+  };
+
+  const filteredData = data.filter(review =>
+    review.comment.toLowerCase().includes(search.toLowerCase())
   );
+
+  const renderStars = (rating) => {
+    if (rating === 0) {
+      return '☆☆☆☆☆';
+    }
+    const filledStars = '★'.repeat(rating);
+    const emptyStars = '☆'.repeat(5 - rating);
+    return filledStars + emptyStars;
+  };
 
   return (
     <div className="flex flex-col">
@@ -70,13 +106,22 @@ function ReveiwsTable() {
                     </div>
                   </th>
                   <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Name
+                    Comment
                   </th>
                   <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Age
+                    Rating
                   </th>
                   <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                    Address
+                    Tour Name
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                    Created On
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                    Last Updated On
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                    Is Deleted
                   </th>
                   <th className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                     Action
@@ -84,39 +129,43 @@ function ReveiwsTable() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                {filteredData.map((user) => (
-                  <tr key={user.id}>
+                {filteredData.map((review) => (
+                  <tr key={review.id}>
                     <td className="py-3 ps-4">
                       <div className="flex items-center h-5">
                         <input
-                          id={`hs-table-checkbox-${user.id}`}
+                          id={`hs-table-checkbox-${review.id}`}
                           type="checkbox"
                           className="border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
                         />
-                        <label htmlFor={`hs-table-checkbox-${user.id}`} className="sr-only">
+                        <label htmlFor={`hs-table-checkbox-${review.id}`} className="sr-only">
                           Checkbox
                         </label>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                      {user.name}
+                      {review.comment}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                      {user.age}
+                      {renderStars(review.rating)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                      {user.address}
+                      {review.tourName}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                      {review.createdOn ? new Date(review.createdOn).toLocaleString() : '-'}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                      {review.lastUpdatedOn ? new Date(review.lastUpdatedOn).toLocaleString() : '-'}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                      {review.isDeleted ? 'Yes' : 'No'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                       <button
                         type="button"
-                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 mx-2"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400 mx-2"
+                        onClick={() => handleDelete(review.id)}
+                        className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400 mx-2"
                       >
                         Delete
                       </button>
@@ -131,23 +180,23 @@ function ReveiwsTable() {
       {isPopupVisible && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg z-60">
-            <h2 className="text-lg font-semibold mb-4">Add New User</h2>
+            <h2 className="text-lg font-semibold mb-4">Add New Review</h2>
             <div className="mb-2">
               <input
                 type="text"
-                name="name"
-                placeholder="Name"
-                value={newUser.name}
+                name="comment"
+                placeholder="Comment"
+                value={newReview.comment}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
             </div>
             <div className="mb-2">
               <input
-                type="text"
-                name="age"
-                placeholder="Age"
-                value={newUser.age}
+                type="number"
+                name="rating"
+                placeholder="Rating (1-5)"
+                value={newReview.rating}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
@@ -155,9 +204,9 @@ function ReveiwsTable() {
             <div className="mb-4">
               <input
                 type="text"
-                name="address"
-                placeholder="Address"
-                value={newUser.address}
+                name="tourName"
+                placeholder="Tour Name"
+                value={newReview.tourName}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
@@ -172,6 +221,7 @@ function ReveiwsTable() {
               </button>
               <button
                 type="button"
+                onClick={handleSave}
                 className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-orange-600 hover:text-orange-800 dark:text-orange-500 dark:hover:text-orange-400 m-1"
               >
                 Save
@@ -184,4 +234,4 @@ function ReveiwsTable() {
   );
 }
 
-export default ReveiwsTable;
+export default TourReviewsTable;
