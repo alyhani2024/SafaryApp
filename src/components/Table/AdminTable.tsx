@@ -1,34 +1,32 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function UserTable() {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newUser, setNewUser] = useState({
-    id: null,
     isDeleted: false,
-    createdOn: '',
+    createdOn: "",
     adminAccepted: false,
-    cvUrl: '',
-    imageUrl: '',
-    description: '',
+    cvUrl: null,
+    imageUrl: null,
+    description: null,
     rate: 0,
-    dayPrice: 0,
     hourPrice: 0,
     age: 0,
-    bio: '',
+    bio: null,
     languageSpoken: [],
-    firstName: '',
-    lastName: '',
-    fullName: '',
-    userName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    address: '',
-    phoneNumber: ''
+    firstName: "",
+    lastName: "",
+    fullName: "",
+    userName: "",
+    email: "",
+    address: "",
+    phoneNumber: "",
+    password: "",
+    confirmPassword: "",
   });
 
   useEffect(() => {
@@ -36,8 +34,9 @@ function UserTable() {
   }, []);
 
   const fetchData = () => {
-    axios.get('http://safaryapi.runasp.net/api/Account/GetAllUsers')
-      .then(response => {
+    axios
+      .get("http://safaryapi.runasp.net/api/Account/GetAllUsers")
+      .then((response) => {
         const users = response.data.map((user, index) => ({
           id: index + 1,
           isDeleted: user.isDeleted,
@@ -47,7 +46,6 @@ function UserTable() {
           imageUrl: user.imageUrl,
           description: user.description,
           rate: user.rate,
-          dayPrice: user.dayPrice,
           hourPrice: user.hourPrice,
           age: user.age,
           bio: user.bio,
@@ -57,14 +55,12 @@ function UserTable() {
           fullName: user.fullName,
           userName: user.userName,
           email: user.email,
-          password: user.password,
-          confirmPassword: user.confirmPassword,
           address: user.address,
-          phoneNumber: user.phoneNumber
+          phoneNumber: user.phoneNumber,
         }));
         setData(users);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching data:", error);
       });
   };
@@ -74,35 +70,6 @@ function UserTable() {
   };
 
   const handleAddButtonClick = () => {
-    setNewUser({
-      id: null,
-      isDeleted: false,
-      createdOn: '',
-      adminAccepted: false,
-      cvUrl: '',
-      imageUrl: '',
-      description: '',
-      rate: 0,
-      dayPrice: 0,
-      hourPrice: 0,
-      age: 0,
-      bio: '',
-      languageSpoken: [],
-      firstName: '',
-      lastName: '',
-      fullName: '',
-      userName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      address: '',
-      phoneNumber: ''
-    });
-    setIsPopupVisible(true);
-  };
-
-  const handleEditButtonClick = (user) => {
-    setNewUser(user);
     setIsPopupVisible(true);
   };
 
@@ -112,123 +79,81 @@ function UserTable() {
   };
 
   const handleSave = () => {
-    if (newUser.id === null) {
-      // Simulate adding new user to the list
-      setData([...data, { ...newUser, id: data.length + 1 }]);
-    } else {
-      // Simulate updating existing user
-      setData(data.map(user => (user.id === newUser.id ? newUser : user)));
-    }
-    setIsPopupVisible(false);
+    axios
+      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        userName: newUser.userName,
+        email: newUser.email,
+        address: newUser.address,
+        phoneNumber: newUser.phoneNumber,
+        password: newUser.password,
+        confirmPassword: newUser.confirmPassword,
+      })
+      .then((response) => {
+        console.log("User added successfully!", response.data);
+        fetchData(); // Refresh data after adding user
+        setIsPopupVisible(false); // Close popup after adding user
+      })
+      .catch((error) => {
+        console.error("Error adding user:", error.response.data);
+        // Handle specific field errors here
+        // Example: you can display error messages related to specific fields
+      });
   };
 
-  const handleAdminRegistration = () => {
-    axios.post('http://safaryapi.runasp.net/api/Account/Register-As-Admin', {
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      fullName: `${newUser.firstName} ${newUser.lastName}`,
-      password: newUser.password,
-      confirmPassword: newUser.confirmPassword,
-      email: newUser.email,
-      phoneNumber: newUser.phoneNumber,
-      address: newUser.address
-    })
-    .then(response => {
-      console.log('Admin registered successfully!', response.data);
-      fetchData(); // Refresh data after registration
-      setIsPopupVisible(false); // Close popup after registration
-    })
-    .catch(error => {
-      console.error('Error registering admin:', error);
-    });
-  };
-
-  const filteredData = data.filter(user =>
-    `${user.firstName} ${user.lastName}`.toLowerCase().includes(search.toLowerCase())
+  const filteredData = data.filter(
+    (user) =>
+      `${user.firstName} ${user.lastName}`
+        .toLowerCase()
+        .includes(search.toLowerCase())
   );
 
   return (
     <div className="flex flex-col">
       <div className="-m-1.5 overflow-x-auto">
-        <div className="p-1.5 min-w-full inline-block align-middle">
-          <div className="border rounded-lg overflow-hidden dark:border-neutral-700">
-            <div className="p-4 flex justify-between items-center">
+        <div className="inline-block min-w-full p-1.5 align-middle">
+          <div className="overflow-hidden rounded-lg border">
+            <div className="flex items-center justify-between p-4">
               <input
                 type="text"
                 placeholder="Search..."
                 value={search}
                 onChange={handleSearch}
-                className="border rounded px-2 py-1"
+                className="rounded border px-2 py-1"
               />
               <button
                 type="button"
                 onClick={handleAddButtonClick}
-                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400 m-1"
+                className="m-1 inline-flex items-center gap-x-2 rounded-lg border border-transparent text-sm font-semibold text-blue-600 hover:text-blue-800"
               >
                 Add
               </button>
             </div>
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-              <thead className="bg-gray-50 dark:bg-neutral-700">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">ID</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Is Deleted</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Created On</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Admin Accepted</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">CV URL</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Image URL</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Description</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Rate</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Day Price</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Hour Price</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Age</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Bio</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Language Spoken</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">First Name</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Last Name</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Full Name</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Username</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Email</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Password</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Confirm Password</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Address</th>
-                  <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Phone Number</th>
-                  <th className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
+                  {Object.keys(filteredData[0] || {}).map((key, index) => (
+                    <th
+                      key={index}
+                      className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500"
+                    >
+                      {key}
+                    </th>
+                  ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                {filteredData.map((user) => (
-                  <tr key={user.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{user.id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.isDeleted.toString()}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{new Date(user.createdOn).toLocaleString()}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.adminAccepted.toString()}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.cvUrl}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.imageUrl}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.description}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.rate}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.dayPrice}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.hourPrice}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.age}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.bio}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.languageSpoken.join(', ')}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.firstName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.lastName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.fullName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.userName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.password}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.confirmPassword}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.address}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.phoneNumber}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
-                      <button
-                        onClick={() => handleEditButtonClick(user)}
-                        className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-600"
+              <tbody className="divide-y divide-gray-200">
+                {filteredData.map((user, index) => (
+                  <tr key={index}>
+                    {Object.keys(user).map((key, index) => (
+                      <td
+                        key={index}
+                        className="whitespace-nowrap px-6 py-4 text-sm text-gray-800"
                       >
-                        Edit
-                      </button>
-                    </td>
+                        {user[key]}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
@@ -237,81 +162,51 @@ function UserTable() {
         </div>
       </div>
 
-      {/* Popup for adding/editing user or admin */}
+      {/* Add User Popup */}
       {isPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <div className="mb-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={newUser.firstName}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={newUser.lastName}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="password"
-                placeholder="Password"
-                value={newUser.password}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={newUser.confirmPassword}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={newUser.email}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={newUser.phoneNumber}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <textarea
-                name="address"
-                placeholder="Address"
-                value={newUser.address}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-            </div>
-            <div className="flex justify-end">
+        <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-white bg-opacity-50">
+          <div className="w-full max-w-lg rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="mb-4 text-lg font-semibold">Add User</h2>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  "Email",
+                  "Address",
+                  "FullName",
+                  "LastName",
+                  "Password",
+                  "UserName",
+                  "FirstName",
+                  "PhoneNumber",
+                  "ConfirmPassword",
+                ].map((key, index) => (
+                  <input
+                    key={index}
+                    type={key.includes("Password") ? "password" : "text"}
+                    placeholder={key
+                      .replace(/([A-Z])/g, " $1")
+                      .toLowerCase()
+                      .replace(/^./, function (str) {
+                        return str.toUpperCase();
+                      })}
+                    name={key}
+                    value={newUser[key]}
+                    onChange={handleInputChange}
+                    className="w-full rounded border px-3 py-2"
+                  />
+                ))}
+              </div>
               <button
-                type="button"
-                onClick={() => setIsPopupVisible(false)}
-                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-gray-600 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-400 m-1"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={handleAdminRegistration}
-                className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-orange-600 hover:text-orange-800 dark:text-orange-500 dark:hover:text-orange-400 m-1"
+                onClick={handleSave}
+                className="rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
               >
                 Save
+              </button>
+              <button
+                onClick={() => setIsPopupVisible(false)}
+                className="rounded-lg bg-gray-300 px-4 py-2 font-semibold text-gray-800 hover:bg-gray-400"
+              >
+                Cancel
               </button>
             </div>
           </div>
