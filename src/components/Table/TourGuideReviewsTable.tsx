@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const API_URL = "http://safaryapi.runasp.net/api/Reviews/TourGuideReviews";
-const DELETE_URL = "http://safaryapi.runasp.net/api/Reviews/TourGuideReviews/";
+const TOGGLE_STATUS_URL = "http://safaryapi.runasp.net/api/Reviews/GuideToggleStatus/";
 
 function TourguideReviewsTable() {
   const [data, setData] = useState([]);
@@ -29,6 +29,7 @@ function TourguideReviewsTable() {
   };
 
   const handleAddButtonClick = () => {
+    setNewReview({ comment: '', rating: '', tourguideId: '' });
     setIsPopupVisible(true);
   };
 
@@ -37,22 +38,22 @@ function TourguideReviewsTable() {
     setNewReview({ ...newReview, [name]: value });
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${DELETE_URL}${id}`);
-      fetchReviews();  // Refresh the data after deleting a review
-    } catch (error) {
-      console.error('Error deleting review:', error);
-    }
-  };
-
   const handleSave = async () => {
     try {
       await axios.post(API_URL, newReview);
       setIsPopupVisible(false);
-      fetchReviews();  // Refresh the data after adding a new review
+      fetchReviews(); // Refresh the data after adding a new review
     } catch (error) {
       console.error('Error adding review:', error);
+    }
+  };
+
+  const handleToggleDelete = async (id) => {
+    try {
+      await axios.post(`${TOGGLE_STATUS_URL}${id}`);
+      fetchReviews(); // Refresh the data after toggling the delete status
+    } catch (error) {
+      console.error('Error toggling delete status:', error);
     }
   };
 
@@ -164,10 +165,10 @@ function TourguideReviewsTable() {
                     <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                       <button
                         type="button"
-                        onClick={() => handleDelete(review.id)}
+                        onClick={() => handleToggleDelete(review.id)}
                         className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400 mx-2"
                       >
-                        Delete
+                        {review.isDeleted ? 'Restore' : 'Delete'}
                       </button>
                     </td>
                   </tr>
