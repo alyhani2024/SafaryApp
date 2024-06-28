@@ -1,5 +1,5 @@
-"use client";
-import { useState, useEffect } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function UserTable() {
@@ -32,7 +32,11 @@ function UserTable() {
   });
 
   useEffect(() => {
-    axios.get('http://safariapi.runasp.net/api/Account/GetAllUsers')
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios.get('http://safaryapi.runasp.net/api/Account/GetAllUsers')
       .then(response => {
         const users = response.data.map((user, index) => ({
           id: index + 1,
@@ -61,9 +65,9 @@ function UserTable() {
         setData(users);
       })
       .catch(error => {
-        console.error("There was an error fetching the data!", error);
+        console.error("Error fetching data:", error);
       });
-  }, []);
+  };
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -104,16 +108,39 @@ function UserTable() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: name === 'age' || name === 'rate' || name === 'dayPrice' || name === 'hourPrice' ? parseInt(value, 10) : value });
+    setNewUser({ ...newUser, [name]: value });
   };
 
   const handleSave = () => {
     if (newUser.id === null) {
+      // Simulate adding new user to the list
       setData([...data, { ...newUser, id: data.length + 1 }]);
     } else {
+      // Simulate updating existing user
       setData(data.map(user => (user.id === newUser.id ? newUser : user)));
     }
     setIsPopupVisible(false);
+  };
+
+  const handleAdminRegistration = () => {
+    axios.post('http://safaryapi.runasp.net/api/Account/Register-As-Admin', {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      fullName: `${newUser.firstName} ${newUser.lastName}`,
+      password: newUser.password,
+      confirmPassword: newUser.confirmPassword,
+      email: newUser.email,
+      phoneNumber: newUser.phoneNumber,
+      address: newUser.address
+    })
+    .then(response => {
+      console.log('Admin registered successfully!', response.data);
+      fetchData(); // Refresh data after registration
+      setIsPopupVisible(false); // Close popup after registration
+    })
+    .catch(error => {
+      console.error('Error registering admin:', error);
+    });
   };
 
   const filteredData = data.filter(user =>
@@ -176,29 +203,28 @@ function UserTable() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.isDeleted.toString()}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{new Date(user.createdOn).toLocaleString()}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.adminAccepted.toString()}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.cvUrl || 'N/A'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.imageUrl || 'N/A'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.description || 'N/A'}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.cvUrl}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.imageUrl}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.description}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.rate}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.dayPrice}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.hourPrice}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.age}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.bio || 'N/A'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.languageSpoken.join(', ') || 'N/A'}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.bio}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.languageSpoken.join(', ')}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.firstName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.lastName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.fullName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.userName}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.email}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.password || 'N/A'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.confirmPassword || 'N/A'}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.password}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.confirmPassword}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.address}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.phoneNumber}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-end">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
                       <button
-                        type="button"
                         onClick={() => handleEditButtonClick(user)}
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-400"
+                        className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-600"
                       >
                         Edit
                       </button>
@@ -211,8 +237,9 @@ function UserTable() {
         </div>
       </div>
 
+      {/* Popup for adding/editing user or admin */}
       {isPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <div className="mb-4">
               <input
@@ -231,13 +258,19 @@ function UserTable() {
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
-            </div>
-            <div className="mb-4">
               <input
                 type="text"
-                name="userName"
-                placeholder="Username"
-                value={newUser.userName}
+                name="password"
+                placeholder="Password"
+                value={newUser.password}
+                onChange={handleInputChange}
+                className="border rounded px-2 py-1 m-1"
+              />
+              <input
+                type="text"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={newUser.confirmPassword}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
@@ -249,16 +282,6 @@ function UserTable() {
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
-            </div>
-            <div className="mb-4">
-              <input
-                type="number"
-                name="age"
-                placeholder="Age"
-                value={newUser.age}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
               <input
                 type="text"
                 name="phoneNumber"
@@ -267,101 +290,10 @@ function UserTable() {
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
+              <textarea
                 name="address"
                 placeholder="Address"
                 value={newUser.address}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="bio"
-                placeholder="Bio"
-                value={newUser.bio}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                name="languageSpoken"
-                placeholder="Languages Spoken"
-                value={newUser.languageSpoken.join(', ')}
-                onChange={(e) => handleInputChange({ target: { name: 'languageSpoken', value: e.target.value.split(', ') } })}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="cvUrl"
-                placeholder="CV URL"
-                value={newUser.cvUrl}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="text"
-                name="imageUrl"
-                placeholder="Image URL"
-                value={newUser.imageUrl}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="text"
-                name="description"
-                placeholder="Description"
-                value={newUser.description}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="number"
-                name="rate"
-                placeholder="Rate"
-                value={newUser.rate}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="number"
-                name="dayPrice"
-                placeholder="Day Price"
-                value={newUser.dayPrice}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-            </div>
-            <div className="mb-4">
-              <input
-                type="number"
-                name="hourPrice"
-                placeholder="Hour Price"
-                value={newUser.hourPrice}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={newUser.password}
-                onChange={handleInputChange}
-                className="border rounded px-2 py-1 m-1"
-              />
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={newUser.confirmPassword}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
               />
@@ -376,7 +308,7 @@ function UserTable() {
               </button>
               <button
                 type="button"
-                onClick={handleSave}
+                onClick={handleAdminRegistration}
                 className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-orange-600 hover:text-orange-800 dark:text-orange-500 dark:hover:text-orange-400 m-1"
               >
                 Save
