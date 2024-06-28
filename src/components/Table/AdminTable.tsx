@@ -7,26 +7,16 @@ function UserTable() {
   const [search, setSearch] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [newUser, setNewUser] = useState({
-    isDeleted: false,
-    createdOn: "",
-    adminAccepted: false,
-    cvUrl: null,
-    imageUrl: null,
-    description: null,
-    rate: 0,
-    hourPrice: 0,
-    age: 0,
-    bio: null,
-    languageSpoken: [],
     firstName: "",
     lastName: "",
     fullName: "",
     userName: "",
     email: "",
-    address: "",
-    phoneNumber: "",
     password: "",
     confirmPassword: "",
+    address: "",
+    phoneNumber: "",
+    image: null,
   });
 
   useEffect(() => {
@@ -35,28 +25,13 @@ function UserTable() {
 
   const fetchData = () => {
     axios
-      .get("http://safaryapi.runasp.net/api/Account/GetAllUsers")
+      .get("http://safaryapi.runasp.net/api/Admin")
       .then((response) => {
         const users = response.data.map((user, index) => ({
-          id: index + 1,
-          isDeleted: user.isDeleted,
-          createdOn: user.createdOn,
-          adminAccepted: user.adminAccepted,
-          cvUrl: user.cvUrl,
-          imageUrl: user.imageUrl,
-          description: user.description,
-          rate: user.rate,
-          hourPrice: user.hourPrice,
-          age: user.age,
-          bio: user.bio,
-          languageSpoken: user.languageSpoken,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          id: user.id,
+          isDeleted: user.isDeleted ? "Yes":"No" ,
           fullName: user.fullName,
-          userName: user.userName,
           email: user.email,
-          address: user.address,
-          phoneNumber: user.phoneNumber,
         }));
         setData(users);
       })
@@ -79,48 +54,22 @@ function UserTable() {
   };
 
   const handleSave = () => {
-    const formData = new FormData();
-    formData.append("firstName", newUser.firstName);
-    formData.append("lastName", newUser.lastName);
-    formData.append("userName", newUser.userName);
-    formData.append("email", newUser.email);
-    formData.append("address", newUser.address);
-    formData.append("phoneNumber", newUser.phoneNumber);
-    formData.append("password", newUser.password);
-    formData.append("confirmPassword", newUser.confirmPassword);
-
     axios
-      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", {
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        fullName: newUser.fullName,
+        userName: newUser.userName,
+        email: newUser.email,
+        address: newUser.address,
+        phoneNumber: newUser.phoneNumber,
+        password: newUser.password,
+        confirmPassword: newUser.confirmPassword,
       })
       .then((response) => {
         console.log("User added successfully!", response.data);
         fetchData(); // Refresh data after adding user
         setIsPopupVisible(false); // Close popup after adding user
-        setNewUser({
-          isDeleted: false,
-          createdOn: "",
-          adminAccepted: false,
-          cvUrl: null,
-          imageUrl: null,
-          description: null,
-          rate: 0,
-          hourPrice: 0,
-          age: 0,
-          bio: null,
-          languageSpoken: [],
-          firstName: "",
-          lastName: "",
-          fullName: "",
-          userName: "",
-          email: "",
-          address: "",
-          phoneNumber: "",
-          password: "",
-          confirmPassword: "",
-        }); // Clear the form
       })
       .catch((error) => {
         console.error("Error adding user:", error.response.data);
@@ -129,11 +78,20 @@ function UserTable() {
       });
   };
 
-  const filteredData = data.filter(
-    (user) =>
-      `${user.firstName} ${user.lastName}`
-        .toLowerCase()
-        .includes(search.toLowerCase())
+  const handleDelete = (userId) => {
+    axios
+      .delete(`http://safaryapi.runasp.net/api/Admin/${userId}`)
+      .then(() => {
+        console.log("User deleted successfully!");
+        fetchData(); // Refresh data after deleting user
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
+  };
+
+  const filteredData = data.filter((user) =>
+    `${user.fullName}`.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -168,6 +126,9 @@ function UserTable() {
                       {key}
                     </th>
                   ))}
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -181,6 +142,14 @@ function UserTable() {
                         {user[key]}
                       </td>
                     ))}
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      <button
+                        onClick={() => handleDelete(user.id)}
+                        className="rounded bg-red-500 px-2 py-1 text-white hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
