@@ -13,6 +13,14 @@ const menuData: Menu[] = [
       path: "/Admin/blog",
       newTab: false,
     },
+
+    {
+      id: 8 ,
+      title: "TourBlogs",
+      path: "/Admin/blogtour",
+      newTab: false,
+    }
+    ,
     {
       id: 3,
       title: "Tours",
@@ -36,6 +44,7 @@ const menuData: Menu[] = [
       path: "/Admin/tourgiude",
       newTab: false,
     }
+
     ,
 
     {
