@@ -54,15 +54,10 @@ const menuData: Menu[] = [
       newTab: false,
     }
     ,
-    {
-      id: 6 ,
-      title: "Profile",
-      path: "/Admin/profile",
-      newTab: false,
-    }
-    ,
   
-    ,
+    
+  
+    
    
       
   ];
