@@ -5,6 +5,7 @@ import axios from 'axios';
 const API_URL = "http://safaryapi.runasp.net/api/Blog/GetAll";
 const PUT_URL = "http://safaryapi.runasp.net/api/Blog/";
 const POST_URL = "http://safaryapi.runasp.net/api/Blog/";
+const TOGGLE_STATUS_API = "http://safaryapi.runasp.net/api/Blog/ToggleStatus/";
 
 function BlogTable() {
   const [data, setData] = useState([]);
@@ -47,7 +48,7 @@ function BlogTable() {
   const handleSaveBlog = async () => {
     try {
       if (newBlog.id) {
-        await axios.put(`${PUT_URL}/${newBlog.id}`, newBlog);
+        await axios.put(`${PUT_URL}${newBlog.id}`, newBlog);
       } else {
         await axios.post(POST_URL, newBlog);
       }
@@ -58,12 +59,12 @@ function BlogTable() {
     }
   };
 
-  const handleDeleteBlog = async (blogId) => {
+  const handleToggleDelete = async (id) => {
     try {
-      // Implement delete logic here
-      console.log('Delete blog with ID:', blogId);
+      await axios.post(`${TOGGLE_STATUS_API}${id}`);
+      fetchBlogs();
     } catch (error) {
-      console.error('Error deleting blog:', error);
+      console.error('Error toggling delete status:', error);
     }
   };
 
@@ -195,10 +196,10 @@ function BlogTable() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleDeleteBlog(blog.id)}
+                        onClick={() => handleToggleDelete(blog.id)}
                         className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400 mx-2"
                       >
-                        Delete
+                        {blog.isDeleted ? 'Restore' : 'Delete'}
                       </button>
                     </td>
                   </tr>
