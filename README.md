@@ -54,4 +54,6 @@ npm uninstall tailwindcss postcss autoprefixer
 npm install axios jwt-decode
 npm install axios
 npm install @types/axios
+npm install select-react
+
 
