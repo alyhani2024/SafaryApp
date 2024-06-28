@@ -2,7 +2,7 @@ import Breadcrumb from '@/components/Common/Breadcrumb'
 import ScrollUp from '@/components/Common/ScrollUp'
 import ProductsPage from '@/components/Table/NewTable'
 import UserApiTable from '@/components/Table/UserApi'
-import UserTable from '@/components/Table/UserTable'
+import UserTable from '@/components/Table/AdminTable'
 import TodoComponent from '@/components/todo/TodoBlog'
 import React from 'react'
 
