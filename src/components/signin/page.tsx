@@ -1,36 +1,188 @@
-"use client"
-import Link from "next/link";
+"use client";
 import { useState } from "react";
+import axios from "axios";
+import Link from "next/link";
 import SignupPage from "../signup/page";
-const SigninPage = () => {
+import { useRouter } from "next/navigation";
 
+const SigninPage = () => {
   const [showSignUp, setShowSignUp] = useState(false);
-  const [userRole, setUserRole] = useState('tourist'); // Default role is tourist
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleSignInClick = () => {
     setShowSignUp(true);
   };
 
-  const handleRoleChange = (e) => {
-    setUserRole(e.target.value);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://safaryapi.runasp.net/api/Account/Login", {
+        email,
+        password,
+      });
+
+      const data = response.data;
+
+      if (data.isAuthenticated) {
+        const role = data.roles[0];
+        if (role === "TourGuide") {
+          router.push("/TourGuide");
+        } else if (role === "User") {
+          router.push("/Tourist");
+        } else if (role === "Admin") {
+          router.push("/Admin");
+        } else {
+          setError("Unknown role");
+        }
+      } else {
+        setError("Authentication failed");
+      }
+    } catch (err) {
+      setError("Password or Email Wrong!!.");
+    }
   };
 
   return (
     <>
-    {showSignUp ?  // Conditionally render SignIn component
-        <SignupPage /> :
-      <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
-        <div className="container">
-          <div className="-mx-4 flex flex-wrap">
-            <div className="w-full px-4">
-              <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
-                <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
-                  Sign in to your account
-                </h3>
-                <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Login to your account for a faster checkout.
-                </p>
-                <button className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-orange-500 hover:bg-orange-500/5 hover:text-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:hover:border-orange-500 dark:hover:bg-orange-500/5 dark:hover:text-orange-500 dark:hover:shadow-none">
+      {showSignUp ? (
+        <SignupPage />
+      ) : (
+        <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
+          <div className="container">
+            <div className="-mx-4 flex flex-wrap">
+              <div className="w-full px-4">
+                <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
+                  <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
+                    Sign in to your account
+                  </h3>
+                  <p className="mb-11 text-center text-base font-medium text-body-color">
+                    Login to your account for a faster checkout.
+                  </p>
+
+                  <div className="mb-8 flex items-center justify-center">
+                    <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
+                    <p className="w-full px-5 text-center text-base font-medium text-body-color">
+                      Or, sign in with your email
+                    </p>
+                    <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
+                  </div>
+                  {error && (
+                    <p className="mb-4 text-center text-red-500">{error}</p>
+                  )}
+                  <form onSubmit={handleLogin}>
+                    <div className="mb-8">
+                      <label
+                        htmlFor="email"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Your Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your Email"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-orange-500 dark:focus:shadow-none"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-8">
+                      <label
+                        htmlFor="password"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Your Password
+                      </label>
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your Password"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-orange-500 dark:focus:shadow-none"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
+                      <div className="mb-4 sm:mb-0">
+                        <label
+                          htmlFor="checkboxLabel"
+                          className="flex cursor-pointer select-none items-center text-sm font-medium text-body-color"
+                        >
+                          <div className="relative">
+                            <input
+                              type="checkbox"
+                              id="checkboxLabel"
+                              className="sr-only"
+                            />
+                            <div className="box mr-4 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
+                              <span className="opacity-0">
+                                <svg
+                                  width="11"
+                                  height="8"
+                                  viewBox="0 0 11 8"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
+                                    fill="#3056D3"
+                                    stroke="#3056D3"
+                                    strokeWidth="0.4"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                          Keep me signed in
+                        </label>
+                      </div>
+                      <div>
+                        <a
+                          href="#0"
+                          className="text-sm font-medium text-orange-500 hover:underline"
+                        >
+                          Forgot Password?
+                        </a>
+                      </div>
+                    </div>
+                    <div className="mb-6">
+                      <button
+                        type="submit"
+                        className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-orange-500/90"
+                      >
+                        Sign in
+                      </button>
+                    </div>
+                  </form>
+                  <p className="text-center text-base font-medium text-body-color">
+                    Don’t you have an account?{" "}
+                    <Link
+                      href="#"
+                      onClick={handleSignInClick}
+                      className="text-orange-500 hover:underline"
+                    >
+                      Sign up
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/*  */}
+        </section>
+      )}
+    </>
+  );
+};
+
+export default SigninPage;
+
+
+    {/* <button className="border-stroke dark:text-body-color-dark dark:shadow-two mb-6 flex w-full items-center justify-center rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 hover:border-orange-500 hover:bg-orange-500/5 hover:text-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:hover:border-orange-500 dark:hover:bg-orange-500/5 dark:hover:text-orange-500 dark:hover:shadow-none">
                   <span className="mr-3">
                     <svg
                       width="20"
@@ -80,140 +232,9 @@ const SigninPage = () => {
                     </svg>
                   </span>
                   Sign in with Github
-                </button>
-                <div className="mb-8 flex items-center justify-center">
-                  <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
-                  <p className="w-full px-5 text-center text-base font-medium text-body-color">
-                    Or, sign in with your email
-                  </p>
-                  <span className="hidden h-[1px] w-full max-w-[70px] bg-body-color/50 sm:block"></span>
-                </div>
-                <form>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      Your Email
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your Email"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-orange-500 dark:focus:shadow-none"
-                    />
-                  </div>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="password"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      Your Password
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Enter your Password"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-orange-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-orange-500 dark:focus:shadow-none"
-                    />
-                  </div>
-                    {/* New radio buttons for selecting user role */}
-            <div className="mb-8">
-              <p className="mb-3 block text-sm text-dark dark:text-white">Select Your Role</p>
-              <div className="flex items-center">
-                <input
-                  type="radio"
-                  id="tourist"
-                  name="role"
-                  value="tourist"
-                  checked={userRole === 'tourist'}
-                  onChange={handleRoleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="tourist" className="mr-6 text-sm text-dark dark:text-white">Tourist</label>
-                <input
-                  type="radio"
-                  id="admin"
-                  name="role"
-                  value="admin"
-                  checked={userRole === 'admin'}
-                  onChange={handleRoleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="admin" className="mr-6 text-sm text-dark dark:text-white">Admin</label>
-                <input
-                  type="radio"
-                  id="tourGuide"
-                  name="role"
-                  value="tourGuide"
-                  checked={userRole === 'tourGuide'}
-                  onChange={handleRoleChange}
-                  className="mr-2"
-                />
-                <label htmlFor="tourGuide" className="text-sm text-dark dark:text-white">Tour Guide</label>
-              </div>
-            </div>
-                  <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
-                    <div className="mb-4 sm:mb-0">
-                      <label
-                        htmlFor="checkboxLabel"
-                        className="flex cursor-pointer select-none items-center text-sm font-medium text-body-color"
-                      >
-                        <div className="relative">
-                          <input
-                            type="checkbox"
-                            id="checkboxLabel"
-                            className="sr-only"
-                          />
-                          <div className="box mr-4 flex h-5 w-5 items-center justify-center rounded border border-body-color border-opacity-20 dark:border-white dark:border-opacity-10">
-                            <span className="opacity-0">
-                              <svg
-                                width="11"
-                                height="8"
-                                viewBox="0 0 11 8"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z"
-                                  fill="#3056D3"
-                                  stroke="#3056D3"
-                                  strokeWidth="0.4"
-                                />
-                              </svg>
-                            </span>
-                          </div>
-                        </div>
-                        Keep me signed in
-                      </label>
-                    </div>
-                    <div>
-                      <a
-                        href="#0"
-                        className="text-sm font-medium text-orange-500 hover:underline"
-                      >
-                        Forgot Password?
-                      </a>
-                    </div>
-                  </div>
-                  <div className="mb-6">
-                    <Link href={userRole === 'admin'?"/Admin" : userRole === 'tourGuide'? "/TourGuide":"/Tourist"}
-                      className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-orange-500 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-orange-500/90">
-                      Sign in
-                    </Link>
-                  </div>
-                </form>
-                <p className="text-center text-base font-medium text-body-color">
-                  Don’t you have an account?{" "}
-                  <Link href="#" onClick={handleSignInClick} className="text-orange-500 hover:underline">
-                        Sign up
-                      </Link>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="absolute left-0 top-0 z-[-1]">
+                </button> */}
+
+  {/* <div className="absolute left-0 top-0 z-[-1]">
           <svg
             width="1440"
             height="969"
@@ -269,10 +290,4 @@ const SigninPage = () => {
               </linearGradient>
             </defs>
           </svg>
-        </div>
-      </section>}
-    </>
-  );
-};
-
-export default SigninPage;
+        </div> */}
