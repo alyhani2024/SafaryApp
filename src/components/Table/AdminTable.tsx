@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -32,6 +32,7 @@ function UserTable() {
           isDeleted: user.isDeleted,
           fullName: user.fullName,
           email: user.email,
+          adminAccepted: user.adminAccepted,
         }));
         setData(users);
       })
@@ -90,6 +91,18 @@ function UserTable() {
       });
   };
 
+  const toggleAcceptedStatus = (userId) => {
+    axios
+      .post(`http://safaryapi.runasp.net/api/Admin/AccepdedToggleStatus/${userId}`)
+      .then(() => {
+        console.log("User accepted status toggled successfully!");
+        fetchData(); // Refresh data after toggling status
+      })
+      .catch((error) => {
+        console.error("Error toggling accepted status:", error);
+      });
+  };
+
   const filteredData = data.filter((user) =>
     `${user.fullName}`.toLowerCase().includes(search.toLowerCase())
   );
@@ -130,8 +143,15 @@ function UserTable() {
                   <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
                     Is Deleted
                   </th>
+                  
                   <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
-                    Actions
+                    Toggle Delete 
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Is Accepted
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Toggle Is Accepted
                   </th>
                 </tr>
               </thead>
@@ -150,6 +170,7 @@ function UserTable() {
                     <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
                       {user.isDeleted ? "Yes" : "No"}
                     </td>
+                    
                     <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
                       <button
                         onClick={() => toggleDeleteStatus(user.id, user.isDeleted)}
@@ -160,6 +181,21 @@ function UserTable() {
                         }`}
                       >
                         {user.isDeleted ? 'Restore' : 'Delete'}
+                      </button>
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      {user.adminAccepted ? "Yes" : "No"}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      <button
+                        onClick={() => toggleAcceptedStatus(user.id)}
+                        className={`inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent ${
+                          user.adminAccepted
+                            ? "text-red-600 bg-red-200 hover:bg-red-300"
+                            : "text-green-600 bg-green-200 hover:bg-green-300"
+                        }`}
+                      >
+                        {user.adminAccepted ? 'Unaccept' : 'Accept'}
                       </button>
                     </td>
                   </tr>
