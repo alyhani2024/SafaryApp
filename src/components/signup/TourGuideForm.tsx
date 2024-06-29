@@ -12,12 +12,12 @@ const TourGuideForm = () => {
     confirmPassword: '',
     address: '',
     phoneNumber: '',
-    cv: '',
+    cv: null, // For file upload
     description: '',
     hourPrice: '',
     age: '',
     bio: '',
-    languagesSpoken: '',
+    languageSpoken: [],
     hasCar: false,
   });
   const [successMessage, setSuccessMessage] = useState('');
@@ -31,44 +31,50 @@ const TourGuideForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({
+      ...formData,
+      cv: file,
+    });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    axios
-      .post("http://safaryapi.runasp.net/api/Account/Register-As-TourGuide", {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        fullName: formData.fullName,
-        userName: formData.userName,
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-        address: formData.address,
-        phoneNumber: formData.phoneNumber,
-        cv: formData.cv,
-        description: formData.description,
-        hourPrice: formData.hourPrice,
-        age: formData.age,
-        bio: formData.bio,
-        languagesSpoken: formData.languagesSpoken,
-        hasCar: formData.hasCar,
-      })
-      .then((response) => {
+  
+    const formDataForApi = new FormData();
+    formDataForApi.append('firstName', formData.firstName);
+    formDataForApi.append('lastName', formData.lastName);
+    // Append other form fields as needed
+  
+    try {
+      const response = await axios.post(
+        "http://safaryapi.runasp.net/api/Account/Register-As-TourGuide",
+        formDataForApi,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'  // Set Content-Type header
+          },
+        }
+      );
+  
+      if (response.status === 200) {
         setSuccessMessage("Tour guide registered successfully!");
         setErrorMessage('');
-        // Optionally, redirect to sign in page after registration
         setTimeout(() => {
-          window.location.href = "/signin"; // Replace with your sign in page URL
-        }, 2000); // Redirect after 2 seconds
-      })
-      .catch((error) => {
-        if (error.response && error.response.data) {
-          setErrorMessage(error.response.data.message);
-        } else {
-          setErrorMessage("An error occurred. Please try again later.");
-        }
-      });
+          window.location.href = "/"; // Redirect after successful registration
+        }, 2000);
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("An error occurred. Please try again later.");
+      }
+    }
   };
+  
 
   return (
     <div className="max-w-md mx-auto mt-5">
@@ -183,11 +189,11 @@ const TourGuideForm = () => {
         </div>
         <div>
           <label htmlFor="cv" className="block text-sm font-medium text-gray-700">CV:</label>
-          <textarea
+          <input
+            type="file"
             id="cv"
             name="cv"
-            value={formData.cv}
-            onChange={handleInputChange}
+            onChange={handleFileChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
           />
@@ -239,14 +245,15 @@ const TourGuideForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="languagesSpoken" className="block text-sm font-medium text-gray-700">Languages Spoken:</label>
+          <label htmlFor="languageSpoken" className="block text-sm font-medium text-gray-700">Languages Spoken:</label>
           <input
             type="text"
-            id="languagesSpoken"
-            name="languagesSpoken"
-            value={formData.languagesSpoken}
+            id="languageSpoken"
+            name="languageSpoken"
+            value={formData.languageSpoken}
             onChange={handleInputChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            placeholder="Enter languages separated by commas"
             required
           />
         </div>
@@ -254,12 +261,13 @@ const TourGuideForm = () => {
           <label className="flex items-center">
             <input
               type="checkbox"
+              id="hasCar"
               name="hasCar"
               checked={formData.hasCar}
               onChange={handleInputChange}
-              className="focus:ring-orange-500 h-4 w-4 text-orange-600 border-gray-300 rounded"
+              className="form-checkbox h-4 w-4 text-orange-600 transition duration-150 ease-in-out"
             />
-            <span className="ml-2 text-sm text-gray-700">Has Car</span>
+            <span className="ml-2 text-sm text-gray-700">I have a car</span>
           </label>
         </div>
         <div className="flex items-center justify-center mt-4">
