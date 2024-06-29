@@ -6,6 +6,7 @@ const GET_TOURS_API = "http://safaryapi.runasp.net/api/Tours/GetAll";
 const ADD_TOUR_API = "http://safaryapi.runasp.net/api/Tours";
 const TOGGLE_STATUS_API = "http://safaryapi.runasp.net/api/Tours/ToggleStatus/";
 const ADD_TOUR_IMAGES_API = "http://safaryapi.runasp.net/api/Tours/AddTourImages";
+const EDIT_TOUR_API = "http://safaryapi.runasp.net/api/Tours/";
 
 function TourTable() {
   const [data, setData] = useState([]);
@@ -45,12 +46,32 @@ function TourTable() {
 
   const handleSave = async () => {
     try {
-      await axios.post(ADD_TOUR_API, newTour);
+      if (editTourId) {
+        await axios.put(`${EDIT_TOUR_API}${editTourId}`, {
+          description: newTour.description,
+          location: newTour.location,
+          duration: newTour.duration,
+          tourImages: [],
+        });
+      } else {
+        await axios.post(ADD_TOUR_API, newTour);
+      }
       fetchTours();
       setIsPopupVisible(false);
     } catch (error) {
       console.error('Error saving tour:', error);
     }
+  };
+
+  const handleEditButtonClick = (tour) => {
+    setNewTour({
+      name: tour.name,
+      description: tour.description,
+      location: tour.location,
+      duration: tour.duration,
+    });
+    setEditTourId(tour.name);
+    setIsPopupVisible(true);
   };
 
   const handleToggleStatus = async (name) => {
@@ -181,6 +202,7 @@ function TourTable() {
                     <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                       <button
                         type="button"
+                        onClick={() => handleEditButtonClick(tour)}
                         className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 mx-2"
                       >
                         Edit
@@ -219,6 +241,7 @@ function TourTable() {
                 value={newTour.name}
                 onChange={handleInputChange}
                 className="border rounded px-2 py-1 m-1"
+                disabled={!!editTourId}
               />
             </div>
             <div className="mb-2">
