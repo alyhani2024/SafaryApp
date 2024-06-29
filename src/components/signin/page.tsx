@@ -41,7 +41,7 @@ const SigninPage = () => {
         setError("Authentication failed");
       }
     } catch (err) {
-      setError("Password or Email Wrong !!.");
+      setError("Password or Email Wrong!!.");
     }
   };
 
