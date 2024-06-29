@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -11,11 +11,11 @@ function UserTable() {
     lastName: "",
     fullName: "",
     userName: "",
-    email: "",
+    email: "user@example.com",
     password: "",
     confirmPassword: "",
     address: "",
-    phoneNumber: "",
+    phoneNumber: "01060102694",
     image: null,
   });
 
@@ -27,9 +27,9 @@ function UserTable() {
     axios
       .get("http://safaryapi.runasp.net/api/Admin")
       .then((response) => {
-        const users = response.data.map((user, index) => ({
+        const users = response.data.map((user) => ({
           id: user.id,
-          isDeleted: user.isDeleted ? "Yes":"No" ,
+          isDeleted: user.isDeleted,
           fullName: user.fullName,
           email: user.email,
         }));
@@ -78,15 +78,15 @@ function UserTable() {
       });
   };
 
-  const handleDelete = (userId) => {
+  const toggleDeleteStatus = (userId, isDeleted) => {
     axios
-      .delete(`http://safaryapi.runasp.net/api/Admin/${userId}`)
+      .post(`http://safaryapi.runasp.net/api/Admin/ToggleStatus/${userId}`)
       .then(() => {
-        console.log("User deleted successfully!");
-        fetchData(); // Refresh data after deleting user
+        console.log("User delete status toggled successfully!");
+        fetchData(); // Refresh data after toggling status
       })
       .catch((error) => {
-        console.error("Error deleting user:", error);
+        console.error("Error toggling delete status:", error);
       });
   };
 
@@ -118,14 +118,18 @@ function UserTable() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  {Object.keys(filteredData[0] || {}).map((key, index) => (
-                    <th
-                      key={index}
-                      className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500"
-                    >
-                      {key}
-                    </th>
-                  ))}
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    ID
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Full Name
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Email
+                  </th>
+                  <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
+                    Is Deleted
+                  </th>
                   <th className="px-6 py-3 text-start text-xs font-medium uppercase text-gray-500">
                     Actions
                   </th>
@@ -134,20 +138,28 @@ function UserTable() {
               <tbody className="divide-y divide-gray-200">
                 {filteredData.map((user, index) => (
                   <tr key={index}>
-                    {Object.keys(user).map((key, index) => (
-                      <td
-                        key={index}
-                        className="whitespace-nowrap px-6 py-4 text-sm text-gray-800"
-                      >
-                        {user[key]}
-                      </td>
-                    ))}
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      {user.id}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      {user.fullName}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      {user.email}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
+                      {user.isDeleted ? "Yes" : "No"}
+                    </td>
                     <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800">
                       <button
-                        onClick={() => handleDelete(user.id)}
-                        className="rounded bg-red-500 px-2 py-1 text-white hover:bg-red-700"
+                        onClick={() => toggleDeleteStatus(user.id, user.isDeleted)}
+                        className={`inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent ${
+                          user.isDeleted
+                            ? "text-green-600 bg-green-200 hover:bg-green-300"
+                            : "text-red-600 bg-red-200 hover:bg-red-300"
+                        }`}
                       >
-                        Delete
+                        {user.isDeleted ? 'Restore' : 'Delete'}
                       </button>
                     </td>
                   </tr>
