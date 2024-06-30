@@ -1,49 +1,40 @@
 // components/TourGuidesList.tsx
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import TourGuideCard from './TourGuideCard';
 
-const tourGuides = [
-    { 
-        id : "1",
-        name: 'John Doe', 
-        description: 'Experienced tour guide with knowledge in local history.', 
-        photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-        pricePerHour: 50,
-        rate: 5,
-        reviews: 120,
-        languages: ['English', 'Arabic'],
-        hascar:true
-      },
-      { 
-        id : "2",
-        name: 'Jane Smith', 
-        description: 'Friendly and enthusiastic guide for all ages.', 
-        photo: '/images/Home/pexels-omar-elsharawy-5609738.jpg', 
-        pricePerHour: 45,
-        rate: 4,
-        reviews: 98,
-        languages: ['English', 'French'],
-        hascar:false
-      },
-      { 
-        id : "3",
-        name: 'Michael Brown', 
-        description: 'Specializes in food and cultural tours.', 
-        photo: '/images/blog/post-03.jpg', 
-        pricePerHour: 60,
-        rate: 5,
-        reviews: 110,
-        languages: ['English', 'Spanish'],
-        hascar:true
-      },
-  // your list of tour guides
-];
-
 const TourGuidesList: React.FC = () => {
+  const [tourGuides, setTourGuides] = useState([]);
+
+  useEffect(() => {
+    const fetchTourGuides = async () => {
+      try {
+        const response = await fetch('http://safaryapi.runasp.net/api/TourGuides/GetAll');
+        const data = await response.json();
+        const filteredGuides = data.filter((guide: any) => !guide.isDeleted);
+        setTourGuides(filteredGuides);
+      } catch (error) {
+        console.error('Error fetching tour guides:', error);
+      }
+    };
+
+    fetchTourGuides();
+  }, []);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
       {tourGuides.map(guide => (
-        <TourGuideCard key={guide.id} {...guide} />
+        <TourGuideCard 
+          key={guide.id}
+          id={guide.id}
+          fullName={guide.fullName}
+          photo={guide.imageUrl}
+          hourPrice={guide.hourPrice}
+          rate={guide.rate}
+          reviewsNumber={guide.reviewsNumber}
+          languageSpoken={guide.languageSpoken}
+          hasCar={guide.hasCar}
+        />
       ))}
     </div>
   );

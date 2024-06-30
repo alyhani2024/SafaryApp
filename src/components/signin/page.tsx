@@ -22,21 +22,25 @@ const SigninPage = () => {
       const response = await axios.post("http://safaryapi.runasp.net/api/Account/Login", {
         email,
         password,
+        
       });
 
       const data = response.data;
-
+       const token = data.token;
       if (data.isAuthenticated) {
         const role = data.roles[0];
         if (role === "TourGuide") {
+          localStorage.setItem("token", token);
           localStorage.setItem("email", email);
           const guideResponse = await axios.get(`http://safaryapi.runasp.net/api/TourGuides/Email/${email}`);
           const guideData = guideResponse.data;
           localStorage.setItem("guideId", guideData.id);
           router.push("/TourGuide");
         } else if (role === "User") {
+          localStorage.setItem("token", token);
           router.push("/Tourist");
         } else if (role === "Admin") {
+          localStorage.setItem("token", token);
           router.push("/Admin");
         } else {
           setError("Unknown role");
