@@ -55,5 +55,5 @@ npm install axios jwt-decode
 npm install axios
 npm install @types/axios
 npm install select-react
-
+npm install react-responsive-carousel
 
