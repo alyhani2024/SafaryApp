@@ -116,11 +116,11 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
         router.push('/Tourist/BookTour'); // Redirect to the booking page
       } else {
         console.error('Booking failed:', responseText);
-        alert('Booking failed. Please try again.');
+        alert('Booking failed. Please choose another day & try again.');
       }
     } catch (error) {
       console.error('Error booking tour guide:', error);
-      alert('An error occurred. Please try again.');
+      alert('An error occurred. Please choose another day & try again.');
     }
   };
 
