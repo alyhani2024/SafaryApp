@@ -4,6 +4,7 @@ import { Car } from 'lucide-react';
 import Link from 'next/link';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useRouter } from 'next/navigation';
 
 interface TourGuide {
   id: string;
@@ -38,6 +39,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<{ name: string, photo: string, rate: number, comment: string }[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchGuide = async () => {
@@ -110,6 +112,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
 
       if (response.ok) {
         alert('Booking successful!');
+        router.push('/Tourist/BookTour'); // Redirect to the booking page
       } else {
         console.error('Booking failed:', responseText);
         alert('Booking failed. Please try again.');
