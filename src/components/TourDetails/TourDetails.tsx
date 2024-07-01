@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import CarouselComp from '../Carousel/carousel';
 
 interface Tour {
   id: string;
@@ -40,7 +41,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   const [tour, setTour] = useState<Tour | null>(null);
   const [rate, setRate] = useState<number | null>(null);
   const [comment, setComment] = useState('');
-  const [coverImage, setcoverImage] = useState('');
+  const [coverImage, setcoverImage] = useState();
   const [comments, setComments] = useState<{ name: string; photo: string; rate: number; comment: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -145,6 +146,8 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   return (
     <>
       <div className="max-w-4xl mx-auto p-4 rounded-lg">
+
+        <CarouselComp images={[]}  />
         <img
           src={coverImage}
           alt="Tour"
