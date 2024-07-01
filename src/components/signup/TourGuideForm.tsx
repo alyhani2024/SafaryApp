@@ -5,7 +5,7 @@ const TourGuideForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    fullName: '',
+    fullName: '', // Ensure fullName is included here
     userName: '',
     email: '',
     password: '',
@@ -17,7 +17,7 @@ const TourGuideForm = () => {
     hourPrice: '',
     age: '',
     bio: '',
-    languageSpoken: [],
+    languageSpoken: '',
     hasCar: false,
   });
   const [successMessage, setSuccessMessage] = useState('');
@@ -38,14 +38,28 @@ const TourGuideForm = () => {
       cv: file,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const formDataForApi = new FormData();
     formDataForApi.append('firstName', formData.firstName);
     formDataForApi.append('lastName', formData.lastName);
-    // Append other form fields as needed
-  
+    formDataForApi.append('fullName', formData.fullName); // Append the FullName field
+    formDataForApi.append('userName', formData.userName);
+    formDataForApi.append('email', formData.email);
+    formDataForApi.append('password', formData.password);
+    formDataForApi.append('confirmPassword', formData.confirmPassword);
+    formDataForApi.append('address', formData.address);
+    formDataForApi.append('phoneNumber', formData.phoneNumber);
+    formDataForApi.append('cv', formData.cv); // Append the CV file
+    formDataForApi.append('description', formData.description);
+    formDataForApi.append('hourPrice', formData.hourPrice);
+    formDataForApi.append('age', formData.age);
+    formDataForApi.append('bio', formData.bio);
+    formDataForApi.append('languageSpoken', formData.languageSpoken); // Ensure this is a comma-separated string
+    formDataForApi.append('hasCar', formData.hasCar.toString()); // Convert boolean to string
+
     try {
       const response = await axios.post(
         "http://safaryapi.runasp.net/api/Account/Register-As-TourGuide",
@@ -56,7 +70,7 @@ const TourGuideForm = () => {
           },
         }
       );
-  
+
       if (response.status === 200) {
         setSuccessMessage("Tour guide registered successfully!");
         setErrorMessage('');
@@ -67,14 +81,22 @@ const TourGuideForm = () => {
         setErrorMessage("An error occurred. Please try again later.");
       }
     } catch (error) {
+      console.error('Error response:', error.response);
       if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message);
+        const { errors } = error.response.data;
+        if (errors) {
+          for (const key in errors) {
+            if (errors.hasOwnProperty(key)) {
+              console.error(`${key}: ${errors[key]}`);
+            }
+          }
+        }
+        setErrorMessage(error.response.data.title || 'An error occurred. Please try again later.');
       } else {
         setErrorMessage("An error occurred. Please try again later.");
       }
     }
   };
-  
 
   return (
     <div className="max-w-md mx-auto mt-5">
@@ -110,6 +132,18 @@ const TourGuideForm = () => {
             id="lastName"
             name="lastName"
             value={formData.lastName}
+            onChange={handleInputChange}
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">Full Name:</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleInputChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
             required
@@ -194,7 +228,7 @@ const TourGuideForm = () => {
             id="cv"
             name="cv"
             onChange={handleFileChange}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
+            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100"
             required
           />
         </div>
@@ -210,7 +244,7 @@ const TourGuideForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="hourPrice" className="block text-sm font-medium text-gray-700">Hourly Price:</label>
+          <label htmlFor="hourPrice" className="block text-sm font-medium text-gray-700">Hour Price:</label>
           <input
             type="number"
             id="hourPrice"
@@ -245,7 +279,7 @@ const TourGuideForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="languageSpoken" className="block text-sm font-medium text-gray-700">Languages Spoken:</label>
+          <label htmlFor="languageSpoken" className="block text-sm font-medium text-gray-700">Language Spoken:</label>
           <input
             type="text"
             id="languageSpoken"
@@ -253,28 +287,26 @@ const TourGuideForm = () => {
             value={formData.languageSpoken}
             onChange={handleInputChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm"
-            placeholder="Enter languages separated by commas"
             required
           />
         </div>
         <div>
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              id="hasCar"
-              name="hasCar"
-              checked={formData.hasCar}
-              onChange={handleInputChange}
-              className="form-checkbox h-4 w-4 text-orange-600 transition duration-150 ease-in-out"
-            />
-            <span className="ml-2 text-sm text-gray-700">I have a car</span>
-          </label>
+          <label htmlFor="hasCar" className="block text-sm font-medium text-gray-700">Has Car:</label>
+          <input
+            type="checkbox"
+            id="hasCar"
+            name="hasCar"
+            checked={formData.hasCar}
+            onChange={handleInputChange}
+            className="mt-1"
+          />
         </div>
-        <div className="flex items-center justify-center mt-4">
-          <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-            Register as Tour Guide
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="mt-4 bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+        >
+          Register
+        </button>
       </form>
     </div>
   );
