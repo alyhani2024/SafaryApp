@@ -4,6 +4,30 @@ import './paymentFormStyles.scss'; // Import external stylesheet
 import Breadcrumb from '@/components/Common/Breadcrumb';
 import { useRouter } from 'next/navigation';
 
+const validCards = [
+  {
+    name: 'Alice Johnson',
+    number: '4111111111111111',
+    expirationMonth: '01',
+    expirationYear: '2025',
+    securityCode: '123',
+  },
+  {
+    name: 'Bob Smith',
+    number: '5500000000000004',
+    expirationMonth: '02',
+    expirationYear: '2026',
+    securityCode: '456',
+  },
+  {
+    name: 'Charlie Brown',
+    number: '340000000000009',
+    expirationMonth: '03',
+    expirationYear: '2027',
+    securityCode: '789',
+  },
+];
+
 const PaymentForm = () => {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -28,8 +52,18 @@ const PaymentForm = () => {
     };
 
     if (name.trim() === '') newErrors.name = 'Name on card is required';
-    if (!/^\d{16}$/.test(cardNumber)) newErrors.cardNumber = 'Card number must be 16 digits';
+    if (!/^\d{15,16}$/.test(cardNumber)) newErrors.cardNumber = 'Card number must be 15 or 16 digits';
     if (!/^\d{3,4}$/.test(securityCode)) newErrors.securityCode = 'Security code must be 3 or 4 digits';
+
+    const isValidCard = validCards.some(card => 
+      card.name === name &&
+      card.number === cardNumber &&
+      card.expirationMonth === expirationMonth &&
+      card.expirationYear === expirationYear &&
+      card.securityCode === securityCode
+    );
+
+    if (!isValidCard) newErrors.cardNumber = 'Invalid card details';
 
     setErrors(newErrors);
     if (Object.values(newErrors).some(error => error !== '')) return;
@@ -170,10 +204,7 @@ const PaymentForm = () => {
             </div>
           </div>
           <div>
-            <button
-              onClick={handlePayment}
-              className="block w-full max-w-xs mx-auto bg-orange-500 hover:bg-orange-700 focus:bg-orange-700 text-white rounded-lg px-3 py-3 font-semibold"
-            >
+            <button onClick={handlePayment} className="block w-full max-w-xs mx-auto bg-orange-500 hover:bg-orange-700 focus:bg-orange-700 text-white rounded-lg px-3 py-3 font-semibold">
               <i className="mdi mdi-lock-outline mr-1"></i> PAY NOW
             </button>
           </div>
