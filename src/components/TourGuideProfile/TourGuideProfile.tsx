@@ -56,6 +56,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
       try {
         const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/TourGuideTableById/${GuideId}`);
         const data = await response.json();
+        localStorage.setItem('SelectedTourGuide', (`${GuideId}`));
         setAppointments(data);
       } catch (error) {
         console.error('Error fetching appointments:', error);
