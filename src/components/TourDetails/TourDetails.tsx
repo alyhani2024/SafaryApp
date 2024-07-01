@@ -13,6 +13,9 @@ interface Tour {
   location: string;
   duration: number;
   tourImages: { imageUrl: string }[];
+  averageRating: number;
+  reviews: { id: number; rating: number; comment: string }[];
+  numberOfReviews: number;
 }
 
 interface Guide {
@@ -61,6 +64,12 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           const tourDetailsResponse = await fetch(`http://safaryapi.runasp.net/api/Tours/GetTourDetails?name=${selectedTour.name}`);
           const tourDetailsData = await tourDetailsResponse.json();
           setTour(tourDetailsData);
+          setComments(tourDetailsData.reviews.map((review: any) => ({
+            name: 'Anonymous',
+            photo: '/images/user.png',
+            rate: review.rating,
+            comment: review.comment,
+          })));
         } else {
           setError('Tour not found');
         }
@@ -95,12 +104,37 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
     }
   }, []);
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     if (rate !== null && comment !== '') {
       const newComment = { name: 'Current User', photo: '/images/user.png', rate, comment };
       setComments([...comments, newComment]);
       setRate(null);
       setComment('');
+
+      const payload = {
+        rating: rate,
+        comment: comment,
+        tourName: tour?.name || ''
+      };
+
+      try {
+        const response = await fetch('http://safaryapi.runasp.net/api/Reviews/TourReviews', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          console.error('Failed to submit comment:', await response.text());
+          alert('Failed to submit comment. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('An error occurred. Please try again.');
+      }
     }
   };
 
@@ -159,7 +193,13 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           ))}
         </Swiper>
         <div className="p-4">
-          <h2 className="text-2xl font-bold mb-2">{tour.name}</h2>
+          <h2 className="text-2xl font-bold mb-2 flex items-center">
+            {tour.name}
+            <span className="ml-2 text-yellow-500">
+                {'★'.repeat(tour.averageRating)}{'☆'.repeat(5 - tour.averageRating)}
+            </span>
+            <span className="ml-2 text-gray-600">({tour.numberOfReviews} reviews)</span>
+          </h2>
           <p className="text-gray-600 mb-4">{tour.description}</p>
           <span className="flex justify-end">
             <button

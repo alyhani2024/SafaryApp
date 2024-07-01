@@ -1,4 +1,3 @@
-// components/TourGuideProfile.tsx
 import React, { useState, useEffect } from 'react';
 import { Car } from 'lucide-react';
 import Link from 'next/link';
@@ -12,7 +11,7 @@ interface TourGuide {
   description: string;
   imageUrl: string;
   hourPrice: number;
-  rate: number;
+  averageRating: number;
   reviewsNumber: number;
   languageSpoken: string[];
   hasCar: boolean;
@@ -44,9 +43,15 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   useEffect(() => {
     const fetchGuide = async () => {
       try {
-        const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/${GuideId}`);
+        const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/GetDetails?id=${GuideId}`);
         const data = await response.json();
         setGuide(data);
+        setComments(data.reviews.map((review: any) => ({
+          name: review.touristName,
+          photo: '/images/user.png',
+          rate: review.rating,
+          comment: review.comment
+        })));
       } catch (error) {
         console.error('Error fetching tour guide:', error);
       }
@@ -73,12 +78,37 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
     localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
   }, [date, time, adults]);
 
-  const handleCommentSubmit = () => {
+  const handleCommentSubmit = async () => {
     if (rate !== null && comment !== '') {
       const newComment = { name: 'Current User', photo: '/images/user.png', rate, comment };
       setComments([...comments, newComment]);
       setRate(null);
       setComment('');
+
+      const payload = {
+        rating: rate,
+        comment: comment,
+        tourGuideId: GuideId
+      };
+
+      try {
+        const response = await fetch('http://safaryapi.runasp.net/api/Reviews/TourGuideReviews', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          console.error('Failed to submit comment:', await response.text());
+          alert('Failed to submit comment. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error submitting comment:', error);
+        alert('An error occurred. Please try again.');
+      }
     }
   };
 
@@ -152,7 +182,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
               <span className="text-gray-800 font-semibold">Price per Hour: </span>${guide.hourPrice}
             </div>
             <div className="mb-2">
-              <span className="text-gray-800 font-semibold">Rating: </span>{'★'.repeat(guide.rate)}{'☆'.repeat(5 - guide.rate)} ({guide.reviewsNumber} reviews)
+              <span className="text-gray-800 font-semibold">Rating: </span>{'★'.repeat(guide.averageRating)}{'☆'.repeat(5 - guide.averageRating)} ({guide.reviewsNumber} reviews)
             </div>
             <div className="mb-2">
               <span className="text-gray-800 font-semibold">Languages: </span>{guide.languageSpoken.join(', ')}
