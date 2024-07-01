@@ -24,7 +24,6 @@ const SigninPage = () => {
         password,
         
       });
-
       const data = response.data;
        const token = data.token;
       if (data.isAuthenticated) {
