@@ -1,10 +1,10 @@
-import SuccessPage from '@/components/Succses'
+import Tourguidesuccses from '@/components/Succses/Tourguidesuccses'
 import React from 'react'
 
  const Success = () => {
   return (
     <>
-    <SuccessPage/>
+    <Tourguidesuccses/>
     </>
   )
 }
