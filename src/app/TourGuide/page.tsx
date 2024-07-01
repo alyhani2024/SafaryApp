@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Common/Breadcrumb";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Contact";
 import Features from "@/components/Features";
+import GuideBlogList from "@/components/GuideBlogsList/BlogList";
 import Hero from "@/components/Hero";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
@@ -23,7 +24,11 @@ export default function HomeTourGuide() {
         description="Table OF your Tour Appointments ."
       />
       <AppointmentsTable/>
-      <Blog />
+      <Breadcrumb
+        pageName="Blog List"
+        description=""
+      />
+      <GuideBlogList />
     </>
   );
 }
