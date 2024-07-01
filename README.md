@@ -58,5 +58,7 @@ npm install select-react
 npm install react-responsive-carousel
 npm install react-datepicker
 npm install @types/react-datepicker
+npm install swiper
+
 
 

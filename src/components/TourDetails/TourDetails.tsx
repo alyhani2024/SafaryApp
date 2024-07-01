@@ -1,9 +1,10 @@
 "use client";
-
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import CarouselComp from '../Carousel/carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 interface Tour {
   id: string;
@@ -41,7 +42,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   const [tour, setTour] = useState<Tour | null>(null);
   const [rate, setRate] = useState<number | null>(null);
   const [comment, setComment] = useState('');
-  const [coverImage, setcoverImage] = useState();
+  const [coverImage, setCoverImage] = useState('');
   const [comments, setComments] = useState<{ name: string; photo: string; rate: number; comment: string }[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,7 +56,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
         const toursData = await toursResponse.json();
 
         const selectedTour = toursData.find((tour: { id: string }) => tour.id == TourId);
-        setcoverImage(selectedTour.tourImages[0]?.imageUrl || '/default-photo.jpg')
+        setCoverImage(selectedTour?.tourImages[0]?.imageUrl || '/default-photo.jpg');
         if (selectedTour) {
           const tourDetailsResponse = await fetch(`http://safaryapi.runasp.net/api/Tours/GetTourDetails?name=${selectedTour.name}`);
           const tourDetailsData = await tourDetailsResponse.json();
@@ -146,13 +147,17 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   return (
     <>
       <div className="max-w-4xl mx-auto p-4 rounded-lg">
-
-        <CarouselComp images={[]}  />
-        <img
-          src={coverImage}
-          alt="Tour"
-          className="w-full h-64 object-cover rounded-t-lg"
-        />
+        <Swiper spaceBetween={50} slidesPerView={1}>
+          {tour.tourImages.map((image, index) => (
+            <SwiperSlide key={index}>
+              <img
+                src={image.imageUrl}
+                alt={`Tour Image ${index + 1}`}
+                className="w-full h-64 object-cover rounded-t-lg"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
         <div className="p-4">
           <h2 className="text-2xl font-bold mb-2">{tour.name}</h2>
           <p className="text-gray-600 mb-4">{tour.description}</p>
