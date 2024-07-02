@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ const TourguideProfile = () => {
   const [image, setImage] = useState(null);
   const [uploadMessage, setUploadMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [errorMessages, setErrorMessages] = useState(null);
 
   useEffect(() => {
     const guideId = localStorage.getItem("guideId");
@@ -25,13 +26,14 @@ const TourguideProfile = () => {
   const handleImageUpload = async (event) => {
     event.preventDefault();
     const guideId = localStorage.getItem("guideId");
-    if (!image) return;
+    if (!image || !guideId) {
+      console.error("No image selected or guideId not found in local storage.");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("id", guideId);
     formData.append("image", image);
-
-    console.log("Form Data:", formData);
 
     try {
       const response = await axios.post(`http://safaryapi.runasp.net/api/Account/UploadTouristImage`, formData, {
@@ -39,16 +41,28 @@ const TourguideProfile = () => {
           "Content-Type": "multipart/form-data"
         }
       });
-      console.log("Response Data:", response.data);
       setGuideData((prevData) => ({
         ...prevData,
         imageUrl: response.data.imageUrl,
       }));
       setUploadMessage(response.data.message);
       setIsPopupOpen(false);
+      setErrorMessages(null); // Clear any previous error messages
     } catch (error) {
-      console.error("Error uploading the image:", error.response || error.message);
-      setUploadMessage(error.response?.data?.message || "Error uploading the image.");
+      if (error.response) {
+        const { data } = error.response;
+        if (data.errors) {
+          // Handle validation errors from the server
+          setErrorMessages(Object.values(data.errors).flat());
+        } else {
+          // Handle other types of errors
+          console.error("Error uploading the image:", error.response);
+          setUploadMessage("Error uploading the image.");
+        }
+      } else {
+        console.error("Error uploading the image:", error.message);
+        setUploadMessage("Error uploading the image.");
+      }
     }
   };
 
@@ -99,6 +113,13 @@ const TourguideProfile = () => {
                 <button type="submit" className="mt-2 p-2 bg-green-500 text-white rounded">Upload</button>
                 <button type="button" onClick={() => setIsPopupOpen(false)} className="mt-2 p-2 bg-red-500 text-white rounded">Cancel</button>
               </form>
+              {errorMessages && (
+                <div className="error-messages">
+                  {errorMessages.map((message, index) => (
+                    <p key={index}>{message}</p>
+                  ))}
+                </div>
+              )}
               {uploadMessage && <p>{uploadMessage}</p>}
             </div>
           </div>
