@@ -14,7 +14,7 @@ interface TourGuideCardProps {
   languageSpoken: string[];
   hasCar: boolean;
 }
-
+const baseUrl = "http://safaryapi.runasp.net";
 const TourGuideCard: React.FC<TourGuideCardProps> = ({
   id,
   fullName,
@@ -28,7 +28,11 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
   return (
     <div className="flex flex-col max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-700">
       <div className="relative">
-        <img className="w-full h-48 object-cover" src={photo || '/default-photo.jpg'} alt={fullName} />
+        <img className="w-full h-48 object-cover" src={photo
+    ? (photo.startsWith("http://") || photo.startsWith("https://")
+      ? photo
+      : `${baseUrl}/images/tourguides/${photo}`)
+    : '/images/placeholder.jpg'} alt={fullName} />
         <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2">
           <span className="font-bold text-lg">${hourPrice}</span>
           <span className="text-sm"> / hour</span>
