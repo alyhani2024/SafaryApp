@@ -52,6 +52,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   const [bookingDetails, setBookingDetails] = useState({ date: '', time: '', adults: 1 });
   const router = useRouter();
 
+  const baseUrl = "http://safaryapi.runasp.net";
   useEffect(() => {
     const fetchTour = async () => {
       try {
@@ -211,7 +212,11 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           </span>
           <span className="flex items-center mb-4">
             <img
-              src={guide.imageUrl || '/default-photo.jpg'}
+              src={guide.imageUrl
+                ? (guide.imageUrl.startsWith("http://") || guide.imageUrl.startsWith("https://")
+                  ? guide.imageUrl
+                  : `${baseUrl}/images/tourguides/${guide.imageUrl}`)
+                : '/images/placeholder.jpg'}
               alt={guide.fullName}
               className="w-14 h-14 object-cover rounded-full mr-4"
             />
@@ -235,7 +240,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
               <span className="text-gray-800 font-medium"> {guide.hasCar ? '🚗 Car available' : '🚶 Walking tour'}</span>
             </div>
             <div className="flex items-center">
-              <span className="text-gray-800 font-medium">💰 ${guide.hourPrice}</span>
+              <span className="text-gray-800 font-medium">💰 ${guide.hourPrice * tour.duration} </span>
             </div>
           </div>
           

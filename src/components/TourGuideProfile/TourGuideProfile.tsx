@@ -159,7 +159,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   const getDisabledDates = () => {
     return appointments.map(app => new Date(app.selectedDate));
   };
-
+  const baseUrl = "http://safaryapi.runasp.net";
   const disabledDates = getDisabledDates();
 
   if (!guide) {
@@ -171,7 +171,11 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
       <div className="flex flex-col md:flex-row items-start p-6 space-y-4 md:space-y-0 md:space-x-6">
         <div className="rounded-lg overflow-hidden md:w-2/3">
           <div className="flex items-center">
-            <img src={guide.imageUrl || '/default-photo.jpg'} alt={guide.fullName} className="w-24 h-24 rounded-full object-cover mr-6" />
+            <img src={guide.imageUrl
+    ? (guide.imageUrl.startsWith("http://") || guide.imageUrl.startsWith("https://")
+      ? guide.imageUrl
+      : `${baseUrl}/images/tourguides/${guide.imageUrl}`)
+    : '/images/placeholder.jpg'} alt={guide.fullName} className="w-24 h-24 rounded-full object-cover mr-6" />
             <div>
               <h2 className="text-2xl font-bold">{guide.fullName}</h2>
               <p className="text-gray-600">{guide.description || 'No description provided.'}</p>
