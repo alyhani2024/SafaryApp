@@ -15,4 +15,8 @@ const nextConfig = {
 module.exports = nextConfig;
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: ['safaryapi.runasp.net'], // Add your API hostname here
+  },
 };
+
