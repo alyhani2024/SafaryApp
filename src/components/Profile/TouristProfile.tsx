@@ -5,6 +5,9 @@ import axios from "axios";
 
 const TouristProfile = () => {
   const [touristData, setTouristData] = useState(null);
+  const [image, setImage] = useState(null);
+  const [uploadMessage, setUploadMessage] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
     const touristId = localStorage.getItem("touristloggedId");
@@ -20,15 +23,45 @@ const TouristProfile = () => {
     }
   }, []);
 
+  const handleImageUpload = async (event) => {
+    event.preventDefault();
+    const touristId = localStorage.getItem("touristloggedId");
+    if (!image) return;
+
+    const formData = new FormData();
+    formData.append("id", touristId);
+    formData.append("image", image);
+
+    try {
+      const response = await axios.post(`http://safaryapi.runasp.net/api/Account/UploadTouristImage`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+      setTouristData((prevData) => ({
+        ...prevData,
+        imageUrl: response.data.imageUrl,
+      }));
+      setUploadMessage(response.data.message);
+      setIsPopupOpen(false);
+    } catch (error) {
+      setUploadMessage(error.response?.data?.message || "Error uploading the image.");
+    }
+  };
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
   if (!touristData) {
     return <div>Loading...</div>;
   }
-
+  const baseUrl = "http://safaryapi.runasp.net"; 
   const imageUrl = touristData.imageUrl
-    ? touristData.imageUrl.startsWith("http") || touristData.imageUrl.startsWith("/")
-      ? touristData.imageUrl
-      : `/${touristData.imageUrl}`
-    : '/images/placeholder.jpg'; // Replace with your placeholder image path
+  ? (touristData.imageUrl.startsWith("http://") || touristData.imageUrl.startsWith("https://")
+    ? touristData.imageUrl
+    : `${baseUrl}/images/tourguides/${touristData.imageUrl}`)
+  : '/images/placeholder.jpg'; // Replace with your placeholder image path
 
   return (
     <div className="py-12 lg:py-24" style={{ marginTop: "100px" }}>
@@ -53,6 +86,20 @@ const TouristProfile = () => {
         <div className="grid w-full grid-cols-3 gap-2 max-w-xs items-center justify-center mx-auto">
           {/* Add any other dynamic content here */}
         </div>
+        <button onClick={() => setIsPopupOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">Upload Image</button>
+        {isPopupOpen && (
+          <div className="popup">
+            <div className="popup-inner">
+              <h2>Upload Image</h2>
+              <form onSubmit={handleImageUpload}>
+                <input type="file" onChange={handleImageChange} />
+                <button type="submit" className="mt-2 p-2 bg-green-500 text-white rounded">Upload</button>
+                <button type="button" onClick={() => setIsPopupOpen(false)} className="mt-2 p-2 bg-red-500 text-white rounded">Cancel</button>
+              </form>
+              {uploadMessage && <p>{uploadMessage}</p>}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
