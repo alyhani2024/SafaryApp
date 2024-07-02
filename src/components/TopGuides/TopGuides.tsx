@@ -10,7 +10,7 @@ const TopGuides: React.FC = () => {
       try {
         const response = await fetch('http://safaryapi.runasp.net/api/TourGuides/GetAll');
         const data = await response.json();
-        const sortedGuides = data.sort((a: any, b: any) => b.rate - a.rate);
+        const sortedGuides = data.sort((a: any, b: any) => b.averageRating - a.averageRating);
         const topGuides = sortedGuides.slice(0, 3); // Get top 3 guides
         setGuides(topGuides);
       } catch (error) {
@@ -31,7 +31,7 @@ const TopGuides: React.FC = () => {
           description={guide.description}
           photo={guide.imageUrl}
           hourPrice={guide.hourPrice}
-          rate={guide.rate}
+          rate={guide.averageRating}
           reviewsNumber={guide.reviewsNumber}
           languageSpoken={guide.languageSpoken}
           hasCar={guide.hasCar}

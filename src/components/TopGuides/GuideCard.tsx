@@ -29,7 +29,7 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
   return (
     <div className="flex flex-col max-w-sm rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-700">
       <div className="relative">
-        <img className="w-full h-48 object-cover" src={photo} alt={fullName} />
+        <img className="w-full h-48 object-cover" src={photo || '/default-photo.jpg'} alt={fullName} />
         <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2">
           <span className="font-bold text-lg">${hourPrice}</span>
           <span className="text-sm"> / hour</span>
@@ -42,7 +42,6 @@ const TourGuideCard: React.FC<TourGuideCardProps> = ({
         </div>
         <div className="mt-4">
           <span className="text-yellow-500">{'★'.repeat(rate)}{'☆'.repeat(5 - rate)}</span>
-          <span className="text-gray-600 dark:text-gray-400 ml-2">({reviewsNumber} reviews)</span>
           <span className="text-gray-600 dark:text-gray-400 ml-2">{hasCar && <Car className='inline' />}</span>
         </div>
         <div className="mt-2 text-gray-600 dark:text-gray-400">

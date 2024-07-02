@@ -1,4 +1,3 @@
-// components/TourGuidesList.tsx
 "use client"
 import React, { useEffect, useState } from 'react';
 import TourGuideCard from './TourGuideCard';
@@ -30,7 +29,7 @@ const TourGuidesList: React.FC = () => {
           fullName={guide.fullName}
           photo={guide.imageUrl}
           hourPrice={guide.hourPrice}
-          rate={guide.rate}
+          rate={guide.averageRating}
           reviewsNumber={guide.reviewsNumber}
           languageSpoken={guide.languageSpoken}
           hasCar={guide.hasCar}
