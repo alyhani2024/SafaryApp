@@ -1,10 +1,10 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useRouter } from 'next/navigation';
 
 interface Tour {
   id: string;
@@ -179,6 +179,9 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
     return null;
   }
 
+  // Retrieve tourist image from local storage
+  const touristImageUrl = localStorage.getItem('touristImage') || '/images/placeholder.jpg';
+
   return (
     <>
       <div className="max-w-4xl mx-auto p-4 rounded-lg">
@@ -314,7 +317,6 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           <h3 className="text-xl font-semibold">Comments</h3>
           {comments.map((c, index) => (
             <div key={index} className="mt-4 flex items-start space-x-4">
-              <img src={c.photo} alt={c.name} className="w-12 h-12 rounded-full object-cover" />
               <div>
                 <h4 className="text-lg font-semibold">{c.name}</h4>
                 <div className="text-yellow-500">
@@ -326,6 +328,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
           ))}
         </div>
       </div>
+    
     </>
   );
 };

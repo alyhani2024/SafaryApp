@@ -276,7 +276,6 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
           <h3 className="text-xl font-semibold">Comments</h3>
           {comments.map((c, index) => (
             <div key={index} className="mt-4 flex items-start space-x-4">
-              <img src={c.photo} alt={c.name} className="w-12 h-12 rounded-full object-cover" />
               <div>
                 <h4 className="text-lg font-semibold">{c.name}</h4>
                 <div className="text-yellow-500">
