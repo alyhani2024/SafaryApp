@@ -1,5 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const TourguideProfile = () => {
@@ -115,8 +115,8 @@ const TourguideProfile = () => {
               </form>
               {errorMessages && (
                 <div className="error-messages">
-                  {errorMessages.map((message, index) => (
-                    <p key={index}>{message}</p>
+                  {errorMessages.map((error, index) => (
+                    <p key={index}>{error}</p>
                   ))}
                 </div>
               )}
