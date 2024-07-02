@@ -32,11 +32,15 @@ const SigninPage = () => {
           localStorage.setItem("token", token);
           localStorage.setItem("email", email);
           const guideResponse = await axios.get(`http://safaryapi.runasp.net/api/TourGuides/Email/${email}`);
+          
           const guideData = guideResponse.data;
           localStorage.setItem("guideId", guideData.id);
           router.push("/TourGuide");
         } else if (role === "User") {
           localStorage.setItem("token", token);
+          const touristResponse = await axios.get(`http://safaryapi.runasp.net/api/Tourist/Email/${email}`);
+          const touristData = touristResponse.data;
+          localStorage.setItem("touristloggedId", touristData.id);
           router.push("/Tourist");
         } else if (role === "Admin") {
           localStorage.setItem("token", token);
