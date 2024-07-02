@@ -36,7 +36,7 @@ const TourguideProfile = () => {
     formData.append("image", image);
 
     try {
-      const response = await axios.post(`http://safaryapi.runasp.net/api/Account/UploadTouristImage`, formData, {
+      const response = await axios.post(`http://safaryapi.runasp.net/api/Account/UploadTouristImage?id=${guideId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
