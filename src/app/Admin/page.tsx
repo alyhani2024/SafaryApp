@@ -11,7 +11,6 @@ const Adminpage = () => {
         pageName=" dashboard"
         description=" Table Of All Users For All Data make Cruds ( Add , Edit and Update ) ."
       />
-
       <UserTable />
       <br />
     </>
