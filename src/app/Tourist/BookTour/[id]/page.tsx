@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/Common/Breadcrumb';
 import TourDetails from '@/components/TourDetails/TourDetails';
-import React, { useState } from 'react'
+import React from 'react'
 interface IProps {
     params: {
       id: string;

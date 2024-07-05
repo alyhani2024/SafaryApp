@@ -1,6 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import ToursitTable from "@/components/Table/TouristTable";
-import UserApiTable from "@/components/Table/UserApi";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import TourTable from "@/components/Table/TourTable";
-import SingleTour from "@/components/Tour/SingleTour";
-import tourData from "@/components/Tour/tourData";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,15 +11,11 @@ export const metadata: Metadata = {
 const TourHour = () => {
   return (
     <>
-
       <Breadcrumb
         pageName="Tour Section"
         description=" Table Of All Tours For All Data make Cruds ( Add , Edit and Update )."
       />
       <TourTable/>
-      
-
-
     </>
   );
 };

@@ -3,15 +3,8 @@ import SingleBlog from "@/components/Blog/SingleBlog";
 import blogData from "@/components/Blog/blogData";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import BlogTable from "@/components/Table/BlogTable";
-
-import { Metadata } from "next";
 import { useState } from "react";
 
-// export const metadata: Metadata = {
-//   title: "Blog Page ",
-//   description: "This is Blog Page Template",
-//   // other metadata
-// };
 
 const Blog = () => {
   const [todos, setTodos] = useState([

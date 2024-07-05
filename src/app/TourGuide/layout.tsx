@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ScrollToTop from "@/components/ScrollToTop";
 import { Inter } from "next/font/google";
@@ -15,12 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <>
- 
-      <TourGuideHeader/>
+      <TourGuideHeader />
       {children}
-      <Footer/>
-          <ScrollToTop />
+      <Footer />
+      <ScrollToTop />
     </>
   );
 }
-

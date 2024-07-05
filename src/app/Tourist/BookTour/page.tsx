@@ -1,5 +1,4 @@
 import Breadcrumb from '@/components/Common/Breadcrumb'
-import TestTour from '@/components/TestToursAPI'
 import TourList from '@/components/TourList/TourList'
 import React from 'react'
 
