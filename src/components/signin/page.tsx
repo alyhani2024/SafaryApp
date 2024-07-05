@@ -19,7 +19,7 @@ const SigninPage = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://safaryapi.runasp.net/api/Account/Login", {
+      const response = await axios.post("http://safaryapi.runasp.net/api/Account/Login", {
         email,
         password,
         
