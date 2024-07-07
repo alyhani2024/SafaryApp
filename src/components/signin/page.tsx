@@ -6,6 +6,8 @@ import SignupPage from "../signup/page";
 import { useRouter } from "next/navigation";
 
 const SigninPage = () => {
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const [showSignUp, setShowSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +21,7 @@ const SigninPage = () => {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://safaryapi.runasp.net/api/Account/Login", {
+      const response = await axios.post(`${apiUrl}/Account/Login`, {
         email,
         password,
         

@@ -15,4 +15,4 @@ npm install @types/react-datepicker
 npm install swiper
 
 
-
+touch .env.local
