@@ -13,6 +13,8 @@ const TouristForm = () => {
     address: '',
     phoneNumber: '',
   });
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -28,7 +30,7 @@ const TouristForm = () => {
     e.preventDefault();
 
     axios
-      .post("http://safaryapi.runasp.net/api/Account/Register-As-User", {
+      .post(`${apiUrl}/Account/Register-As-User`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         fullName: formData.fullName,

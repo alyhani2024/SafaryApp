@@ -6,6 +6,7 @@ import TourGuideForm from './TourGuideForm';
 
 const RegistrationForm = () => {
   const [role, setRole] = useState('tourist'); // Default role is tourist
+  
 
   const handleRoleChange = (e) => {
     setRole(e.target.value);

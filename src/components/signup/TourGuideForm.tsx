@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const TourGuideForm = () => {
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,6 +21,8 @@ const TourGuideForm = () => {
     languageSpoken: '',
     hasCar: false,
   });
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -62,7 +65,7 @@ const TourGuideForm = () => {
 
     try {
       const response = await axios.post(
-        "http://safaryapi.runasp.net/api/Account/Register-As-TourGuide",
+        `${apiUrl}/Account/Register-As-TourGuide`,
         formDataForApi,
         {
           headers: {
