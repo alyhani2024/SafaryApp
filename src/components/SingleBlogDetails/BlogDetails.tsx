@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 interface Blog {
   id: number;
   title: string;
@@ -25,7 +28,7 @@ const SingleBlogDetails = ({ Id }: { Id: number }) => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const response = await axios.get(`http://safaryapi.runasp.net/api/Blog/${Id}`);
+        const response = await axios.get(`${apiUrl}/Blog/${Id}`);
         setBlog(response.data);
       } catch (error) {
         console.error('Error fetching blog details:', error);

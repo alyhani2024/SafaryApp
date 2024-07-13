@@ -29,6 +29,7 @@ interface Appointment {
   tourName: string | null;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   const [guide, setGuide] = useState<TourGuide | null>(null);
   const [adults, setAdults] = useState(1);
@@ -43,7 +44,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
   useEffect(() => {
     const fetchGuide = async () => {
       try {
-        const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/GetDetails?id=${GuideId}`);
+        const response = await fetch(`${apiUrl}/TourGuides/GetDetails?id=${GuideId}`);
         const data = await response.json();
         setGuide(data);
         setComments(data.reviews.map((review: any) => ({
@@ -59,7 +60,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
 
     const fetchAppointments = async () => {
       try {
-        const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/TourGuideTableById/${GuideId}`);
+        const response = await fetch(`${apiUrl}/TourGuides/TourGuideTableById/${GuideId}`);
         const data = await response.json();
         localStorage.setItem('SelectedTourGuide', (`${GuideId}`));
         setAppointments(data);
@@ -92,7 +93,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
       };
 
       try {
-        const response = await fetch('http://safaryapi.runasp.net/api/Reviews/TourGuideReviews', {
+        const response = await fetch(`${apiUrl}/Reviews/TourGuideReviews`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
     console.log('Submitting payload:', payload);
 
     try {
-      const response = await fetch('http://safaryapi.runasp.net/api/TourGuides/AddTourGuideSelected', {
+      const response = await fetch(`${apiUrl}/TourGuides/AddTourGuideSelected`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +175,7 @@ const TourGuideProfile = ({ GuideId }: { GuideId: string }) => {
             <img src={guide.imageUrl
     ? (guide.imageUrl.startsWith("http://") || guide.imageUrl.startsWith("https://")
       ? guide.imageUrl
-      : `${baseUrl}/images/tourguides/${guide.imageUrl}`)
+      : `${apiUrl}/images/tourguides/${guide.imageUrl}`)
     : '/images/placeholder.jpg'} alt={guide.fullName} className="w-24 h-24 rounded-full object-cover mr-6" />
             <div>
               <h2 className="text-2xl font-bold">{guide.fullName}</h2>

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const TourguideProfile = () => {
   const [guideData, setGuideData] = useState(null);
   const [image, setImage] = useState(null);
@@ -13,7 +14,7 @@ const TourguideProfile = () => {
     const guideId = localStorage.getItem("guideId");
     if (guideId) {
       axios
-        .get(`http://safaryapi.runasp.net/api/TourGuides/GetDetails?id=${guideId}`)
+        .get(`${apiUrl}/TourGuides/GetDetails?id=${guideId}`)
         .then((response) => {
           setGuideData(response.data);
         })
@@ -36,7 +37,7 @@ const TourguideProfile = () => {
     formData.append("image", image);
 
     try {
-      const response = await axios.post(`http://safaryapi.runasp.net/api/Account/UploadTouristImage?id=${guideId}`, formData, {
+      const response = await axios.post(`${apiUrl}/Account/UploadTouristImage?id=${guideId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -78,7 +79,7 @@ const TourguideProfile = () => {
   const imageUrl = guideData.imageUrl
     ? (guideData.imageUrl.startsWith("http://") || guideData.imageUrl.startsWith("https://")
       ? guideData.imageUrl
-      : `${baseUrl}/images/tourguides/${guideData.imageUrl}`)
+      : `${apiUrl}/images/tourguides/${guideData.imageUrl}`)
     : '/images/placeholder.jpg'; // Replace with your placeholder image path
 
   return (

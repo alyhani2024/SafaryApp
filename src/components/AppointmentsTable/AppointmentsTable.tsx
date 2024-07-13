@@ -17,6 +17,7 @@ interface Tourist {
   fullName: string;
   phoneNumber: string;
 }
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const AppointmentsTable = () => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -32,7 +33,7 @@ const AppointmentsTable = () => {
           return;
         }
 
-        const response = await axios.get(`http://safaryapi.runasp.net/api/TourGuides/TourGuideTableById/${guideId}`);
+        const response = await axios.get(`${apiUrl}/TourGuides/TourGuideTableById/${guideId}`);
         const appointmentsData = response.data;
 
         setAppointments(appointmentsData);
@@ -41,7 +42,7 @@ const AppointmentsTable = () => {
         await Promise.all(
           appointmentsData.map(async (appt: Appointment) => {
             if (!touristDetails[appt.touristId]) {
-              const touristResponse = await axios.get(`http://safaryapi.runasp.net/api/Tourist/${appt.touristId}`);
+              const touristResponse = await axios.get(`${apiUrl}/Tourist/${appt.touristId}`);
               const touristData = touristResponse.data;
               touristDetails[appt.touristId] = {
                 fullName: touristData.fullName,

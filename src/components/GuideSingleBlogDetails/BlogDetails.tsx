@@ -19,13 +19,15 @@ interface Tour {
   description: string;
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const GuideSingleBlogDetails = ({ Id }: { Id: number }) => {
   const [blog, setBlog] = useState<Blog | null>(null);
 
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const response = await axios.get(`http://safaryapi.runasp.net/api/Blog/${Id}`);
+        const response = await axios.get(`${apiUrl}/Blog/${Id}`);
         setBlog(response.data);
       } catch (error) {
         console.error('Error fetching blog details:', error);

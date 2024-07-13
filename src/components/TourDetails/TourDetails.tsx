@@ -39,7 +39,7 @@ interface Guide {
   averageRating: number;
   email: string;
 }
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const TourDetails = ({ TourId }: { TourId: string }) => {
   const [guide, setGuide] = useState<Guide | null>(null);
   const [tour, setTour] = useState<Tour | null>(null);
@@ -52,17 +52,16 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
   const [bookingDetails, setBookingDetails] = useState({ date: '', time: '', adults: 1 });
   const router = useRouter();
 
-  const baseUrl = "http://safaryapi.runasp.net";
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const toursResponse = await fetch('http://safaryapi.runasp.net/api/Tours/GetAll');
+        const toursResponse = await fetch(`${apiUrl}/Tours/GetAll`);
         const toursData = await toursResponse.json();
 
         const selectedTour = toursData.find((tour: { id: string }) => tour.id == TourId);
         setCoverImage(selectedTour?.tourImages[0]?.imageUrl || '/default-photo.jpg');
         if (selectedTour) {
-          const tourDetailsResponse = await fetch(`http://safaryapi.runasp.net/api/Tours/GetTourDetails?name=${selectedTour.name}`);
+          const tourDetailsResponse = await fetch(`${apiUrl}/Tours/GetTourDetails?name=${selectedTour.name}`);
           const tourDetailsData = await tourDetailsResponse.json();
           setTour(tourDetailsData);
           setComments(tourDetailsData.reviews.map((review: any) => ({
@@ -85,7 +84,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
       const storedGuideId = localStorage.getItem('SelectedTourGuide');
       if (storedGuideId) {
         try {
-          const response = await fetch(`http://safaryapi.runasp.net/api/TourGuides/GetDetails?id=${storedGuideId}`);
+          const response = await fetch(`${apiUrl}/TourGuides/GetDetails?id=${storedGuideId}`);
           const data = await response.json();
           setGuide(data);
         } catch (err) {
@@ -119,7 +118,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
       };
 
       try {
-        const response = await fetch('http://safaryapi.runasp.net/api/Reviews/TourReviews', {
+        const response = await fetch(`${apiUrl}/Reviews/TourReviews`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -145,7 +144,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
     const authToken = localStorage.getItem('token'); // Retrieve the token from local storage
 
     try {
-      const response = await fetch('http://safaryapi.runasp.net/api/Tours/SelectTourAndUpdateInSelectTourGuideTable', {
+      const response = await fetch(`${apiUrl}/Tours/SelectTourAndUpdateInSelectTourGuideTable`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -218,7 +217,7 @@ const TourDetails = ({ TourId }: { TourId: string }) => {
               src={guide.imageUrl
                 ? (guide.imageUrl.startsWith("http://") || guide.imageUrl.startsWith("https://")
                   ? guide.imageUrl
-                  : `${baseUrl}/images/tourguides/${guide.imageUrl}`)
+                  : `${apiUrl}/images/tourguides/${guide.imageUrl}`)
                 : '/images/placeholder.jpg'}
               alt={guide.fullName}
               className="w-14 h-14 object-cover rounded-full mr-4"

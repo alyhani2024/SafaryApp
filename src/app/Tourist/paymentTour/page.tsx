@@ -28,6 +28,7 @@ const validCards = [
   },
 ];
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const PaymentForm = () => {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -71,7 +72,7 @@ const PaymentForm = () => {
     const authToken = localStorage.getItem('token'); // Retrieve the token from local storage
 
     try {
-      const response = await fetch('http://safaryapi.runasp.net/api/Tours/ConfirmTour', {
+      const response = await fetch(`${apiUrl}/Tours/ConfirmTour`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

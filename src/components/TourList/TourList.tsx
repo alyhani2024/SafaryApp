@@ -12,7 +12,7 @@ interface Tour {
   isDeleted: boolean;
   tourImages: { imageUrl: string }[];
 }
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const TourList: React.FC = () => {
   const [tours, setTours] = useState<Tour[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,7 +21,7 @@ const TourList: React.FC = () => {
   useEffect(() => {
     const fetchTours = async () => {
       try {
-        const response = await fetch('http://safaryapi.runasp.net/api/Tours/GetAll');
+        const response = await fetch(`${apiUrl}/Tours/GetAll`);
         const data = await response.json();
         const filteredTours = data.filter((tour: Tour) => !tour.isDeleted); // Filter out deleted tours
         setTours(filteredTours);

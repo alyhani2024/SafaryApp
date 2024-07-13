@@ -9,6 +9,7 @@ interface Blog {
   coverImage: string;
   description: string;
 }
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const BlogList: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -16,7 +17,7 @@ const BlogList: React.FC = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://safaryapi.runasp.net/api/Blog/GetAll');
+        const response = await axios.get(`${apiUrl}/Blog/GetAll`);
         setBlogs(response.data);
       } catch (error) {
         console.error('Error fetching blogs:', error);
