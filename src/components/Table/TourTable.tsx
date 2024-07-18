@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const GET_TOURS_API = "http://safaryapi.runasp.net/api/Tours/GetAll";
-const ADD_TOUR_API = "http://safaryapi.runasp.net/api/Tours";
-const TOGGLE_STATUS_API = "http://safaryapi.runasp.net/api/Tours/ToggleStatus/";
-const ADD_TOUR_IMAGES_API = "http://safaryapi.runasp.net/api/Tours/AddTourImages";
-const EDIT_TOUR_API = "http://safaryapi.runasp.net/api/Tours/";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const GET_TOURS_API = `${apiUrl}/Tours/GetAll`;
+const ADD_TOUR_API = `${apiUrl}/Tours`;
+const TOGGLE_STATUS_API = `${apiUrl}/Tours/ToggleStatus/`;
+const ADD_TOUR_IMAGES_API = `${apiUrl}/Tours/AddTourImages`;
+const EDIT_TOUR_API = `${apiUrl}/Tours/`;
 
 function TourTable() {
   const [data, setData] = useState([]);

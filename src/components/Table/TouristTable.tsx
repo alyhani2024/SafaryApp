@@ -6,13 +6,13 @@ function TouristTable() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = () => {
-    axios.get('http://safaryapi.runasp.net/api/Tourist/GetAllTourist')
+    axios.get(`${apiUrl}/Tourist/GetAllTourist`)
       .then(response => {
         setData(response.data);
       })

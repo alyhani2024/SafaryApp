@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const GET_ALL_URL = "http://safaryapi.runasp.net/api/TourBlogs/GetAll";
-const POST_URL = "http://safaryapi.runasp.net/api/TourBlogs";
-const PUT_URL = "http://safaryapi.runasp.net/api/TourBlogs/";
-const TOGGLE_STATUS_URL = "http://safaryapi.runasp.net/api/TourBlogs/ToggleStatus/";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+const GET_ALL_URL = `${apiUrl}/TourBlogs/GetAll`;
+const POST_URL = `${apiUrl}/TourBlogs`;
+const PUT_URL = `${apiUrl}/TourBlogs/`;
+const TOGGLE_STATUS_URL = `${apiUrl}/TourBlogs/ToggleStatus/`;
 function BlogTourTable() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');

@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-const API_URL = "http://safaryapi.runasp.net/api/Reviews/TourReviews";
-const TOGGLE_STATUS_URL = "http://safaryapi.runasp.net/api/Reviews/TourToggleStatus/";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = `${apiUrl}/Reviews/TourReviews`;
+const TOGGLE_STATUS_URL = `${apiUrl}/Reviews/TourToggleStatus/`;
 
 function TourReviewsTable() {
   const [data, setData] = useState([]);

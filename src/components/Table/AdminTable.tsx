@@ -6,6 +6,7 @@ function UserTable() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
@@ -22,10 +23,10 @@ function UserTable() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
   const fetchData = () => {
     axios
-      .get("http://safaryapi.runasp.net/api/Admin")
+      .get(`${apiUrl}/Admin`)
       .then((response) => {
         const users = response.data.map((user) => ({
           id: user.id,
@@ -56,7 +57,7 @@ function UserTable() {
 
   const handleSave = () => {
     axios
-      .post("http://safaryapi.runasp.net/api/Account/Register-As-Admin", {
+      .post(`${apiUrl}/Account/Register-As-Admin`, {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         fullName: newUser.fullName,
@@ -81,7 +82,7 @@ function UserTable() {
 
   const toggleDeleteStatus = (userId, isDeleted) => {
     axios
-      .post(`http://safaryapi.runasp.net/api/Admin/ToggleStatus/${userId}`)
+      .post(`${apiUrl}/Admin/ToggleStatus/${userId}`)
       .then(() => {
         console.log("User delete status toggled successfully!");
         fetchData(); // Refresh data after toggling status
@@ -93,7 +94,7 @@ function UserTable() {
 
   const toggleAcceptedStatus = (userId) => {
     axios
-      .post(`http://safaryapi.runasp.net/api/Admin/AccepdedToggleStatus/${userId}`)
+      .post(`${apiUrl}/Admin/AccepdedToggleStatus/${userId}`)
       .then(() => {
         console.log("User accepted status toggled successfully!");
         fetchData(); // Refresh data after toggling status

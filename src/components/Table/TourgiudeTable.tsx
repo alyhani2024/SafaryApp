@@ -1,10 +1,11 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
-const API_URL = "http://safaryapi.runasp.net/api/TourGuides/GetAll";
-const TOGGLE_STATUS_URL = "http://safaryapi.runasp.net/api/TourGuides/ToggleStatus/";
-const TOGGLE_ADMIN_ACCEPTED_URL = "http://safaryapi.runasp.net/api/TourGuides/ToggleStatusAccept/";
+const API_URL = `${apiUrl}/TourGuides/GetAll`;
+const TOGGLE_STATUS_URL = `${apiUrl}/TourGuides/ToggleStatus/`;
+const TOGGLE_ADMIN_ACCEPTED_URL = `${apiUrl}/TourGuides/ToggleStatusAccept/`;
 
 function TourguideTable() {
   const [data, setData] = useState([]);
