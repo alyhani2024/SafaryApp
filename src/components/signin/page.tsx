@@ -33,6 +33,7 @@ const SigninPage = () => {
         if (role === "TourGuide") {
           localStorage.setItem("token", token);
           localStorage.setItem("email", email);
+          localStorage.setItem("Role", role);
           const guideResponse = await axios.get(`${apiUrl}/TourGuides/Email/${email}`);
           
           const guideData = guideResponse.data;
@@ -40,12 +41,14 @@ const SigninPage = () => {
           router.push("/TourGuide");
         } else if (role === "User") {
           localStorage.setItem("token", token);
+          localStorage.setItem("Role", role);
           const touristResponse = await axios.get(`${apiUrl}/Tourist/Email/${email}`);
           const touristData = touristResponse.data;
           localStorage.setItem("touristloggedId", touristData.id);
           router.push("/Tourist");
         } else if (role === "Admin") {
           localStorage.setItem("token", token);
+          localStorage.setItem("Role", role);
           router.push("/Admin");
         } else {
           setError("Unknown role");

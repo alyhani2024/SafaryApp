@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import "node_modules/react-modal-video/css/modal-video.css";
 import "/src/styles/index.css";
 import { Providers } from "../providers";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    const role = localStorage.getItem("Role");
+    if (role !== "User") {
+      window.location.href = "/";
+    }
+  }, );
   return (
     <html suppressHydrationWarning lang="en">
       <head />
