@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const TouristProfile = () => {
   const [touristData, setTouristData] = useState(null);
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const [uploadMessage, setUploadMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [errorMessages, setErrorMessages] = useState(null);
@@ -37,11 +39,15 @@ const TouristProfile = () => {
     formData.append("image", image);
 
     try {
-      const response = await axios.post(`${apiUrl}/Account/UploadTouristImage?id=${touristId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
+      const response = await axios.post(
+        `${apiUrl}/Account/UploadTouristImage?id=${touristId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
+      );
       setTouristData((prevData) => ({
         ...prevData,
         imageUrl: response.data.imageUrl,
@@ -65,6 +71,9 @@ const TouristProfile = () => {
         setUploadMessage("Error uploading the image.");
       }
     }
+
+    const previewUrl = URL.createObjectURL(image);
+    setPreviewUrl(previewUrl);
   };
 
   const handleImageChange = (event) => {
@@ -75,12 +84,7 @@ const TouristProfile = () => {
     return <div>Loading...</div>;
   }
 
-  const baseUrl = "http://safaryapi.runasp.net"; // Your API base URL
-  const imageUrl = touristData.imageUrl
-    ? (touristData.imageUrl.startsWith("http://") || touristData.imageUrl.startsWith("https://")
-      ? touristData.imageUrl
-      : `${apiUrl}/images/tourguides/${touristData.imageUrl}`)
-    : '/images/placeholder.jpg'; // Replace with your placeholder image path
+  const imageUrl = previewUrl || touristData.imageUrl || "/images/placeholder.jpg"; // Replace with your placeholder image path
 
   return (
     <div className="py-12 lg:py-24" style={{ marginTop: "100px" }}>
@@ -110,7 +114,7 @@ const TouristProfile = () => {
             <div className="popup-inner">
               <h2>Upload Image</h2>
               <form onSubmit={handleImageUpload}>
-                <input type="file" onChange={handleImageChange} />
+                <input type="file" onChange={handleImageChange} className="file-input" />
                 <button type="submit" className="mt-2 p-2 bg-green-500 text-white rounded">Upload</button>
                 <button type="button" onClick={() => setIsPopupOpen(false)} className="mt-2 p-2 bg-red-500 text-white rounded">Cancel</button>
               </form>
@@ -126,6 +130,38 @@ const TouristProfile = () => {
           </div>
         )}
       </div>
+      <style jsx>{`
+        .file-input {
+          display: block;
+          width: 100%;
+          margin-top: 10px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .popup {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: rgba(0, 0, 0, 0.5);
+        }
+        .popup-inner {
+          background: white;
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+        }
+        .error-messages {
+          color: red;
+          margin-top: 10px;
+        }
+      `}</style>
     </div>
   );
 };

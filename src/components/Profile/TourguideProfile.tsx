@@ -6,6 +6,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const TourguideProfile = () => {
   const [guideData, setGuideData] = useState(null);
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [uploadMessage, setUploadMessage] = useState("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [errorMessages, setErrorMessages] = useState(null);
@@ -49,6 +50,8 @@ const TourguideProfile = () => {
       setUploadMessage(response.data.message);
       setIsPopupOpen(false);
       setErrorMessages(null); // Clear any previous error messages
+      setImage(null);
+      setImagePreview(null);
     } catch (error) {
       if (error.response) {
         const { data } = error.response;
@@ -68,7 +71,9 @@ const TourguideProfile = () => {
   };
 
   const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+    const file = event.target.files[0];
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   };
 
   if (!guideData) {
@@ -104,24 +109,29 @@ const TourguideProfile = () => {
         <div className="grid w-full grid-cols-3 gap-2 max-w-xs items-center justify-center mx-auto">
           {/* Add any other dynamic content here */}
         </div>
-        <button onClick={() => setIsPopupOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">Upload Image</button>
+        <button onClick={() => setIsPopupOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">
+          <i className="fa fa-plus mr-2"></i>Add Image
+        </button>
         {isPopupOpen && (
-          <div className="popup">
-            <div className="popup-inner">
-              <h2>Upload Image</h2>
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded shadow-lg">
+              <h2 className="text-xl mb-4">Upload Image</h2>
               <form onSubmit={handleImageUpload}>
-                <input type="file" onChange={handleImageChange} />
-                <button type="submit" className="mt-2 p-2 bg-green-500 text-white rounded">Upload</button>
-                <button type="button" onClick={() => setIsPopupOpen(false)} className="mt-2 p-2 bg-red-500 text-white rounded">Cancel</button>
+                <input type="file" onChange={handleImageChange} className="mb-4" />
+                {imagePreview && <img src={imagePreview} alt="Image Preview" className="mb-4 max-h-40" />}
+                <div className="flex justify-end">
+                  <button type="button" onClick={() => setIsPopupOpen(false)} className="mr-2 p-2 bg-red-500 text-white rounded">Cancel</button>
+                  <button type="submit" className="p-2 bg-green-500 text-white rounded">Upload</button>
+                </div>
               </form>
               {errorMessages && (
-                <div className="error-messages">
+                <div className="error-messages mt-4">
                   {errorMessages.map((error, index) => (
-                    <p key={index}>{error}</p>
+                    <p key={index} className="text-red-500">{error}</p>
                   ))}
                 </div>
               )}
-              {uploadMessage && <p>{uploadMessage}</p>}
+              {uploadMessage && <p className="mt-4">{uploadMessage}</p>}
             </div>
           </div>
         )}
