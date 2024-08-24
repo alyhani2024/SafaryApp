@@ -20,18 +20,6 @@ const TeamCard = () => {
             imgSrc: '/images/testimonials/EslamEyman.jpg',
             quote: 'Mindblowing workflow. Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application.',
         },
-        {
-            name: 'Sanaa Abdelaziz',
-            job: 'Mobile Developer, Flutter',
-            imgSrc: '/images/Home/Tourguide.jpg',
-            quote: 'Efficient Collaborating. You have many examples that can be used to create a fast prototype for your team.',
-        },
-        {
-            name: 'Nada Atef',
-            job: 'UI/UX Designer',
-            imgSrc: '/images/Home/Tourguide.jpg',
-            quote: 'Innovative designs and seamless integration with modern tools. A true asset for any development team.',
-        },
     ];
 
     return (
